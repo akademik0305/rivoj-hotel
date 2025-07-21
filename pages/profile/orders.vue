@@ -59,11 +59,11 @@ onMounted(() => {})
 							:key="order.id"
 							class="border-t border-border py-3 last:pb-0"
 						>
-							<div class="flex items-center gap-4">
+							<div class="flex flex-col sm:flex-row sm:items-center sm:gap-4">
 								<p class="text-subtext">ID:</p>
 								<p class="font-medium text-text text-lg">{{ order.id }}</p>
 							</div>
-							<div class="flex items-center gap-4">
+							<div class="flex flex-col sm:flex-row sm:items-center sm:gap-4 mt-1 sm:mt-0">
 								<p class="text-subtext">{{ $t('type') }}:</p>
 								<p class="font-medium text-text text-lg">
 									{{ order.deliveryTypeName }}
@@ -71,24 +71,24 @@ onMounted(() => {})
 							</div>
 							<div
 								v-if="order.delivery_type === 1"
-								class="flex items-center gap-4"
+								class="flex flex-col sm:flex-row sm:items-center sm:gap-4 mt-1 sm:mt-0"
 							>
 								<p class="text-subtext">{{ $t('delivery_price') }}:</p>
 								<p class="font-medium text-text text-lg">
 									{{ order.deliverySumFormat }}
 								</p>
 							</div>
-							<div class="flex items-center gap-4">
+							<div class="flex flex-col sm:flex-row sm:items-center sm:gap-4 mt-1 sm:mt-0">
 								<p class="text-subtext">{{ $t('all_price') }}:</p>
 								<p class="font-medium text-text text-lg">
 									{{ order.totalSumFormat }}
 								</p>
 							</div>
-							<div class="flex items-center gap-4">
+							<div class="flex flex-col sm:flex-row sm:items-center sm:gap-4 mt-1 sm:mt-0">
 								<p class="text-subtext">{{ $t('phone') }}:</p>
 								<p class="font-medium text-text text-lg">{{ order.phone }}</p>
 							</div>
-							<div class="flex items-center gap-4">
+							<div class="flex flex-col sm:flex-row sm:items-center sm:gap-4 mt-1 sm:mt-0">
 								<p class="text-subtext">{{ $t('date') }}:</p>
 								<p class="font-medium text-text text-lg">
 									{{ order.dateFormat }}
@@ -118,23 +118,23 @@ onMounted(() => {})
 										:key="product.id"
 										class="py-2 px-4"
 									>
-										<div class="flex items-center gap-4">
+										<div class="flex flex-col sm:flex-row sm:items-center sm:gap-4">
 											<p class="text-subtext">{{ $t('name') }}:</p>
 											<p class="font-medium text-text">
 												{{ product.productName }}
 											</p>
 										</div>
-										<div class="flex items-center gap-4">
+										<div class="flex flex-col sm:flex-row sm:items-center sm:gap-4 mt-1 sm:mt-0">
 											<p class="text-subtext">{{ $t('count') }}:</p>
 											<p class="font-medium text-text">{{ product.count }}</p>
 										</div>
-										<div class="flex items-center gap-4">
+										<div class="flex flex-col sm:flex-row sm:items-center sm:gap-4 mt-1 sm:mt-0">
 											<p class="text-subtext">{{ $t('price') }}:</p>
 											<p class="font-medium text-text">
 												{{ product.productPriceFormat }}
 											</p>
 										</div>
-										<div class="flex items-center gap-4">
+										<div class="flex flex-col sm:flex-row sm:items-center sm:gap-4 mt-1 sm:mt-0">
 											<p class="text-subtext">{{ $t('all_price') }}:</p>
 											<p class="font-medium text-text">
 												{{ product.totalSumFormat }}
