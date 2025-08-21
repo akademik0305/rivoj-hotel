@@ -143,7 +143,7 @@ onUnmounted(() => {
 						</NuxtLink>
 						<NuxtLink
 							:to="localePath('/categories')"
-							class="flex items-center justify-center gap-2 bg-main border border-bg rounded-xl py-2.5 px-10 cursor-pointer group hover:bg-bg hover:border-main hover:text-main transition-colors"
+							class="flex items-center justify-center gap-2 bg-main text-white border border-bg rounded-xl py-2.5 px-10 cursor-pointer group hover:bg-bg hover:border-main hover:text-main transition-colors"
 						>
 							<UIcon
 								name="ic:round-menu"
