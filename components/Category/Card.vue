@@ -18,7 +18,7 @@ const props = defineProps({
 			class="w-full h-auto flex items-center justify-center overflow-hidden rounded-lg"
 		>
 			<img
-				:src="category.imageUrl"
+				:src="category.file_url"
 				:alt="category.name"
 				class="w-full h-32 md:h-40 object-cover group-hover:scale-120 transition-transform duration-300"
 			/>

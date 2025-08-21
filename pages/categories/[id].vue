@@ -8,17 +8,15 @@ const route = useRoute();
 const token = useToken();
 //===============================-< get category >-===============================
 //> variables
-const category = ref<TCategory>();
+const category = ref();
 const current_page = ref(1);
 //> functions
 async function getCategory() {
-	const res = await Service.get<TCategory>(
-		urls.getCategoryProducts(Number(route.params.id), current_page.value),
+	category.value = await Service.get<TCategory>(
+		urls.getOneCategory(Number(route.params.id)),
 		locale.value,
 		token.value
 	);
-
-	category.value = res.data;
 }
 
 getCategory();
@@ -35,24 +33,24 @@ function changePage(page: number) {
 	<main v-if="category" class="py-6">
 		<nav>
 			<div class="container">
-				<h2 class="text-2xl font-semibold">{{ category.category.name }}</h2>
+				<h2 class="text-2xl font-semibold">{{ category?.name }}</h2>
 				<BaseBreadcump
 					:links="[
 						{ label: $t('home_page'), url: '/' },
 						{ label: $t('categories'), url: '/categories' },
-						{ label: category.category.name },
+						{ label: category?.name },
 					]"
 				/>
 			</div>
 		</nav>
 		<section class="mt-8">
 			<div class="container">
-				<div v-if="category.dataProvider.items.length">
+				<div v-if="category.products?.length">
 					<div
 						class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-5"
 					>
 						<ProductCard
-							v-for="product in category.dataProvider.items"
+							v-for="product in category.products"
 							:key="product.id"
 							:product="product"
 							@success-wishlist="getCategory"

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 //===============================-< imports >-===============================
+import {useI18n} from 'vue-i18n'
 // utils
 import Service from '~/service/Service'
 import urls from '~/service/urls'

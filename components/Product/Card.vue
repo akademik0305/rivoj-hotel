@@ -1,21 +1,21 @@
 <script lang="ts" setup>
 //===============================-< imports >-===============================
 // types
-import type { TProduct, TWishlist } from '~/types/api.types'
+import type { TProduct, TWishlist } from "~/types/api.types";
 
 //> utils
-import Service from '~/service/Service'
-import urls from '~/service/urls'
-import { useAuthStore } from '~/store/auth.store'
-import { useCartStore } from '~/store/cart.store'
-const { locale, t } = useI18n()
-const toast = useToast()
-const token = useToken()
-const wishlistCount = useWishlistCount()
+import Service from "~/service/Service";
+import urls from "~/service/urls";
+import { useAuthStore } from "~/store/auth.store";
+import { useCartStore } from "~/store/cart.store";
+const { locale, t } = useI18n();
+const toast = useToast();
+const token = useToken();
+const wishlistCount = useWishlistCount();
 const localePath = useLocalePath();
 // store
-const authStore = useAuthStore()
-const cartStore = useCartStore()
+const authStore = useAuthStore();
+const cartStore = useCartStore();
 
 // props
 const props = defineProps({
@@ -23,23 +23,23 @@ const props = defineProps({
 		type: Object as PropType<TProduct>,
 		required: true,
 	},
-})
+});
 
 // emits
-const emits = defineEmits(['success-wishlist'])
+const emits = defineEmits(["success-wishlist"]);
 
 //===============================-< get wishlists >-===============================
 //> variables
-const wishlists = ref<TWishlist>()
+const wishlists = ref<TWishlist>();
 //> functions
 async function getWishlists() {
 	const res = await Service.get<TWishlist>(
 		urls.getWishlists(),
 		locale.value,
 		token.value
-	)
-	wishlists.value = res.data
-	wishlistCount.value = wishlists.value.length
+	);
+	wishlists.value = res.data;
+	wishlistCount.value = wishlists.value.length;
 }
 
 //===============================-< add or remove product from wishlist >-===============================
@@ -51,19 +51,19 @@ async function toggleWishlist(product_id: number) {
 			urls.addToWishlist(product_id),
 			locale.value,
 			token.value
-		)
+		);
 
 		if (res.status === 200) {
 			setTimeout(() => {
-				getWishlists()
-				emits('success-wishlist')
-			}, 1000)
+				getWishlists();
+				emits("success-wishlist");
+			}, 1000);
 		}
 	} else {
 		toast.add({
-			title: t('need_register_for_wishlist'),
-			color: 'error',
-		})
+			title: t("need_register_for_wishlist"),
+			color: "error",
+		});
 	}
 }
 
@@ -71,9 +71,9 @@ async function toggleWishlist(product_id: number) {
 //> variables
 onMounted(() => {
 	if (!wishlistCount.value && authStore.isLogged) {
-		getWishlists()
+		getWishlists();
 	}
-})
+});
 </script>
 <template>
 	<article
@@ -97,13 +97,16 @@ onMounted(() => {
 			class="w-full h-auto flex items-center justify-cente rounded-xl overflow-hidden"
 		>
 			<img
-				:src="product.imageUrl"
+				:src="product.file_url"
 				:alt="product.name"
 				class="w-full max-h-40 min-h-40 object-contain"
 			/>
 		</NuxtLink>
 		<div class="mt-4 flex-1 flex flex-col">
-			<NuxtLink :to="localePath(`/products/${props.product.id}`)" class="text-sm md:text-md text-text">
+			<NuxtLink
+				:to="localePath(`/products/${props.product.id}`)"
+				class="text-sm md:text-md text-text"
+			>
 				{{ product.name }}
 			</NuxtLink>
 			<div class="mt-2 md:mt-4 flex-1">
@@ -134,21 +137,15 @@ onMounted(() => {
 							name="mynaui:trash"
 							class="text-2xl w-6 text-main group-hover:text-white"
 						/>
-						<span class="text-sm text-main group-hover:text-white hidden md:block"
-							>{{ $t('delete') }}</span
+						<span
+							class="text-sm text-main group-hover:text-white hidden md:block"
+							>{{ $t("delete") }}</span
 						>
 					</button>
 				</div>
 
 				<div v-else class="w-full">
-					<p
-						v-if="!props.product.residue"
-						class="flex items-center justify-center gap-2 bg-gray-400 border border-bg rounded-full w-full py-2 px-3 md:px-6 flex-1 text-xs md:text-base"
-					>
-						{{ $t('empty') }}
-					</p>
 					<button
-						v-else
 						class="flex items-center justify-center gap-2 bg-main border border-bg rounded-full w-full py-2 px-3 md:px-6 cursor-pointer group hover:bg-bg hover:border-main transition-colors"
 						@click="cartStore.addToCart(props.product)"
 					>
@@ -156,7 +153,9 @@ onMounted(() => {
 							name="proicons:cart"
 							class="text-2xl w-6 text-bg group-hover:text-main"
 						/>
-						<span class="text-sm text-bg group-hover:text-main">{{ $t('add_to_cart') }}</span>
+						<span class="text-sm text-bg group-hover:text-main">{{
+							$t("add_to_cart")
+						}}</span>
 					</button>
 				</div>
 			</footer>
