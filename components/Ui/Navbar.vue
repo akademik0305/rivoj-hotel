@@ -147,7 +147,7 @@ onUnmounted(() => {
 						>
 							<UIcon
 								name="ic:round-menu"
-								class="text-2xl w-6 text-text group-hover:text-main"
+								class="text-2xl w-6 text-white group-hover:text-main"
 							/>
 							{{ $t('catalog') }}
 						</NuxtLink>
