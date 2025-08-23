@@ -1,44 +1,14 @@
 export default {
-	// auth
-	sendPhone() {
-		return `/auth-manager/register/phone`;
-	},
-	verifyCode() {
-		return `/auth-manager/register/verify`;
-	},
-	signUp() {
-		return `/auth-manager/register/sign-up`;
-	},
-
-	// profile
-	profileInfo() {
-		return `/profile/index`;
-	},
-	updateName() {
-		return `/profile/update-name`;
-	},
-	updatePhone() {
-		return `/update-username/phone`;
-	},
-	updatePhoneVerify() {
-		return `/update-username/verify`;
-	},
-	getOrders(page: number) {
-		return `/profile/my-orders?page=${page}`;
-	},
-	getPayments(page: number) {
-		return `/profile/my-payments?page=${page}`;
-	},
-
+	
 	// home page
 	getBanners() {
-		return `/data/banners`;
+		return `/banners/all`;
 	},
 	getSections() {
-		return `/product/site-sections`;
+		return `/sections/all`;
 	},
-	getSectionProducts(section_id: number, page: number) {
-		return `/product/site-section-detail?siteSectionId=${section_id}&page=${page}`;
+	getOneSection(id: number) {
+		return `/sections/${id}`;
 	},
 
 	// categories
@@ -75,6 +45,45 @@ export default {
 		return `/products/${id}`;
 	},
 
+
+	// customers
+	addCustomer() {
+		return `/customers`;
+	},
+
+
+	// auth
+	sendPhone() {
+		return `/auth-manager/register/phone`;
+	},
+	verifyCode() {
+		return `/auth-manager/register/verify`;
+	},
+	signUp() {
+		return `/auth-manager/register/sign-up`;
+	},
+
+	// profile
+	profileInfo() {
+		return `/profile/index`;
+	},
+	updateName() {
+		return `/profile/update-name`;
+	},
+	updatePhone() {
+		return `/update-username/phone`;
+	},
+	updatePhoneVerify() {
+		return `/update-username/verify`;
+	},
+	getOrders(page: number) {
+		return `/profile/my-orders?page=${page}`;
+	},
+	getPayments(page: number) {
+		return `/profile/my-payments?page=${page}`;
+	},
+
+
 	// wishlist
 	addToWishlist(product_id: number) {
 		return `/product-save/save-or-remove?product_id=${product_id}`;
@@ -85,7 +94,7 @@ export default {
 
 	// contact
 	getContactInfo() {
-		return `/data/contact-info`;
+		return `contacts`;
 	},
 
 	// orders
@@ -100,4 +109,7 @@ export default {
 	getCards() {
 		return `/my-card/all`;
 	},
+
+
+
 };

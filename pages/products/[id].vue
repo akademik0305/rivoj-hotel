@@ -3,10 +3,12 @@
 import Service from "~/service/Service";
 import urls from "~/service/urls";
 import { useCartStore } from "~/store/cart.store";
+import { useStore } from "~/store/useful.store";
 import type { TProduct } from "~/types/api.types";
 const { locale } = useI18n();
 const route = useRoute();
 const token = useToken();
+const store = useStore();
 const cartStore = useCartStore();
 const localePath = useLocalePath();
 //===============================-< get product detail >-===============================
@@ -14,13 +16,11 @@ const localePath = useLocalePath();
 const product = ref<TProduct>();
 //> functions
 async function getProduct() {
-	const res = await Service.get<TProduct>(
-		urls.productDetail(Number(route.params.id)),
+	product.value = await Service.get(
+		urls.getOneProduct(Number(route.params.id)),
 		locale.value,
 		token.value
 	);
-
-	product.value = res.data;
 }
 
 getProduct();
@@ -60,7 +60,7 @@ getProduct();
 								<div
 									class="rounded-2xl overflow-hidden border border-border p-4 md:p-8 w-full sm:w-auto"
 								>
-									<div v-if="product.images.length">
+									<!-- <div v-if="false">
 										<swiper-container
 											:init="true"
 											:loop="true"
@@ -92,16 +92,15 @@ getProduct();
 												</a>
 											</swiper-slide>
 										</swiper-container>
-									</div>
+									</div> -->
 
 									<a
-										v-else
 										data-fancybox="gallery"
 										class="w-full h-auto flex items-center justify-center"
-										:href="product?.imageUrl"
+										:href="product?.file_url"
 									>
 										<img
-											:src="product?.imageUrl"
+											:src="product?.file_url"
 											:alt="product?.name"
 											class="w-full h-full max-w-80"
 										/>
@@ -112,18 +111,16 @@ getProduct();
 					</div>
 					<div class="flex-1 flex flex-col">
 						<h4 class="text-xl font-semibold">{{ $t("about_product") }}</h4>
-						<p class="mt-2">
-							{{ product.description }}
-						</p>
+						<p class="mt-2" v-html="product?.details.description" />
 						<div class="mt-2 md:mt-4 flex-1">
 							<p class="font-bold text-sm md:text-xl">
-								{{ product.priceFormat }}
+								{{ store.formatCurrency(product?.new_price) }}
 							</p>
 							<p
-								v-if="product.oldPrice"
+								v-if="product?.discount"
 								class="font-medium text-xs md:text-sm line-through text-subtext"
 							>
-								{{ product.oldPriceFormat }}
+								{{ store.formatCurrency(product?.price) }}
 							</p>
 						</div>
 
@@ -143,6 +140,7 @@ getProduct();
 								</NuxtLink>
 								<button
 									class="flex items-center justify-center py-1.5 px-4 gap-2 rounded-3xl border border-main cursor-pointer hover:bg-main group transition-colors"
+									@click="cartStore.removeFromCart(product.id)"
 								>
 									<UIcon
 										name="mynaui:trash"
@@ -154,14 +152,13 @@ getProduct();
 								</button>
 							</div>
 							<div v-else class="w-full">
-								<p
+								<!-- <p
 									v-if="!product.residue"
 									class="flex items-center justify-center gap-2 bg-gray-400 border border-bg rounded-full w-full py-2 px-3 md:px-6 flex-1 text-xs md:text-base"
 								>
 									{{ $t("empty") }}
-								</p>
+								</p> -->
 								<button
-									v-else
 									class="flex items-center justify-center gap-2 bg-main border border-bg rounded-full w-full py-2 px-3 md:px-6 cursor-pointer group hover:bg-bg hover:border-main transition-colors"
 									@click="cartStore.addToCart(product)"
 								>

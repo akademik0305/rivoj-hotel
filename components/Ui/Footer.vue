@@ -27,7 +27,7 @@ watch(locale, () => {
 				<div class="flex flex-col gap-3 w-full md:w-1/2">
 					<NuxtLink :to="localePath('/')" class="block w-40 h-auto">
 						<img
-							:src="contact?.imageUrlFooter"
+							:src="contact?.logo"
 							alt="logo"
 							class="w-full h-full object-cover"
 						/>

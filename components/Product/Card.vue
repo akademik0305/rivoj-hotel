@@ -1,21 +1,18 @@
 <script lang="ts" setup>
 //===============================-< imports >-===============================
 // types
-import type { TProduct, TWishlist } from "~/types/api.types";
+import type { TProduct } from "~/types/api.types";
 
 //> utils
-import Service from "~/service/Service";
-import urls from "~/service/urls";
 import { useAuthStore } from "~/store/auth.store";
 import { useCartStore } from "~/store/cart.store";
-const { locale, t } = useI18n();
-const toast = useToast();
-const token = useToken();
+import { useStore } from "~/store/useful.store";
 const wishlistCount = useWishlistCount();
 const localePath = useLocalePath();
 // store
 const authStore = useAuthStore();
 const cartStore = useCartStore();
+const store = useStore();
 
 // props
 const props = defineProps({
@@ -26,52 +23,52 @@ const props = defineProps({
 });
 
 // emits
-const emits = defineEmits(["success-wishlist"]);
+// const emits = defineEmits(["success-wishlist"]);
 
-//===============================-< get wishlists >-===============================
-//> variables
-const wishlists = ref<TWishlist>();
-//> functions
-async function getWishlists() {
-	const res = await Service.get<TWishlist>(
-		urls.getWishlists(),
-		locale.value,
-		token.value
-	);
-	wishlists.value = res.data;
-	wishlistCount.value = wishlists.value.length;
-}
+// //===============================-< get wishlists >-===============================
+// //> variables
+// const wishlists = ref<TWishlist>();
+// //> functions
+// async function getWishlists() {
+// 	const res = await Service.get<TWishlist>(
+// 		urls.getWishlists(),
+// 		locale.value,
+// 		token.value
+// 	);
+// 	wishlists.value = res.data;
+// 	wishlistCount.value = wishlists.value.length;
+// }
 
-//===============================-< add or remove product from wishlist >-===============================
-//> variables
-//> functions
-async function toggleWishlist(product_id: number) {
-	if (authStore.isLogged) {
-		const res = await Service.get(
-			urls.addToWishlist(product_id),
-			locale.value,
-			token.value
-		);
+// //===============================-< add or remove product from wishlist >-===============================
+// //> variables
+// //> functions
+// async function toggleWishlist(product_id: number) {
+// 	if (authStore.isLogged) {
+// 		const res = await Service.get(
+// 			urls.addToWishlist(product_id),
+// 			locale.value,
+// 			token.value
+// 		);
 
-		if (res.status === 200) {
-			setTimeout(() => {
-				getWishlists();
-				emits("success-wishlist");
-			}, 1000);
-		}
-	} else {
-		toast.add({
-			title: t("need_register_for_wishlist"),
-			color: "error",
-		});
-	}
-}
+// 		if (res.status === 200) {
+// 			setTimeout(() => {
+// 				getWishlists();
+// 				emits("success-wishlist");
+// 			}, 1000);
+// 		}
+// 	} else {
+// 		toast.add({
+// 			title: t("need_register_for_wishlist"),
+// 			color: "error",
+// 		});
+// 	}
+// }
 
 //===============================-< on load >-===============================
 //> variables
 onMounted(() => {
 	if (!wishlistCount.value && authStore.isLogged) {
-		getWishlists();
+		// getWishlists();
 	}
 });
 </script>
@@ -79,9 +76,8 @@ onMounted(() => {
 	<article
 		class="relative rounded-xl overflow-hidden shadow-md border border-border p-2 md:p-4 flex flex-col"
 	>
-		<button
+		<!-- <button
 			class="absolute top-3 right-3 cursor-pointer flex items-center justify-center p-1.5 bg-gray-100 rounded-full shadow-sm"
-			@click="toggleWishlist(props.product.id)"
 		>
 			<UIcon
 				v-if="props.product.isSaved"
@@ -90,7 +86,7 @@ onMounted(() => {
 			/>
 
 			<UIcon v-else name="mdi:heart-outline" class="text-2xl text-main" />
-		</button>
+		</button> -->
 
 		<NuxtLink
 			:to="localePath(`/products/${props.product.id}`)"
@@ -107,12 +103,12 @@ onMounted(() => {
 				:to="localePath(`/products/${props.product.id}`)"
 				class="text-sm md:text-md text-text"
 			>
-				{{ product.name }}
+				{{ product.name }} 
 			</NuxtLink>
 			<div class="mt-2 md:mt-4 flex-1">
-				<p class="text-sm md:text-xl">{{ props.product.priceFormat }}</p>
-				<p class="text-xs md:text-sm line-through text-subtext">
-					{{ props.product.oldPriceFormat }}
+				<p class="text-sm md:text-xl">{{ store.formatCurrency( props.product.new_price) }}</p>
+				<p v-if="product.discount" class="text-xs md:text-sm line-through text-subtext">
+					{{ store.formatCurrency( props.product.price) }}
 				</p>
 			</div>
 			<footer class="mt-2 md:mt-4 flex items-center gap-4">
@@ -130,17 +126,13 @@ onMounted(() => {
 						/>
 					</NuxtLink>
 					<button
-						class="flex items-center justify-center py-1.5 px-4 gap-2 rounded-3xl border border-main cursor-pointer hover:bg-red-500 group transition-colors"
+						class="flex items-center justify-center py-1.5 px-4 gap-2 rounded-3xl border border-main cursor-pointer group transition-colors"
 						@click="cartStore.removeFromCart(props.product.id)"
 					>
-						<UIcon
-							name="mynaui:trash"
-							class="text-2xl w-6 text-main group-hover:text-white"
-						/>
-						<span
-							class="text-sm text-main group-hover:text-white hidden md:block"
-							>{{ $t("delete") }}</span
-						>
+						<UIcon name="mynaui:trash" class="text-2xl w-6 text-main" />
+						<span class="text-sm text-main hidden md:block">{{
+							$t("delete")
+						}}</span>
 					</button>
 				</div>
 

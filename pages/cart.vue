@@ -7,18 +7,18 @@
 // import Service from '~/service/Service'
 // import urls from '~/service/urls'
 // import { useAuthStore } from '~/store/auth.store'
-import { useAuthStore } from '~/store/auth.store'
-import { useCartStore } from '~/store/cart.store'
-const { t } = useI18n()
+import { useAuthStore } from "~/store/auth.store";
+import { useCartStore } from "~/store/cart.store";
+const { t } = useI18n();
 // const toast = useToast()
 // const token = useToken()
 // const wishlistCount = useWishlistCount()
 // store
 // const authStore = useAuthStore()
-const cartStore = useCartStore()
-const authStore = useAuthStore()
-const toast = useToast()
-const localePath = useLocalePath()
+const cartStore = useCartStore();
+const authStore = useAuthStore();
+const toast = useToast();
+const localePath = useLocalePath();
 
 //===============================-< get wishlists >-===============================
 //> variables
@@ -60,22 +60,22 @@ const localePath = useLocalePath()
 
 //===============================-< submit order >-===============================
 //> variables
-const isOpenSubmitOrder = ref(false)
+const isOpenSubmitOrder = ref(false);
 
 const openSubmitOrder = () => {
-	if (authStore.isLogged) {
-		isOpenSubmitOrder.value = true
-	} else {
-		toast.add({
-			title: t('need_login_for_order'),
-			color: 'error',
-		})
-	}
-}
+	isOpenSubmitOrder.value = true;
+	// if (authStore.isLogged) {
+	// } else {
+	// 	toast.add({
+	// 		title: t('need_login_for_order'),
+	// 		color: 'error',
+	// 	})
+	// }
+};
 
 const closeSubmitOrder = () => {
-	isOpenSubmitOrder.value = false
-}
+	isOpenSubmitOrder.value = false;
+};
 
 //===============================-< on submit >-===============================
 //> variables
@@ -85,9 +85,9 @@ const closeSubmitOrder = () => {
 	<main class="py-6">
 		<nav>
 			<div class="container">
-				<h2 class="text-2xl font-semibold">{{ $t('cart') }}</h2>
+				<h2 class="text-2xl font-semibold">{{ $t("cart") }}</h2>
 				<BaseBreadcump
-					:links="[{ label:  t('home_page'), url: '/' }, { label: $t('cart') }]"
+					:links="[{ label: t('home_page'), url: '/' }, { label: $t('cart') }]"
 				/>
 			</div>
 		</nav>
@@ -99,14 +99,16 @@ const closeSubmitOrder = () => {
 					<div
 						class="shadow-md border border-border rounded-2xl p-6 flex-2 w-full"
 					>
-						<div class="flex items-center justify-between">
-							<h3 class="font-medium text-xl">{{ $t('products') }}:</h3>
+						<div
+							v-if="cartStore.cart.length"
+							class="flex items-center justify-between"
+						>
+							<h3 class="font-medium text-xl">{{ $t("products") }}:</h3>
 							<button
-								v-if="cartStore.cart.length"
 								class="cursor-pointer hover:text-main transition-colors underline"
 								@click="cartStore.clearCart"
 							>
-								{{ $t('clear') }}
+								{{ $t("clear") }}
 							</button>
 						</div>
 						<div v-if="cartStore.cart.length" class="">
@@ -128,7 +130,10 @@ const closeSubmitOrder = () => {
 									class="flex-1 flex justify-between flex-col md:flex-row items-start md:items-center gap-2 md:gap-4"
 								>
 									<div class="col-span-2 line-clamp-2">
-										<NuxtLink :to="localePath(`/products/${product.product_id}`)" class="text-md text-text">
+										<NuxtLink
+											:to="localePath(`/products/${product.product_id}`)"
+											class="text-md text-text"
+										>
 											{{ product.product_name }}
 										</NuxtLink>
 									</div>
@@ -140,7 +145,7 @@ const closeSubmitOrder = () => {
 													size="lg"
 													class="w-full mx-auto flex justify-center"
 													type="number"
-													:max="product.residue"
+													:max="1000"
 													:min="0"
 													@update:model-value="
 														cartStore.handleChangeCount(product)
@@ -192,7 +197,7 @@ const closeSubmitOrder = () => {
 								/>
 							</div>
 							<p class="font-meduim text-base text-gray-4">
-								{{ $t('empty_cart') }}
+								{{ $t("empty_cart") }}
 							</p>
 						</div>
 					</div>
@@ -205,14 +210,16 @@ const closeSubmitOrder = () => {
 							class="flex items-center justify-between py-2 gap-6 border-b border-b-border"
 						>
 							<p class="text-subtext">
-								{{ cartStore.productsCount }} {{ $t('product_price') }}:
+								{{ cartStore.productsCount }} {{ $t("product_price") }}:
 							</p>
 							<p class="font-semibold text-text">{{ cartStore.allPrice }}</p>
 						</div>
 						<div
 							class="mt-2 flex items-center justify-between py-2 gap-6 border-b border-b-border"
 						>
-							<p class="font-semibold text-text text-lg">{{ $t('all_summ') }}:</p>
+							<p class="font-semibold text-text text-lg">
+								{{ $t("all_summ") }}:
+							</p>
 							<p class="font-semibold text-text text-lg">
 								{{ cartStore.allPrice }}
 							</p>
@@ -221,9 +228,9 @@ const closeSubmitOrder = () => {
 							class="mt-8 flex items-center justify-center gap-2 bg-main border border-bg rounded-full w-full py-2 px-6 cursor-pointer group hover:bg-bg hover:border-main transition-colors"
 							@click="openSubmitOrder"
 						>
-							<span class="text-sm text-bg group-hover:text-main"
-								>{{ $t('order') }}</span
-							>
+							<span class="text-sm text-bg group-hover:text-main">{{
+								$t("order")
+							}}</span>
 						</button>
 					</div>
 				</div>

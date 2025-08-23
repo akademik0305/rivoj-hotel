@@ -1,27 +1,25 @@
 <script setup lang="ts">
-import { useAuthStore } from '~/store/auth.store'
-import type { TUser } from '../../types/auth.type'
-import urls from '~/service/urls'
-import Service from '~/service/Service'
-import { useCartStore } from '~/store/cart.store'
+import { useAuthStore } from "~/store/auth.store";
+import type { TUser } from "../../types/auth.type";
+import urls from "~/service/urls";
+import Service from "~/service/Service";
+import { useCartStore } from "~/store/cart.store";
 const switchLocalePath = useSwitchLocalePath();
-
 
 //===============================-< imports >-===============================
 // import { useRouter } from 'vue-router'
 // const router = useRouter()
 
 //utils
-const { locale, setLocale, t } = useI18n()
-const router = useRouter()
-const token = useToken()
-const wishlistCount = useWishlistCount()
-const toast = useToast()
+const { locale, setLocale, t } = useI18n();
+const router = useRouter();
+const token = useToken();
+const wishlistCount = useWishlistCount();
+const toast = useToast();
 const localePath = useLocalePath();
 // store
-const authStore = useAuthStore()
-const cartStore = useCartStore()
-
+const authStore = useAuthStore();
+const cartStore = useCartStore();
 
 // get data
 // const companyData = useCompanyData();
@@ -33,81 +31,81 @@ const cartStore = useCartStore()
 // getdata();
 //===============================-< languages >-===============================
 //> variables
-type TLocale = 'uz' | 'ru' | 'en'
-const locales = ['Uz', 'Ru', 'En']
+type TLocale = "uz" | "ru" | "en";
+const locales = ["Uz", "Ru", "En"];
 
-const currentLang = ref<TLocale>(locale.value)
+const currentLang = ref<TLocale>(locale.value);
 
 //> functions
 watch(currentLang, () => {
 	// setLocale(currentLang.value.toLowerCase() as TLocale)
-	router.push(switchLocalePath(currentLang.value.toLowerCase() as TLocale))
-})
+	router.push(switchLocalePath(currentLang.value.toLowerCase() as TLocale));
+});
 
 //===============================-< fixed navbar and category >-===============================
 //> variables
-const startFixed = 80
-const isFixedNav = ref(false)
+const startFixed = 80;
+const isFixedNav = ref(false);
 
 //> functions
 function handleScrool() {
 	const navbarHeight =
-		document.querySelector('#navbar')?.scrollHeight || startFixed
+		document.querySelector("#navbar")?.scrollHeight || startFixed;
 	if (window.scrollY > navbarHeight) {
-		isFixedNav.value = true
-		document.body.style.paddingTop = '80px'
+		isFixedNav.value = true;
+		document.body.style.paddingTop = "80px";
 	} else {
-		isFixedNav.value = false
-		document.body.style.paddingTop = '0px'
+		isFixedNav.value = false;
+		document.body.style.paddingTop = "0px";
 	}
 }
 
 //===============================-< login or register >-===============================
 //> variables
-const isOpenLogin = ref(false)
+const isOpenLogin = ref(false);
 const openLogin = () => {
 	if (authStore?.user) {
-		router.push(localePath('/profile'))
+		router.push(localePath("/profile"));
 	} else {
-		isOpenLogin.value = true
+		isOpenLogin.value = true;
 	}
-}
+};
 
 const closeLogin = () => {
-	isOpenLogin.value = false
-}
+	isOpenLogin.value = false;
+};
 
 //> functions
 function submitLogin(user_data: TUser) {
-	token.value = user_data.auth_key
-	authStore.user = { ...user_data, auth_key: '' }
-	authStore.isLogged = true
-	window.location.reload()
-	closeLogin()
+	token.value = user_data.auth_key;
+	authStore.user = { ...user_data, auth_key: "" };
+	authStore.isLogged = true;
+	window.location.reload();
+	closeLogin();
 }
 
 //===============================-< get contact >-===============================
 //> variables
-const contact = ref()
+const contact = ref();
 //> functions
 async function getContact() {
-	const res = await Service.get(urls.getContactInfo(), locale.value, null)
-	contact.value = res.data
+	const res = await Service.get(urls.getContactInfo(), locale.value, null);
+	contact.value = res.data;
 }
 
-getContact()
+getContact();
 
 //===============================-< go to wishlist page >-===============================
 //> variables
 //> functions
 function goToWishlist() {
 	if (authStore.isLogged) {
-		router.push(localePath('/wishlist'))
+		router.push(localePath("/wishlist"));
 	} else {
 		toast.add({
-			title: t('need_login_for_see_wishlist'),
-			color: 'error'
-		})
+			title: t("need_login_for_see_wishlist"),
+			color: "error",
+		});
 	}
 }
 
@@ -115,13 +113,13 @@ function goToWishlist() {
 //> variables
 //> functions
 onMounted(() => {
-	currentLang.value = locale.value
-	window.addEventListener('scroll', handleScrool)
+	currentLang.value = locale.value;
+	window.addEventListener("scroll", handleScrool);
 	// mapStore.getUserPosition()
-})
+});
 onUnmounted(() => {
-	window.removeEventListener('scroll', handleScrool)
-})
+	window.removeEventListener("scroll", handleScrool);
+});
 </script>
 
 <template>
@@ -132,11 +130,15 @@ onUnmounted(() => {
 			:class="[isFixedNav ? 'fixed top-0 shadow-md ' : 'static']"
 		>
 			<div class="container">
-				<div class="py-4 flex items-center justify-between flex-col gap-4 md:flex-row">
-					<div class="flex items-center gap-6 justify-between md:justify-start w-full">
+				<div
+					class="py-4 flex items-center justify-between flex-col gap-4 md:flex-row"
+				>
+					<div
+						class="flex items-center gap-6 justify-between md:justify-start w-full"
+					>
 						<NuxtLink :to="localePath('/')" class="block w-40 h-auto">
 							<img
-								:src="contact?.imageUrlFooter"
+								:src="contact?.logo"
 								alt="logo"
 								class="w-full h-full object-cover"
 							/>
@@ -149,7 +151,7 @@ onUnmounted(() => {
 								name="ic:round-menu"
 								class="text-2xl w-6 text-white group-hover:text-main"
 							/>
-							{{ $t('catalog') }}
+							{{ $t("catalog") }}
 						</NuxtLink>
 					</div>
 					<!-- navbar right -->
@@ -163,7 +165,7 @@ onUnmounted(() => {
 								class="text-2xl w-6 text-text group-hover:text-main transition-colors"
 							/>
 						</NuxtLink>
-						<button
+						<!-- <button
 							class="flex items-center justify-center gap-2 w-full py-1.5 px-2 cursor-pointer hover:border-main transition-colors relative group"
 							@click="goToWishlist"
 						>
@@ -176,7 +178,7 @@ onUnmounted(() => {
 								class="flex items-center justify-center bg-main rounded-full p-0.5 absolute top-0 right-0 text-bg text-xs w-5 h-5"
 								>{{ wishlistCount || 0 }}</span
 							>
-						</button>
+						</button> -->
 						<NuxtLink
 							:to="localePath('/cart')"
 							class="relative flex items-center justify-center gap-2 w-full py-1.5 px-2 cursor-pointer hover:border-main transition-colors group"
@@ -191,7 +193,7 @@ onUnmounted(() => {
 								>{{ cartStore.productsCount || 0 }}</span
 							>
 						</NuxtLink>
-						<button
+						<!-- <button
 							class="relative flex items-center justify-center gap-2 w-full py-1.5 px-2 cursor-pointer hover:border-main transition-colors group"
 							@click="openLogin"
 						>
@@ -204,10 +206,10 @@ onUnmounted(() => {
 								>{{
 									authStore?.user?.firstname
 										? authStore?.user?.firstname
-										: $t('login')
+										: $t("login")
 								}}</span
 							>
-						</button>
+						</button> -->
 						<USelect
 							v-model="currentLang"
 							leading-icon="material-symbols:language"
@@ -230,7 +232,7 @@ onUnmounted(() => {
 			<template #header>
 				<div class="">
 					<h5 class="font-semibold text-xl text-center">
-						{{ $t('login_or_register') }}
+						{{ $t("login_or_register") }}
 					</h5>
 				</div>
 			</template>

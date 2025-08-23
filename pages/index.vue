@@ -3,14 +3,14 @@
 // types
 // import type { TRestaurant, TRestaurantsData } from '~/types/api.types'
 // // service
-import Service from '~/service/Service'
-import urls from '~/service/urls'
-import type { THomeSection } from '~/types/api.types'
+import Service from "~/service/Service";
+import urls from "~/service/urls";
+import type { TBanners, TSections } from "~/types/api.types";
 
 // //> utils
-const { locale } = useI18n()
-const token = useToken()
-const localePath = useLocalePath()
+const { locale } = useI18n();
+const token = useToken();
+const localePath = useLocalePath();
 // const router = useRouter()
 // const localePath = useLocalePath()
 
@@ -25,20 +25,19 @@ const localePath = useLocalePath()
 
 //===============================-< get  banner >-===============================
 //> variables
-const banners = ref()
+const banners = ref<TBanners>();
 //> functions
 async function getBanners() {
-	const res = await Service.get(urls.getBanners(), locale.value, null)
-
-	banners.value = res.data
+	banners.value = await Service.get(urls.getBanners(), locale.value, null);
 }
 
-getBanners()
+getBanners();
 
 //===============================-< banners swiper >-===============================
 //> variables
-const bannersRef = ref(null)
+const bannersRef = ref(null);
 const bannersSwiper = useSwiper(bannersRef, {
+	loop: true,
 	spaceBetween: 20,
 	autoplay: {
 		delay: 3000,
@@ -46,12 +45,12 @@ const bannersSwiper = useSwiper(bannersRef, {
 	pagination: {
 		clickable: true,
 	},
-})
+});
 //> functions
 
 //===============================-< categories >-===============================
 //> variables
-const categoryCardsRef = ref(null)
+const categoryCardsRef = ref(null);
 const categoryCardsSwiper = useSwiper(categoryCardsRef, {
 	spaceBetween: 20,
 	breakpoints: {
@@ -69,47 +68,46 @@ const categoryCardsSwiper = useSwiper(categoryCardsRef, {
 			slidesPerView: 3.2,
 		},
 		1024: {
-			slidesPerView: 4.2,
+			slidesPerView: 3.5,
 		},
 		1280: {
-			slidesPerView: 5.2,
+			slidesPerView: 4,
 		},
 	},
 	autoplay: {
 		delay: 3000,
 	},
-})
+});
 //> functions
 
 //===============================-< get categories >-===============================
 //> variables
-const categories = ref()
+const categories = ref();
 //> functions
 async function getCategories() {
-	const res = await Service.get(urls.getHomeCategories(), locale.value, null)
+	const res = await Service.get(urls.getCategories(), locale.value, null);
 
-	categories.value = res.data
+	categories.value = res.data;
 }
 
-getCategories()
+getCategories();
 
 //===============================-< get sections >-===============================
 //> variables
-const sections = ref<THomeSection[]>()
+const sections = ref<TSections>();
 
 async function getSections() {
-	const res = await Service.get<THomeSection[]>(
+	sections.value = await Service.get(
 		urls.getSections(),
 		locale.value,
 		token.value
-	)
-	sections.value = res.data
+	);
 }
 
-getSections()
+getSections();
 // refetch sections
 function refetchSections() {
-	getSections()
+	getSections();
 }
 //> functions
 </script>
@@ -121,7 +119,7 @@ function refetchSections() {
 				<ClientOnly>
 					<div class="relative">
 						<swiper-container ref="bannersRef" :init="true">
-							<swiper-slide v-for="(slide, idx) in banners" :key="idx">
+							<swiper-slide v-for="(slide, idx) in banners?.data" :key="idx">
 								<a
 									:href="slide.url"
 									target="_blank"
@@ -129,8 +127,8 @@ function refetchSections() {
 								>
 									<img
 										class="w-full h-full object-contain rounded-xl overflow-hidden"
-										:src="slide.imageUrl"
-										alt="kfc"
+										:src="slide.file_url"
+										alt=""
 									/>
 								</a>
 							</swiper-slide>
@@ -157,7 +155,7 @@ function refetchSections() {
 		<section class="pb-8">
 			<div class="container">
 				<div class="flex items-center justify-between">
-					<h2 class="text-2xl font-semibold">{{ $t('popular_categories') }}</h2>
+					<h2 class="text-2xl font-semibold">{{ $t("popular_categories") }}</h2>
 				</div>
 				<div class="mt-4 relative">
 					<swiper-container ref="categoryCardsRef" :init="true" class="">
@@ -214,7 +212,7 @@ function refetchSections() {
 
 		<!-- hot products -->
 		<section
-			v-for="section in sections"
+			v-for="section in sections?.data"
 			v-show="section.products.length"
 			:key="section.id"
 			class="pb-8"
@@ -226,7 +224,7 @@ function refetchSections() {
 						:to="localePath(`/sections/${section.id}`)"
 						class="flex items-center gap-2 text-text hover:text-main transition-colors group"
 					>
-						{{ $t('all') }}
+						{{ $t("all") }}
 						<UIcon
 							name="uil:arrow-right"
 							class="font-medium text-2xl text-text group-hover:text-main transition-colors"

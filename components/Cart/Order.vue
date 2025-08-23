@@ -45,6 +45,7 @@ watch(locale, () => {
 //> variables
 const schema = z
 	.object({
+		name: z.string({required_error: "Ismingnizni kiriting"}),
 		phone: z
 			.string({ required_error: t("enter_phone") })
 			.min(17, t("wrong_number")),
@@ -67,6 +68,7 @@ const schema = z
 type Schema = z.output<typeof schema>;
 
 const state = reactive<Partial<Schema>>({
+	name: "",
 	phone: "+998",
 	address: "",
 	requireAddress: "false",
@@ -78,10 +80,12 @@ async function onSubmit() {
 	const unMaskedPhone = state.phone?.replace(/\D/g, "") || "";
 
 	const data: {
+		name: string;
 		phone: string;
 		products: { product_id: number; count: number }[];
 		address?: string;
 	} = {
+		name: state.name,
 		phone: unMaskedPhone,
 		products: [],
 	};
@@ -93,17 +97,21 @@ async function onSubmit() {
 		});
 	});
 
-	let url = urls.orderPickup();
-	if (state.requireAddress === "true") {
-		url = urls.orderDelivery();
-		data.address = state.address;
-	}
+	// let url = urls.orderPickup();
+	// if (state.requireAddress === "true") {
+	// 	url = urls.orderDelivery();
+	// 	data.address = state.address;
+	// }
 
-	const res = await Service.post(url, locale.value, data, token.value);
+	const res = await Service.post(urls.addCustomer(), locale.value, data, token.value);
 
-	if (res.status === 200) {
+	if (res.success) {
 		isSuccessOrder.value = true;
 		cartStore.cart = [];
+		toast.add({
+			title: "Buyurtma muvaffaqqiyatli saqlandi",
+			color: "error",
+		});
 		setTimeout(() => {
 			emits("success");
 		}, 2000);
@@ -119,19 +127,26 @@ async function onSubmit() {
 <template>
 	<div>
 		<div v-if="!isSuccessOrder">
-			<UTabs
+			<!-- <UTabs
 				v-model:model-value="state.requireAddress"
 				:items="orderTypes"
 				class="w-full"
 				color="warning"
-			/>
+			/> -->
 			<UForm
 				:schema="schema"
 				:state="state"
-				class="space-y-6 mt-6"
+				class="space-y-6"
 				@submit="onSubmit"
 			>
-				<UFormField name="phone" :label="$t('second_phone')" class="">
+				<UFormField name="Ism" :label="$t('firstname')" class="">
+					<UInput
+						v-model="state.name"
+						class="w-full"
+						size="xl"
+					/>
+				</UFormField>
+				<UFormField name="phone" :label="$t('phone')" class="">
 					<UInput
 						v-model="state.phone"
 						v-maska="'+998 ## ### ## ##'"

@@ -7,7 +7,7 @@ const props = defineProps({
 		type: Object,
 		required: true,
 	},
-})
+});
 </script>
 <template>
 	<NuxtLink
@@ -20,7 +20,7 @@ const props = defineProps({
 			<img
 				:src="category.file_url"
 				:alt="category.name"
-				class="w-full h-32 md:h-40 object-cover group-hover:scale-120 transition-transform duration-300"
+				class="w-full h-auto md:h-auto max-h-48 object-cover group-hover:scale-110 transition-transform duration-300"
 			/>
 		</div>
 
