@@ -32,6 +32,6 @@ onMounted(() => {
 		<UApp :toaster="{ position: 'top-right', duration: 2000 }">
 			<NuxtLayout />
 		</UApp>
-		<UiColor />
+		<!-- <UiColor /> -->
 	</div>
 </template>

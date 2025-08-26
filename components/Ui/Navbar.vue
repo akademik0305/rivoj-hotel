@@ -156,7 +156,7 @@ onUnmounted(() => {
 					</div>
 					<!-- navbar right -->
 					<div class="flex items-center gap-3">
-						<NuxtLink
+						<!-- <NuxtLink
 							:to="localePath('/search')"
 							class="flex items-center justify-center gap-2 w-full py-1.5 px-2 cursor-pointer hover:border-main transition-colors relative group"
 						>
@@ -164,7 +164,7 @@ onUnmounted(() => {
 								name="i-lucide-search"
 								class="text-2xl w-6 text-text group-hover:text-main transition-colors"
 							/>
-						</NuxtLink>
+						</NuxtLink> -->
 						<!-- <button
 							class="flex items-center justify-center gap-2 w-full py-1.5 px-2 cursor-pointer hover:border-main transition-colors relative group"
 							@click="goToWishlist"

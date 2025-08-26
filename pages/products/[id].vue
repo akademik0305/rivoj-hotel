@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 //===============================-< imports >-===============================
+import { useI18n } from "vue-i18n";
 import Service from "~/service/Service";
 import urls from "~/service/urls";
 import { useCartStore } from "~/store/cart.store";
@@ -109,7 +110,7 @@ getProduct();
 							</UiFuncybox>
 						</ClientOnly>
 					</div>
-					<div class="flex-1 flex flex-col">
+					<div class="flex-1 flex flex-col w-full">
 						<h4 class="text-xl font-semibold">{{ $t("about_product") }}</h4>
 						<p class="mt-2" v-html="product?.details.description" />
 						<div class="mt-2 md:mt-4 flex-1">
@@ -139,7 +140,7 @@ getProduct();
 									/>
 								</NuxtLink>
 								<button
-									class="flex items-center justify-center py-1.5 px-4 gap-2 rounded-3xl border border-main cursor-pointer hover:bg-main group transition-colors"
+									class="w-full flex items-center justify-center py-1.5 px-4 gap-2 rounded-3xl border border-main cursor-pointer hover:bg-main group transition-colors"
 									@click="cartStore.removeFromCart(product.id)"
 								>
 									<UIcon
@@ -159,7 +160,7 @@ getProduct();
 									{{ $t("empty") }}
 								</p> -->
 								<button
-									class="flex items-center justify-center gap-2 bg-main border border-bg rounded-full w-full py-2 px-3 md:px-6 cursor-pointer group hover:bg-bg hover:border-main transition-colors"
+									class="flex items-center justify-center gap-2 bg-main border border-bg rounded-full w-full max-w-sm py-2 px-3 md:px-6 cursor-pointer group hover:bg-bg hover:border-main transition-colors"
 									@click="cartStore.addToCart(product)"
 								>
 									<UIcon
@@ -171,6 +172,51 @@ getProduct();
 									}}</span>
 								</button>
 							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section class="mt-6">
+			<div class="container">
+				<h3 class="text-center text-lg lg:text-xl font-semibold">Mahsulot nomeklaturasi</h3>
+				<div class="mt-4 border border-border rounded-lg overflow-auto">
+					<div class="grid grid-rows-1 md:grid-cols-2">
+						<div class="p-3">
+							<p>Mahsulot markasi</p>
+							<p class="mt-2 font-semibold text-lg">
+								{{ product?.details.product_brand || "-" }}
+							</p>
+						</div>
+						<div class="border-t md:border-t-0 md:border-l border-border p-3">
+							<p class="">Uzunligi</p>
+							<p class="mt-2 font-semibold text-lg">
+								{{ product?.details.length || "-" }}
+							</p>
+						</div>
+						<div class="p-3 border-t border-border">
+							<p class="">Eni</p>
+							<p class="mt-2 font-semibold text-lg">
+								{{ product?.details.width || "-" }}
+							</p>
+						</div>
+						<div class="border-t md:border-l border-border p-3">
+							<p class="">Balandligi</p>
+							<p class="mt-2 font-semibold text-lg">
+								{{ product?.details.height || "-" }}
+							</p>
+						</div>
+						<div class="p-3 border-t border-border">
+							<p class="">Vazni</p>
+							<p class="mt-2 font-semibold text-lg">
+								{{ product?.details.weight || "-" }}
+							</p>
+						</div>
+						<div class="border-t md:border-l border-border p-3">
+							<p class="">Beton qorishmasi klassi</p>
+							<p class="mt-2 font-semibold text-lg">
+								{{ product?.details.mix_brand || "-" }}
+							</p>
 						</div>
 					</div>
 				</div>

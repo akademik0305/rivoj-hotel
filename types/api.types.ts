@@ -38,6 +38,12 @@ export type TProduct = {
 	new_price: number;
 	details: {
 		description: string;
+		product_brand: string;
+		length: number;
+		width: number;
+		height: number;
+		weight: number;
+		mix_brand: string;
 		features: {
 			id: number;
 			name: string;
