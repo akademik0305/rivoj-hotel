@@ -180,36 +180,6 @@ function refetchSections() {
 		</section>
 		<!-- categories cards -->
 
-		<!-- categories -->
-		<!-- <section class="pb-8">
-			<div class="container">
-				<ClientOnly>
-					<div>
-						<swiper-container
-							ref="categoriesRef"
-							:init="true"
-							class="h-auto overflow-hidden"
-						>
-							<swiper-slide v-for="(slide, idx) in 8" :key="idx">
-								<div
-									class="flex items-center gap-2 bg-bg-soft rounded-xl px-6 py-2.5 shadow-md hover:bg-main transition-colors cursor-pointer group"
-								>
-									<UIcon
-										name="i-lucide-search"
-										class="text-text group-hover:text-bg"
-									/>
-									<p class="text-center text-text group-hover:text-bg">
-										Smartfonlar
-									</p>
-								</div>
-							</swiper-slide>
-						</swiper-container>
-					</div>
-				</ClientOnly>
-			</div>
-		</section> -->
-		<!-- categories -->
-
 		<!-- hot products -->
 		<section
 			v-for="section in sections?.data"
@@ -244,5 +214,24 @@ function refetchSections() {
 			</div>
 		</section>
 		<!-- hot products -->
+
+		<!-- map -->
+		<section class="pb-10">
+			<div class="container">
+				<div class="flex items-center justify-between">
+					<h2 class="text-2xl font-semibold">{{ $t("our_address") }}</h2>
+				</div>
+				<div class="mt-4 relative overflow-hidden w-full">
+					<iframe
+						src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3048.5802910718353!2d71.73227842644344!3d40.173897570382415!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38bb85c2ffd46eb7%3A0x583fcb9692d47240!2zIlJpdm9qLTk4IiDQl9CQ0JLQntCUINCW0JHQmA!5e0!3m2!1sru!2s!4v1756269338634!5m2!1sru!2s"
+						style="border: 0"
+						loading="lazy"
+						referrerpolicy="no-referrer-when-downgrade"
+						class="h-[50vh] w-full"
+					/>
+				</div>
+			</div>
+			<!-- map -->
+		</section>
 	</main>
 </template>
