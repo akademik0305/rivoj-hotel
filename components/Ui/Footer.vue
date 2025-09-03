@@ -44,7 +44,7 @@ watch(locale, () => {
 							:href="contact?.instagram_url"
 							target="_blank"
 						>
-							<UIcon
+							<Icon
 								name="hugeicons:instagram"
 								class="text-xl text-gray-500 hover:text-main transition"
 							/>
@@ -54,8 +54,8 @@ watch(locale, () => {
 							:href="contact?.facebook_url"
 							target="_blank"
 						>
-							<UIcon
-								name="circum:facebook"
+							<Icon
+								name="hugeicons:facebook-02"
 								class="text-xl text-gray-500 hover:text-main transition"
 							/>
 						</a>
@@ -64,7 +64,7 @@ watch(locale, () => {
 							:href="contact?.telegram_url"
 							target="_blank"
 						>
-							<UIcon
+							<Icon
 								name="hugeicons:telegram"
 								class="text-xl text-gray-500 hover:text-main transition"
 							/>
@@ -74,7 +74,7 @@ watch(locale, () => {
 							:href="contact?.youtube_url"
 							target="_blank"
 						>
-							<UIcon
+							<Icon
 								name="hugeicons:youtube"
 								class="text-xl text-gray-500 hover:text-main transition"
 							/>

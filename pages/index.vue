@@ -3,9 +3,15 @@
 // types
 // import type { TRestaurant, TRestaurantsData } from '~/types/api.types'
 // // service
+import { useI18n } from "vue-i18n";
 import Service from "~/service/Service";
 import urls from "~/service/urls";
-import type { TBanners, TSections } from "~/types/api.types";
+import type {
+	TAdvantage,
+	TBanners,
+	TEmployee,
+	TSections,
+} from "~/types/api.types";
 
 // //> utils
 const { locale } = useI18n();
@@ -37,7 +43,7 @@ getBanners();
 //> variables
 const bannersRef = ref(null);
 const bannersSwiper = useSwiper(bannersRef, {
-	loop: true,
+	// loop: true,
 	spaceBetween: 20,
 	autoplay: {
 		delay: 3000,
@@ -52,6 +58,7 @@ const bannersSwiper = useSwiper(bannersRef, {
 //> variables
 const categoryCardsRef = ref(null);
 const categoryCardsSwiper = useSwiper(categoryCardsRef, {
+	loop: true,
 	spaceBetween: 20,
 	breakpoints: {
 		320: {
@@ -110,11 +117,33 @@ function refetchSections() {
 	getSections();
 }
 //> functions
+
+//===============================-< get advantages >-===============================
+//> variables
+const advantages = ref<TAdvantage[]>();
+//> functions
+async function getAdvantages() {
+	const res = await Service.get(urls.getAdvantages(), locale.value, null);
+
+	advantages.value = res.data;
+}
+
+getAdvantages();
+
+//===============================-< get employees >-===============================
+//> variables
+const employees = ref<TEmployee[]>();
+//> functions
+async function getEmployees() {
+	employees.value = await Service.get(urls.getEmployees(), locale.value, null);
+}
+
+getEmployees();
 </script>
 <template>
 	<main class="">
 		<!-- banner -->
-		<section class="mt-3 pb-8">
+		<section class="mt-3 pb-12">
 			<div class="container">
 				<ClientOnly>
 					<div class="relative">
@@ -152,7 +181,7 @@ function refetchSections() {
 		<!-- banner -->
 
 		<!-- categories cards -->
-		<section class="pb-8">
+		<section class="pb-12">
 			<div class="container">
 				<div class="flex items-center justify-between">
 					<h2 class="text-2xl font-semibold">{{ $t("popular_categories") }}</h2>
@@ -185,7 +214,7 @@ function refetchSections() {
 			v-for="section in sections?.data"
 			v-show="section.products.length"
 			:key="section.id"
-			class="pb-8"
+			class="pb-12"
 		>
 			<div class="container">
 				<div class="flex items-center justify-between">
@@ -213,10 +242,88 @@ function refetchSections() {
 				</div>
 			</div>
 		</section>
-		<!-- hot products -->
+
+		<!-- advantages -->
+		<section class="pb-12">
+			<div class="container">
+				<div class="flex items-center justify-between">
+					<h2 class="text-2xl font-semibold">{{ $t("our_advantages") }}</h2>
+				</div>
+				<div class="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+					<div
+						v-for="item in advantages"
+						:key="item.id"
+						class="border border-border rounded-md p-6"
+					>
+						<div class="flex items-center justify-center">
+							<img
+								:src="item.file_url"
+								:alt="item.title"
+								class="w-full h-full rounded-full border border-border object-cover aspect-square max-w-32"
+							/>
+						</div>
+						<div class="mt-4 text-center">
+							<h4 class="text-text text-xl">{{ item.title }}</h4>
+							<p class="mt-4 text-subtext text-sm">{{ item.description }}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- advantages -->
+
+		<!-- video -->
+		<section class="pb-12">
+			<div class="container">
+				<div class="flex items-center justify-between">
+					<h2 class="text-2xl font-semibold">{{ $t("work_video") }}</h2>
+				</div>
+				<div class="mt-4">
+					<iframe
+						src="https://www.youtube-nocookie.com/embed/jlydPpMKobg?si=t9af2k8fSIEUINkR&rel=0"
+						title="YouTube video player"
+						frameborder="0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+						referrerpolicy="strict-origin-when-cross-origin"
+						allowfullscreen
+						class="w-full h-full min-h-[30svh] md:min-h-[60svh] rounded-md overflow-hidden"
+					/>
+				</div>
+			</div>
+		</section>
+		<!-- video -->
+
+		<!-- employees -->
+		<section class="pb-12">
+			<div class="container">
+				<div class="flex items-center justify-between">
+					<h2 class="text-2xl font-semibold">{{ $t("our_employees") }}</h2>
+				</div>
+				<div class="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+					<div
+						v-for="item in employees"
+						:key="item.id"
+						class="border border-border rounded-md p-4"
+					>
+						<div class="flex items-center justify-center">
+							<img
+								:src="item.file_url"
+								:alt="item.firstname"
+								class="w-full h-full rounded-2xl border border-border object-cover aspect-square max-w-40"
+							/>
+						</div>
+						<div class="mt-4 text-center">
+							<h4 class="text-text text-xl font-semibold">{{ item.firstname }}</h4>
+							<p class="mt-4 text-subtext text-sm">{{ item.position }}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- employees -->
 
 		<!-- map -->
-		<section class="pb-10">
+		<section class="pb-12">
 			<div class="container">
 				<div class="flex items-center justify-between">
 					<h2 class="text-2xl font-semibold">{{ $t("our_address") }}</h2>
@@ -227,7 +334,7 @@ function refetchSections() {
 						style="border: 0"
 						loading="lazy"
 						referrerpolicy="no-referrer-when-downgrade"
-						class="h-[50vh] w-full"
+						class="h-[50vh] w-full rounded-md overflow-hidden border border-border"
 					/>
 				</div>
 			</div>
@@ -235,3 +342,9 @@ function refetchSections() {
 		</section>
 	</main>
 </template>
+
+<style>
+.ytp-pause-overlay {
+	display: none !important;
+}
+</style>

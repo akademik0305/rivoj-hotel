@@ -144,3 +144,21 @@ export type TSectionProducts = {
 	data: TSectionProduct[];
 	pagination: TMeta;
 };
+
+export type TAdvantage = {
+	id: number;
+	title: string;
+	description: string;
+	status: number;
+	created_at: string;
+	file_url: string;
+};
+// employees
+export type TEmployee = {
+	id: number;
+	firstname: string;
+	username: string;
+	phone: string;
+	file_url: string;
+	position: string;
+};

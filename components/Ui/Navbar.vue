@@ -11,10 +11,9 @@ const switchLocalePath = useSwitchLocalePath();
 // const router = useRouter()
 
 //utils
-const { locale, setLocale, t } = useI18n();
+const { locale, t } = useI18n();
 const router = useRouter();
 const token = useToken();
-const wishlistCount = useWishlistCount();
 const toast = useToast();
 const localePath = useLocalePath();
 // store
@@ -151,11 +150,12 @@ onUnmounted(() => {
 								name="ic:round-menu"
 								class="text-2xl w-6 text-white group-hover:text-main"
 							/>
-							{{ $t("catalog") }}
+							<!-- {{ $t("categories") }} -->
 						</NuxtLink>
+						<!-- download -->
 					</div>
 					<!-- navbar right -->
-					<div class="flex items-center gap-3">
+					<div class="w-full flex justify-between md:justify-end items-center gap-3">
 						<!-- <NuxtLink
 							:to="localePath('/search')"
 							class="flex items-center justify-center gap-2 w-full py-1.5 px-2 cursor-pointer hover:border-main transition-colors relative group"
@@ -179,9 +179,16 @@ onUnmounted(() => {
 								>{{ wishlistCount || 0 }}</span
 							>
 						</button> -->
+						<a
+							target="_blank"
+							href="/katalog_uz.pdf"
+							class="flex items-center justify-center gap-2 border rounded-xl py-1.5 px-10 cursor-pointer group hover:bg-bg border-main text-main transition-colors"
+						>
+							{{ $t("catalog") }}
+						</a>
 						<NuxtLink
 							:to="localePath('/cart')"
-							class="relative flex items-center justify-center gap-2 w-full py-1.5 px-2 cursor-pointer hover:border-main transition-colors group"
+							class="relative flex items-center justify-center gap-2 w-auto py-1.5 px-2 cursor-pointer hover:border-main transition-colors group"
 						>
 							<UIcon
 								name="proicons:cart"
@@ -210,7 +217,7 @@ onUnmounted(() => {
 								}}</span
 							>
 						</button> -->
-						<USelect
+						<!-- <USelect
 							v-model="currentLang"
 							leading-icon="material-symbols:language"
 							:items="locales"
@@ -220,7 +227,7 @@ onUnmounted(() => {
 							<template #default="{ modelValue }">
 								<span class="capitalize text-text">{{ modelValue }}</span>
 							</template>
-						</USelect>
+						</USelect> -->
 					</div>
 				</div>
 			</div>
