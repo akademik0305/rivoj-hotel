@@ -282,7 +282,6 @@ getEmployees();
 					<iframe
 						src="https://www.youtube-nocookie.com/embed/jlydPpMKobg?si=t9af2k8fSIEUINkR&rel=0"
 						title="YouTube video player"
-						frameborder="0"
 						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
 						referrerpolicy="strict-origin-when-cross-origin"
 						allowfullscreen
@@ -299,7 +298,9 @@ getEmployees();
 				<div class="flex items-center justify-between">
 					<h2 class="text-2xl font-semibold">{{ $t("our_employees") }}</h2>
 				</div>
-				<div class="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+				<div
+					class="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+				>
 					<div
 						v-for="item in employees"
 						:key="item.id"
@@ -313,7 +314,9 @@ getEmployees();
 							/>
 						</div>
 						<div class="mt-4 text-center">
-							<h4 class="text-text text-xl font-semibold">{{ item.firstname }}</h4>
+							<h4 class="text-text text-xl font-semibold">
+								{{ item.firstname }}
+							</h4>
 							<p class="mt-4 text-subtext text-sm">{{ item.position }}</p>
 						</div>
 					</div>
@@ -330,6 +333,7 @@ getEmployees();
 				</div>
 				<div class="mt-4 relative overflow-hidden w-full">
 					<iframe
+						title="map"
 						src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3048.5802910718353!2d71.73227842644344!3d40.173897570382415!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38bb85c2ffd46eb7%3A0x583fcb9692d47240!2zIlJpdm9qLTk4IiDQl9CQ0JLQntCUINCW0JHQmA!5e0!3m2!1sru!2s!4v1756269338634!5m2!1sru!2s"
 						style="border: 0"
 						loading="lazy"
