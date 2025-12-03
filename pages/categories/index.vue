@@ -8,6 +8,8 @@ const { locale } = useI18n()
 const categories = ref()
 //> functions
 async function getCategories() {
+	console.log(urls.getCategories());
+	
 	const res = await Service.get(urls.getCategories(), locale.value, null)
 	categories.value = res.data
 }
