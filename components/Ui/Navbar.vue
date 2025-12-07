@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import {useI18n} from 'vue-i18n';
 import { useAuthStore } from "~/store/auth.store";
 import type { TUser } from "../../types/auth.type";
 import urls from "~/service/urls";
@@ -31,7 +32,7 @@ const cartStore = useCartStore();
 //===============================-< languages >-===============================
 //> variables
 type TLocale = "uz" | "ru" | "en";
-const locales = ["Uz", "Ru", "En"];
+// const locales = ["Uz", "Ru", "En"];
 
 const currentLang = ref<TLocale>(locale.value);
 
@@ -135,11 +136,11 @@ onUnmounted(() => {
 					<div
 						class="flex items-center gap-6 justify-between md:justify-start w-full"
 					>
-						<NuxtLink :to="localePath('/')" class="block w-40 h-auto">
+						<NuxtLink :to="localePath('/')" class="block w-40 h-auto ">
 							<img
 								:src="contact?.logo"
 								alt="logo"
-								class="w-full h-full object-cover"
+								class="w-full h-full object-contain max-h-20 rounded-md overflow-hidden"
 							/>
 						</NuxtLink>
 						<NuxtLink

@@ -67,9 +67,9 @@ const props = defineProps({
 //===============================-< on load >-===============================
 //> variables
 onMounted(() => {
-	if (!wishlistCount.value && authStore.isLogged) {
+	// if (!wishlistCount.value && authStore.isLogged) {
 		// getWishlists();
-	}
+	// }
 });
 </script>
 <template>
@@ -106,7 +106,8 @@ onMounted(() => {
 				{{ product.name }} 
 			</NuxtLink>
 			<div class="mt-2 md:mt-4 flex-1">
-				<p class="text-sm md:text-xl">{{ store.formatCurrency( props.product.new_price) }}</p>
+				<!-- {{ props.product }} -->
+				<p class="text-sm md:text-xl">{{ store.formatCurrency( props.product.price) }}</p>
 				<p v-if="product.discount" class="text-xs md:text-sm line-through text-subtext">
 					{{ store.formatCurrency( props.product.price) }}
 				</p>
