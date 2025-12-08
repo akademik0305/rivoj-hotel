@@ -4,13 +4,13 @@
 import type { TProduct } from "~/types/api.types";
 
 //> utils
-import { useAuthStore } from "~/store/auth.store";
+// import { useAuthStore } from "~/store/auth.store";
 import { useCartStore } from "~/store/cart.store";
 import { useStore } from "~/store/useful.store";
-const wishlistCount = useWishlistCount();
+// const wishlistCount = useWishlistCount();
 const localePath = useLocalePath();
 // store
-const authStore = useAuthStore();
+// const authStore = useAuthStore();
 const cartStore = useCartStore();
 const store = useStore();
 

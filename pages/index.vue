@@ -3,20 +3,20 @@
 // types
 // import type { TRestaurant, TRestaurantsData } from '~/types/api.types'
 // // service
-import { useI18n } from "vue-i18n";
-import Service from "~/service/Service";
-import urls from "~/service/urls";
+import { useI18n } from 'vue-i18n'
+import Service from '~/service/Service'
+import urls from '~/service/urls'
 import type {
 	TAdvantage,
 	TBanners,
 	TEmployee,
 	TSections,
-} from "~/types/api.types";
+} from '~/types/api.types'
 
 // //> utils
-const { locale } = useI18n();
-const token = useToken();
-const localePath = useLocalePath();
+const { locale } = useI18n()
+const token = useToken()
+const localePath = useLocalePath()
 // const router = useRouter()
 // const localePath = useLocalePath()
 
@@ -31,17 +31,17 @@ const localePath = useLocalePath();
 
 //===============================-< get  banner >-===============================
 //> variables
-const banners = ref<TBanners>();
+const banners = ref<TBanners>()
 //> functions
 async function getBanners() {
-	banners.value = await Service.get(urls.getBanners(), locale.value, null);
+	banners.value = await Service.get(urls.getBanners(), locale.value, null)
 }
 
-getBanners();
+getBanners()
 
 //===============================-< banners swiper >-===============================
 //> variables
-const bannersRef = ref(null);
+const bannersRef = ref(null)
 const bannersSwiper = useSwiper(bannersRef, {
 	// loop: true,
 	spaceBetween: 20,
@@ -51,12 +51,12 @@ const bannersSwiper = useSwiper(bannersRef, {
 	pagination: {
 		clickable: true,
 	},
-});
+})
 //> functions
 
 //===============================-< categories >-===============================
 //> variables
-const categoryCardsRef = ref(null);
+const categoryCardsRef = ref(null)
 const categoryCardsSwiper = useSwiper(categoryCardsRef, {
 	loop: true,
 	spaceBetween: 20,
@@ -84,61 +84,61 @@ const categoryCardsSwiper = useSwiper(categoryCardsRef, {
 	autoplay: {
 		delay: 3000,
 	},
-});
+})
 //> functions
 
 //===============================-< get categories >-===============================
 //> variables
-const categories = ref();
+const categories = ref()
 //> functions
 async function getCategories() {
-	const res = await Service.get(urls.getCategories(), locale.value, null);
+	const res = await Service.get(urls.getCategories(), locale.value, null)
 
-	categories.value = res.data;
+	categories.value = res.data
 }
 
-getCategories();
+getCategories()
 
 //===============================-< get sections >-===============================
 //> variables
-const sections = ref<TSections>();
+const sections = ref<TSections>()
 
 async function getSections() {
 	sections.value = await Service.get(
 		urls.getSections(),
 		locale.value,
 		token.value
-	);
+	)
 }
 
-getSections();
+getSections()
 // refetch sections
 function refetchSections() {
-	getSections();
+	getSections()
 }
 //> functions
 
 //===============================-< get advantages >-===============================
 //> variables
-const advantages = ref<TAdvantage[]>();
+const advantages = ref<TAdvantage[]>()
 //> functions
 async function getAdvantages() {
-	const res = await Service.get(urls.getAdvantages(), locale.value, null);
+	const res = await Service.get(urls.getAdvantages(), locale.value, null)
 
-	advantages.value = res.data;
+	advantages.value = res.data
 }
 
-getAdvantages();
+getAdvantages()
 
 //===============================-< get employees >-===============================
 //> variables
-const employees = ref<TEmployee[]>();
+const employees = ref<TEmployee[]>()
 //> functions
 async function getEmployees() {
-	employees.value = await Service.get(urls.getEmployees(), locale.value, null);
+	employees.value = await Service.get(urls.getEmployees(), locale.value, null)
 }
 
-getEmployees();
+getEmployees()
 </script>
 <template>
 	<main class="">
@@ -149,17 +149,15 @@ getEmployees();
 					<div class="relative">
 						<swiper-container ref="bannersRef" :init="true">
 							<swiper-slide v-for="(slide, idx) in banners?.data" :key="idx">
-								<a
-									:href="slide.url"
-									target="_blank"
-									class="block h-auto md:h-[450px]"
-								>
+								<!-- :href="slide.url" -->
+								<!-- target="_blank" -->
+								<div class="block h-auto md:h-[500px]">
 									<img
-										class="w-full h-full object-contain rounded-xl overflow-hidden"
+										class="w-full h-full object-cover rounded-xl overflow-hidden"
 										:src="slide.file_url"
 										alt=""
 									/>
-								</a>
+								</div>
 							</swiper-slide>
 						</swiper-container>
 						<button
@@ -184,7 +182,7 @@ getEmployees();
 		<section class="pb-12">
 			<div class="container">
 				<div class="flex items-center justify-between">
-					<h2 class="text-2xl font-semibold">{{ $t("popular_categories") }}</h2>
+					<h2 class="text-2xl font-semibold">{{ $t('popular_categories') }}</h2>
 				</div>
 				<div class="mt-4 relative">
 					<swiper-container ref="categoryCardsRef" :init="true" class="">
@@ -209,7 +207,7 @@ getEmployees();
 		</section>
 		<!-- categories cards -->
 
-		<!-- hot products -->
+		<!-- sections -->
 		<section
 			v-for="section in sections?.data"
 			v-show="section.products.length"
@@ -223,7 +221,7 @@ getEmployees();
 						:to="localePath(`/sections/${section.id}`)"
 						class="flex items-center gap-2 text-text hover:text-main transition-colors group"
 					>
-						{{ $t("all") }}
+						{{ $t('all') }}
 						<UIcon
 							name="uil:arrow-right"
 							class="font-medium text-2xl text-text group-hover:text-main transition-colors"
@@ -242,12 +240,13 @@ getEmployees();
 				</div>
 			</div>
 		</section>
+		<!-- sections -->
 
 		<!-- advantages -->
 		<section class="pb-12">
 			<div class="container">
 				<div class="flex items-center justify-between">
-					<h2 class="text-2xl font-semibold">{{ $t("our_advantages") }}</h2>
+					<h2 class="text-2xl font-semibold">{{ $t('our_advantages') }}</h2>
 				</div>
 				<div class="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 					<div
@@ -256,8 +255,9 @@ getEmployees();
 						class="border border-border rounded-md p-6"
 					>
 						<div class="flex items-center justify-center">
+							<!-- :src="item.file_url" -->
 							<img
-								:src="item.file_url"
+								src="~/assets/images/svg/star_quality.svg"
 								:alt="item.title"
 								class="w-full h-full rounded-full border border-border object-cover aspect-square max-w-32"
 							/>
@@ -276,7 +276,7 @@ getEmployees();
 		<section class="pb-12">
 			<div class="container">
 				<div class="flex items-center justify-between">
-					<h2 class="text-2xl font-semibold">{{ $t("work_video") }}</h2>
+					<h2 class="text-2xl font-semibold">{{ $t('work_video') }}</h2>
 				</div>
 				<div class="mt-4">
 					<iframe
@@ -293,7 +293,7 @@ getEmployees();
 		<!-- video -->
 
 		<!-- employees -->
-		<section class="pb-12">
+		<!-- <section class="pb-12">
 			<div class="container">
 				<div class="flex items-center justify-between">
 					<h2 class="text-2xl font-semibold">{{ $t("our_employees") }}</h2>
@@ -322,6 +322,42 @@ getEmployees();
 					</div>
 				</div>
 			</div>
+		</section> -->
+		<section class="pb-12">
+			<div class="container">
+				<div class="flex items-center justify-between">
+					<h2 class="text-2xl font-semibold">{{ $t('our_employees') }}</h2>
+				</div>
+				<div
+					class="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+				>
+					<div
+						v-for="item in 5"
+						:key="item"
+						class="rounded-md p-4"
+					>
+						<div class="flex items-center justify-center">
+							<!-- :src="item.file_url"
+							:alt="item.firstname" -->
+
+							<img
+								src="~/assets/images/webp/1.webp"
+								class="w-full h-full rounded-2xl object-cover aspect-square max-w-60"
+							/>
+						</div>
+						<div class="mt-4 text-center">
+							<h4 class="text-text text-xl font-semibold">
+								<!-- {{ item.firstname }} -->
+								Шерхон
+							</h4>
+							<p class="mt-4 text-subtext text-sm">
+								<!-- {{ item.position }} -->
+								Сотув менежери
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
 		</section>
 		<!-- employees -->
 
@@ -329,7 +365,7 @@ getEmployees();
 		<section class="pb-12">
 			<div class="container">
 				<div class="flex items-center justify-between">
-					<h2 class="text-2xl font-semibold">{{ $t("our_address") }}</h2>
+					<h2 class="text-2xl font-semibold">{{ $t('our_address') }}</h2>
 				</div>
 				<div class="mt-4 relative overflow-hidden w-full">
 					<iframe
