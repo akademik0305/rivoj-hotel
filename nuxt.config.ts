@@ -2,75 +2,76 @@
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineNuxtConfig({
-	compatibilityDate: "2024-11-01",
-	devtools: { enabled: true },
-	colorMode: {
-		preference: "light",
-	},
-
-	ssr: false,
-
-	app: {
-		head: {
-			link: [
-				{
-					rel: "icon",
-					type: "image/png",
-					href: "./icon.png",
+				compatibilityDate: "2024-11-01",
+				devtools: { enabled: true },
+				colorMode: {
+								preference: "light",
 				},
-			],
-		},
-	},
 
-	runtimeConfig: {
-		public: {
-			// apiBaseUrl: process.env.API_BASE_URL,
-		},
-	},
+				ssr: false,
 
-	modules: [
-		"@nuxt/eslint",
-		"@nuxt/fonts",
-		"@nuxt/icon",
-		"@nuxt/image",
-		"@nuxt/test-utils",
-		"@nuxt/ui",
-		"nuxt-swiper",
-		"@nuxtjs/i18n",
-		"@pinia/nuxt",
-		"pinia-plugin-persistedstate/nuxt",
-	],
+				app: {
+								head: {
+												link: [
+																{
+																				rel: "icon",
+																				type: "image/png",
+																				href: "./icon.png",
+																},
+												],
+								},
+				},
 
-	icon: {
-		serverBundle: {
-			collections: ["hugeicons"], // <!--- this
-		},
-	},
+				runtimeConfig: {
+								public: {
+												// apiBaseUrl: process.env.API_BASE_URL,
+								},
+				},
 
-	vite: {
-		plugins: [tailwindcss()],
-	},
-	css: ["~/assets/css/main.css"],
+				modules: [
+				 "@nuxt/eslint",
+				 "@nuxt/fonts",
+				 "@nuxt/icon",
+				 "@nuxt/image",
+				 "@nuxt/test-utils",
+				 "@nuxt/ui",
+				 "nuxt-swiper",
+				 "@nuxtjs/i18n",
+				 "@pinia/nuxt",
+				 "pinia-plugin-persistedstate/nuxt",
+				 "nuxt-aos",
+				],
 
-	i18n: {
-		defaultLocale: "uz",
-		langDir: "./locales/",
-		locales: [
-			{
-				code: "uz",
-				name: "uz",
-				file: "uz.json",
-			},
-			{
-				code: "ru",
-				name: "ru",
-				file: "ru.json",
-			},
-			{
-				code: "en",
-				name: "en",
-				file: "en.json",
-			},
-		],
-	},
+				icon: {
+								serverBundle: {
+												collections: ["hugeicons"], // <!--- this
+								},
+				},
+
+				vite: {
+								plugins: [tailwindcss()],
+				},
+				css: ["~/assets/css/main.css"],
+
+				i18n: {
+								defaultLocale: "uz",
+								langDir: "./locales/",
+								locales: [
+												{
+																code: "uz",
+																name: "uz",
+																file: "uz.json",
+												},
+												// {
+												// 	code: "ru",
+												// 	name: "ru",
+												// 	file: "ru.json",
+												// },
+												// {
+												// 	code: "en",
+												// 	name: "en",
+												// 	file: "en.json",
+												// },
+								],
+				},
 });

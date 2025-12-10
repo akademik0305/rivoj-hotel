@@ -34,6 +34,10 @@ export default {
 		return `contacts`;
 	},
 
+	sendContact(){
+		return `contacts`
+	},	
+
 	// orders
 	orderDelivery() {
 		return `/order/delivery`;
@@ -53,6 +57,6 @@ export default {
 	},
 	// advantages
 	getEmployees() {
-		return `/users/all`;
+		return `/employees/all`;
 	},
 };

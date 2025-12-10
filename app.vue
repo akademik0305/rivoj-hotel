@@ -18,6 +18,7 @@ const token = useToken()
 //> variables
 //> functions
 onMounted(() => {
+	// AOS.init();
 	colorMode.preference = 'light'
 	if (!authStore.user) {
 		token.value = null

@@ -151,7 +151,7 @@ getEmployees()
 							<swiper-slide v-for="(slide, idx) in banners?.data" :key="idx">
 								<!-- :href="slide.url" -->
 								<!-- target="_blank" -->
-								<div class="block h-auto md:h-[500px]">
+								<div class="block h-auto md:h-[550px]">
 									<img
 										class="w-full h-full object-cover rounded-xl overflow-hidden"
 										:src="slide.file_url"
@@ -186,7 +186,7 @@ getEmployees()
 				</div>
 				<div class="mt-4 relative">
 					<swiper-container ref="categoryCardsRef" :init="true" class="">
-						<swiper-slide v-for="(slide, idx) in categories" :key="idx">
+						<swiper-slide v-for="(slide, idx) in categories" :key="idx" data-aos="fade-up">
 							<CategoryCard :category="slide" />
 						</swiper-slide>
 					</swiper-container>
@@ -232,9 +232,12 @@ getEmployees()
 					class="mt-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-5"
 				>
 					<ProductCard
-						v-for="product in section.products"
+						v-for="(product, index) in section.products"
 						:key="product.id"
 						:product="product"
+						data-aos="flip-left"
+						data-aos-duration="500"
+						:data-aos-delay="index * 100"
 						@success-wishlist="refetchSections"
 					/>
 				</div>
