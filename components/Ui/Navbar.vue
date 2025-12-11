@@ -239,9 +239,10 @@ onUnmounted(() => {
 						<a
 							target="_blank"
 							href="/katalog_uz.pdf"
-							class="flex items-center justify-center gap-2 border rounded-xl py-1.5 px-10 cursor-pointer group hover:bg-bg border-main text-main transition-colors"
+							class="flex items-center justify-center gap-2 border rounded-xl py-1.5 pl-8 pr-7 cursor-pointer group hover:bg-bg border-main text-main transition-colors"
 						>
-							{{ $t('catalog') }}
+							Katalog
+							<UIcon name="line-md:downloading-loop" class="text-2xl text-main" />
 						</a>
 						<NuxtLink
 							:to="localePath('/cart')"

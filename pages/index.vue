@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 //===============================-< imports >-===============================
 // types
+import type { AccordionItem } from '@nuxt/ui'
 // import type { TRestaurant, TRestaurantsData } from '~/types/api.types'
 // // service
 import { useI18n } from 'vue-i18n'
@@ -82,7 +83,7 @@ const categoryCardsSwiper = useSwiper(categoryCardsRef, {
 		},
 	},
 	autoplay: {
-		delay: 3000,
+		delay: 2000,
 	},
 })
 //> functions
@@ -139,6 +140,94 @@ async function getEmployees() {
 }
 
 getEmployees()
+
+//===============================-< employees swiper >-===============================
+//> variables
+const employeeCardsRef = ref(null)
+const employeeCardsSwiper = useSwiper(employeeCardsRef, {
+	loop: true,
+	spaceBetween: 20,
+	breakpoints: {
+		320: {
+			slidesPerView: 2.2,
+			spaceBetween: 12,
+		},
+		450: {
+			slidesPerView: 2.2,
+		},
+		600: {
+			slidesPerView: 2.6,
+		},
+		768: {
+			slidesPerView: 3.2,
+		},
+		1024: {
+			slidesPerView: 3.5,
+		},
+		1280: {
+			slidesPerView: 4,
+		},
+	},
+	autoplay: {
+		delay: 1000,
+	},
+})
+
+//===============================-< partners swiper >-===============================
+//> variables
+const partnersRef = ref(null)
+const partnersSwiper = useSwiper(partnersRef, {
+	loop: true,
+	spaceBetween: 20,
+	breakpoints: {
+		320: {
+			slidesPerView: 2.2,
+			spaceBetween: 12,
+		},
+		450: {
+			slidesPerView: 2.5,
+		},
+		600: {
+			slidesPerView: 3.0,
+		},
+		768: {
+			slidesPerView: 3.5,
+		},
+		1024: {
+			slidesPerView: 5,
+		},
+		1280: {
+			slidesPerView: 6,
+		},
+	},
+	autoplay: {
+		delay: 1500,
+	},
+})
+
+//===============================-< faqs >-===============================
+//> variables
+
+const items = ref<AccordionItem[]>([
+	{
+		label: 'Юқори сифат ва профессионаллик',
+		content:
+			'Биз ўз соҳамизда тажрибали мутахассислар жамоасимиз ва хизматларимизнинг сифати доимо юқори даражада.',
+	},
+	{
+		label: 'Colors',
+
+		content:
+			'Choose a primary and a neutral color from your Tailwind CSS theme.',
+	},
+	{
+		label: 'Components',
+
+		content:
+			'You can customize components by using the `class` / `ui` props or in your app.config.ts.',
+	},
+])
+//> functions
 </script>
 <template>
 	<main class="">
@@ -186,7 +275,11 @@ getEmployees()
 				</div>
 				<div class="mt-4 relative">
 					<swiper-container ref="categoryCardsRef" :init="true" class="">
-						<swiper-slide v-for="(slide, idx) in categories" :key="idx" data-aos="fade-up">
+						<swiper-slide
+							v-for="(slide, idx) in categories"
+							:key="idx"
+							data-aos="fade-up"
+						>
 							<CategoryCard :category="slide" />
 						</swiper-slide>
 					</swiper-container>
@@ -221,7 +314,7 @@ getEmployees()
 						:to="localePath(`/sections/${section.id}`)"
 						class="flex items-center gap-2 text-text hover:text-main transition-colors group"
 					>
-						{{ $t('all') }}
+						Barchasi
 						<UIcon
 							name="uil:arrow-right"
 							class="font-medium text-2xl text-text group-hover:text-main transition-colors"
@@ -244,6 +337,23 @@ getEmployees()
 			</div>
 		</section>
 		<!-- sections -->
+
+		<!-- loop text -->
+		<section class="fixed h-auto bottom-4 left-0 w-[100vw] z-10">
+			<UiScrollVelocity
+				:texts="[
+					'Beton plita * Temir-beton ustunlar * FBS bloklar * Temir-beton novlar * Rigellar * ',
+				]"
+				:velocity="20"
+				:damping="20"
+				:stiffness="400"
+				:velocity-mapping="{ input: [0, 1000], output: [0, 5] }"
+				class-name="custom-scroll-text"
+				parallax-class-name="custom-parallax"
+				scroller-class-name="custom-scroller"
+			/>
+		</section>
+		<!-- loop text -->
 
 		<!-- advantages -->
 		<section class="pb-12">
@@ -296,73 +406,71 @@ getEmployees()
 		<!-- video -->
 
 		<!-- employees -->
-		<!-- <section class="pb-12">
-			<div class="container">
-				<div class="flex items-center justify-between">
-					<h2 class="text-2xl font-semibold">{{ $t("our_employees") }}</h2>
-				</div>
-				<div
-					class="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
-				>
-					<div
-						v-for="item in employees"
-						:key="item.id"
-						class="border border-border rounded-md p-4"
-					>
-						<div class="flex items-center justify-center">
-							<img
-								:src="item.file_url"
-								:alt="item.firstname"
-								class="w-full h-full rounded-2xl border border-border object-cover aspect-square max-w-40"
-							/>
-						</div>
-						<div class="mt-4 text-center">
-							<h4 class="text-text text-xl font-semibold">
-								{{ item.firstname }}
-							</h4>
-							<p class="mt-4 text-subtext text-sm">{{ item.position }}</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section> -->
 		<section class="pb-12">
-			<div class="container">
+			<div class="container relative">
 				<div class="flex items-center justify-between">
 					<h2 class="text-2xl font-semibold">{{ $t('our_employees') }}</h2>
-				</div>
-				<div
-					class="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
-				>
-					<div
-						v-for="item in 5"
-						:key="item"
-						class="rounded-md p-4"
+					<NuxtLink
+						:to="localePath(`/employees`)"
+						class="flex items-center gap-2 text-text hover:text-main transition-colors group"
 					>
-						<div class="flex items-center justify-center">
-							<!-- :src="item.file_url"
-							:alt="item.firstname" -->
-
-							<img
-								src="~/assets/images/webp/1.webp"
-								class="w-full h-full rounded-2xl object-cover aspect-square max-w-60"
-							/>
-						</div>
-						<div class="mt-4 text-center">
-							<h4 class="text-text text-xl font-semibold">
-								<!-- {{ item.firstname }} -->
-								Шерхон
-							</h4>
-							<p class="mt-4 text-subtext text-sm">
-								<!-- {{ item.position }} -->
-								Сотув менежери
-							</p>
-						</div>
-					</div>
+						Barchasi
+						<UIcon
+							name="uil:arrow-right"
+							class="font-medium text-2xl text-text group-hover:text-main transition-colors"
+						/>
+					</NuxtLink>
 				</div>
+				<swiper-container ref="employeeCardsRef" :init="true" class="">
+					<swiper-slide
+						v-for="(slide, idx) in 5"
+						:key="idx"
+						data-aos="fade-up"
+						:data-aos-delay="idx * 100"
+						data-aos-offset="300"
+					>
+						<EmployeeCard />
+					</swiper-slide>
+				</swiper-container>
+				<button
+					class="absolute top-1/2 -translate-y-1/2 -left-5 w-12 h-12 rounded-full bg-white shadow-md hidden md:flex items-center justify-center p-2 z-10"
+					@click="employeeCardsSwiper.prev()"
+				>
+					<UIcon name="tabler:chevron-left" class="text-2xl" />
+				</button>
+				<button
+					class="absolute top-1/2 -translate-y-1/2 -right-5 w-12 h-12 rounded-full bg-white shadow-md hidden md:flex items-center justify-center p-2 z-10"
+					@click="employeeCardsSwiper.next()"
+				>
+					<UIcon name="tabler:chevron-right" class="text-2xl" />
+				</button>
 			</div>
 		</section>
 		<!-- employees -->
+
+		<!-- partners -->
+		<section class="pb-12">
+			<div class="container relative">
+				<div class="flex items-center justify-between mb-4">
+					<h2 class="text-2xl font-semibold">Kimlar bizga ishonadi ?</h2>
+				</div>
+				<client-only>
+					<swiper-container ref="partnersRef" :init="false" class="">
+						<swiper-slide
+							v-for="(slide, idx) in 9"
+							:key="idx"
+							data-aos="fade-up"
+							data-aos-offset="200"
+						>
+							<div>
+								<img src="~/assets/images/png/1.png" alt="Dream house" />
+							</div>
+						</swiper-slide>
+					</swiper-container>
+				</client-only>
+			</div>
+		</section>
+		<!-- partners -->
 
 		<!-- map -->
 		<section class="pb-12">
@@ -382,6 +490,67 @@ getEmployees()
 				</div>
 			</div>
 			<!-- map -->
+		</section>
+		<!-- map -->
+
+		<!-- faq -->
+		<section class="pb-12">
+			<div class="container">
+				<div class="flex items-center justify-between">
+					<h2 class="text-2xl font-semibold">Ko'p beriladigan savollar</h2>
+				</div>
+				<div class="mt-2">
+					<UAccordion
+						trailing-icon="i-lucide-plus"
+						:items="items"
+						:ui="{
+							label: 'text-lg font-semibold',
+							body: 'text-md pl-3',
+							trailingIcon: 'text-2xl font-semibold',
+						}"
+					/>
+				</div>
+			</div>
+		</section>
+		<!-- faq -->
+
+		<section class="pb-12">
+			<div class="container">
+				<div class="flex flex-col items-center">
+					<div
+						class="text-center text-xl md:text-2xl lg:text-3xl text-main font-semibold"
+					>
+						Eng yaxshi mahsulotlar siz uchun!
+					</div>
+					<div class="mt-4">
+						<a
+							target="_blank"
+							href="/katalog_uz.pdf"
+							class="group inline-block border-2 border-main text-main font-medium text-lg overflow-hidden h-16 rounded-lg"
+						>
+							<div
+								class="transition-all duration-500 group-hover:-translate-y-16"
+							>
+								<!-- Primary -->
+								<div
+									class="flex items-center justify-center px-8 h-16 bg-main text-white transition-all duration-500 gap-2"
+								>
+									<UIcon name="material-symbols:cloud-outline" class="text-2xl text-white" />
+									<!-- <span class="mr-1 fa fa-cloud"></span> -->
+									Katalogni yuklab olish
+								</div>
+
+								<!-- Secondary -->
+								<div class="flex items-center justify-center gap-2 px-8 h-16">
+									<UIcon name="icon-park-outline:hard-disk" class="text-2xl text-main" />
+									<!-- <span class="mr-1 fa fa-hdd-o"></span> -->
+									Size: 52 kb
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
+			</div>
 		</section>
 	</main>
 </template>

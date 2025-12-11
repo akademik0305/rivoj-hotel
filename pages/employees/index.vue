@@ -6,7 +6,7 @@
 // //> utils
 // const { locale } = useI18n();
 // const token = useToken();
-const localePath = useLocalePath();
+// const localePath = useLocalePath();
 
 //===============================-< get employees >-===============================
 //> variables
@@ -26,13 +26,13 @@ const localePath = useLocalePath();
 
 //===============================-< order create status >-===============================
 //> variables
-const isOpenOrder = ref(false);
-const activeId = ref<number | undefined>(undefined);
-//> functions
-const openOrder = (id: number) => {
-	activeId.value = id;
-	isOpenOrder.value = true;
-};
+// const isOpenOrder = ref(false);
+// const activeId = ref<number | undefined>(undefined);
+// //> functions
+// const openOrder = (id: number) => {
+// 	activeId.value = id;
+// 	isOpenOrder.value = true;
+// };
 
 // const closeOrder = () => {
 // 	activeId.value = undefined;
@@ -67,7 +67,7 @@ const openOrder = (id: number) => {
 			<div class="container">
 				<div class="flex items-center justify-between">
 					<h2 class="text-xl md:text-2xl lg:text-3xl font-semibold">
-						Bizning xodimlar
+						Bizning jamoa
 					</h2>
 				</div>
 

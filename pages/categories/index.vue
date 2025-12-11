@@ -8,8 +8,8 @@ const { locale } = useI18n()
 const categories = ref()
 //> functions
 async function getCategories() {
-	console.log(urls.getCategories());
-	
+	console.log(urls.getCategories())
+
 	const res = await Service.get(urls.getCategories(), locale.value, null)
 	categories.value = res.data
 }
@@ -32,8 +32,16 @@ getCategories()
 
 		<section class="mt-8">
 			<div class="container">
-				<div class="mt-6 grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-					<CategoryCard v-for="category in categories" :key="category.id" :category="category" />
+				<ProductLoadingScreen v-if="!categories?.length" />
+				<div
+					v-else
+					class="mt-6 grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-5"
+				>
+					<CategoryCard
+						v-for="category in categories"
+						:key="category.id"
+						:category="category"
+					/>
 				</div>
 			</div>
 		</section>
