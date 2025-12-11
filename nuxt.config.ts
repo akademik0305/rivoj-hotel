@@ -2,76 +2,75 @@
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineNuxtConfig({
-				compatibilityDate: "2024-11-01",
-				devtools: { enabled: true },
-				colorMode: {
-								preference: "light",
+	compatibilityDate: "2024-11-01",
+	devtools: { enabled: true },
+	colorMode: {
+		preference: "light",
+	},
+
+	ssr: false,
+
+	app: {
+		head: {
+			link: [
+				{
+					rel: "icon",
+					type: "image/png",
+					href: "./icon.png",
 				},
+			],
+		},
+	},
 
-				ssr: false,
+	runtimeConfig: {
+		public: {
+			// apiBaseUrl: process.env.API_BASE_URL,
+		},
+	},
 
-				app: {
-								head: {
-												link: [
-																{
-																				rel: "icon",
-																				type: "image/png",
-																				href: "./icon.png",
-																},
-												],
-								},
-				},
+	modules: [
+		"@nuxt/eslint",
+		"@nuxt/fonts",
+		"@nuxt/icon",
+		"@nuxt/image",
+		"@nuxt/test-utils",
+		"@nuxt/ui",
+		"nuxt-swiper",
+		"@nuxtjs/i18n",
+		"@pinia/nuxt",
+		"pinia-plugin-persistedstate/nuxt",
+	],
 
-				runtimeConfig: {
-								public: {
-												// apiBaseUrl: process.env.API_BASE_URL,
-								},
-				},
+	icon: {
+		serverBundle: {
+			collections: ["hugeicons"], // <!--- this
+		},
+	},
 
-				modules: [
-				 "@nuxt/eslint",
-				 "@nuxt/fonts",
-				 "@nuxt/icon",
-				 "@nuxt/image",
-				 "@nuxt/test-utils",
-				 "@nuxt/ui",
-				 "nuxt-swiper",
-				 "@nuxtjs/i18n",
-				 "@pinia/nuxt",
-				 "pinia-plugin-persistedstate/nuxt",
-				 "nuxt-aos",
-				],
+	vite: {
+		plugins: [tailwindcss()],
+	},
+	css: ["~/assets/css/main.css"],
 
-				icon: {
-								serverBundle: {
-												collections: ["hugeicons"], // <!--- this
-								},
-				},
-
-				vite: {
-								plugins: [tailwindcss()],
-				},
-				css: ["~/assets/css/main.css"],
-
-				i18n: {
-								defaultLocale: "uz",
-								langDir: "./locales/",
-								locales: [
-												{
-																code: "uz",
-																name: "uz",
-																file: "uz.json",
-												},
-												// {
-												// 	code: "ru",
-												// 	name: "ru",
-												// 	file: "ru.json",
-												// },
-												// {
-												// 	code: "en",
-												// 	name: "en",
-												// 	file: "en.json",
-												// },
-								],
-				},
+	i18n: {
+		defaultLocale: "uz",
+		langDir: "./locales/",
+		locales: [
+			{
+				code: "uz",
+				name: "uz",
+				file: "uz.json",
+			},
+			// {
+			// 	code: "ru",
+			// 	name: "ru",
+			// 	file: "ru.json",
+			// },
+			// {
+			// 	code: "en",
+			// 	name: "en",
+			// 	file: "en.json",
+			// },
+		],
+	},
 });
