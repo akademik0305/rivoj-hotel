@@ -83,7 +83,7 @@ const categoryCardsSwiper = useSwiper(categoryCardsRef, {
 		},
 	},
 	autoplay: {
-		delay: 2000,
+		// delay: 2000,
 	},
 })
 //> functions
@@ -236,11 +236,11 @@ const items = ref<AccordionItem[]>([
 			<div class="container">
 				<ClientOnly>
 					<div class="relative">
-						<swiper-container ref="bannersRef" :init="true">
+						<swiper-container ref="bannersRef" :init="false">
 							<swiper-slide v-for="(slide, idx) in banners?.data" :key="idx">
 								<!-- :href="slide.url" -->
 								<!-- target="_blank" -->
-								<div class="block h-auto md:h-[550px]">
+								<div class="block h-auto md:h-[400px] lg:h-[550px]">
 									<img
 										class="w-full h-full object-cover rounded-xl overflow-hidden"
 										:src="slide.file_url"
@@ -274,10 +274,10 @@ const items = ref<AccordionItem[]>([
 					<h2 class="text-2xl font-semibold">{{ $t('popular_categories') }}</h2>
 				</div>
 				<div class="mt-4 relative">
-					<swiper-container ref="categoryCardsRef" :init="true" class="">
+					<swiper-container ref="categoryCardsRef" :init="false" class="">
 						<swiper-slide
 							v-for="(slide, idx) in categories"
-							:key="idx"
+							:key="slide.id || idx"
 							data-aos="fade-up"
 						>
 							<CategoryCard :category="slide" />
@@ -285,20 +285,19 @@ const items = ref<AccordionItem[]>([
 					</swiper-container>
 					<button
 						class="absolute top-1/2 -translate-y-1/2 -left-5 w-12 h-12 rounded-full bg-white shadow-md hidden md:flex items-center justify-center p-2 z-10"
-						@click="categoryCardsSwiper.prev()"
+						@click="categoryCardsSwiper?.prev()"
 					>
 						<UIcon name="tabler:chevron-left" class="text-2xl" />
 					</button>
 					<button
 						class="absolute top-1/2 -translate-y-1/2 -right-5 w-12 h-12 rounded-full bg-white shadow-md hidden md:flex items-center justify-center p-2 z-10"
-						@click="categoryCardsSwiper.next()"
+						@click="categoryCardsSwiper?.next()"
 					>
 						<UIcon name="tabler:chevron-right" class="text-2xl" />
 					</button>
 				</div>
 			</div>
 		</section>
-		<!-- categories cards -->
 
 		<!-- sections -->
 		<section
@@ -322,7 +321,7 @@ const items = ref<AccordionItem[]>([
 					</NuxtLink>
 				</div>
 				<div
-					class="mt-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-5"
+					class="mt-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-3 md:gap-5"
 				>
 					<ProductCard
 						v-for="(product, index) in section.products"
@@ -339,7 +338,7 @@ const items = ref<AccordionItem[]>([
 		<!-- sections -->
 
 		<!-- loop text -->
-		<section class="fixed h-auto bottom-4 left-0 w-[100vw] z-10">
+		<section class="pb-12">
 			<UiScrollVelocity
 				:texts="[
 					'Beton plita * Temir-beton ustunlar * FBS bloklar * Temir-beton novlar * Rigellar * ',
@@ -358,27 +357,91 @@ const items = ref<AccordionItem[]>([
 		<!-- advantages -->
 		<section class="pb-12">
 			<div class="container">
-				<div class="flex items-center justify-between">
-					<h2 class="text-2xl font-semibold">{{ $t('our_advantages') }}</h2>
+				<div class="flex items-center justify-between mb-8">
+					<h2 class="text-2xl md:text-3xl font-bold text-text">
+						{{ $t('our_advantages') }}
+					</h2>
 				</div>
-				<div class="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 					<div
-						v-for="item in advantages"
+						v-for="(item, index) in advantages"
 						:key="item.id"
-						class="border border-border rounded-md p-6"
+						class="group relative transition-all duration-500 hover:scale-[1.02]"
+						data-aos="fade-up"
+						:data-aos-delay="index * 100"
 					>
-						<div class="flex items-center justify-center">
-							<!-- :src="item.file_url" -->
-							<img
-								src="~/assets/images/svg/star_quality.svg"
-								:alt="item.title"
-								class="w-full h-full rounded-full border border-border object-cover aspect-square max-w-32"
+						<!-- Card Inner -->
+						<div
+							class="relative overflow-hidden rounded-3xl border-2 border-transparent bg-gradient-to-br from-gray-50 via-white to-gray-50 group-hover:border-main/30 transition-all duration-500 p-8 h-full flex flex-col"
+						>
+							<!-- Icon Container -->
+							<div class="relative mb-6">
+								<!-- Background Decoration -->
+								<div
+									class="absolute inset-0 bg-gradient-to-br from-main/10 to-main/5 rounded-full blur-2xl transform scale-75 group-hover:scale-100 transition-transform duration-500"
+								/>
+
+								<!-- Icon Wrapper -->
+								<div class="relative w-24 h-24 mx-auto">
+									<div
+										class="absolute inset-0 bg-gradient-to-br from-main/20 to-main/10 rounded-full group-hover:rotate-180 transition-transform duration-700"
+									/>
+									<div
+										class="absolute inset-2 bg-white rounded-full flex items-center justify-center shadow-lg group-hover:shadow-xl transition-shadow duration-500"
+									>
+										<img
+											src="~/assets/images/svg/star_quality.svg"
+											:alt="item.title"
+											class="w-14 h-14 object-contain group-hover:scale-110 transition-transform duration-500"
+										/>
+									</div>
+								</div>
+							</div>
+
+							<!-- Content -->
+							<div class="text-center flex-1 flex flex-col">
+								<!-- Top Accent Line -->
+								<div
+									class="w-16 h-1 bg-gradient-to-r from-transparent via-main to-transparent mx-auto mb-4 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"
+								/>
+
+								<!-- Title -->
+								<h4
+									class="text-text text-lg md:text-xl font-bold mb-3 group-hover:text-main transition-colors duration-300"
+								>
+									{{ item.title }}
+								</h4>
+
+								<!-- Description -->
+								<p
+									class="text-subtext text-sm md:text-base leading-relaxed flex-1"
+								>
+									{{ item.description }}
+								</p>
+
+								<!-- Bottom Decoration -->
+								<div
+									class="mt-6 flex items-center justify-center gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+								>
+									<div class="w-2 h-2 rounded-full bg-main/30" />
+									<div class="w-2 h-2 rounded-full bg-main/50" />
+									<div class="w-2 h-2 rounded-full bg-main" />
+									<div class="w-2 h-2 rounded-full bg-main/50" />
+									<div class="w-2 h-2 rounded-full bg-main/30" />
+								</div>
+							</div>
+
+							<!-- Corner Decoration -->
+							<div
+								class="absolute bottom-0 right-0 w-24 h-24 bg-gradient-to-tl from-main/5 to-transparent rounded-tl-full transform translate-x-12 translate-y-12 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform duration-500"
 							/>
 						</div>
-						<div class="mt-4 text-center">
-							<h4 class="text-text text-xl">{{ item.title }}</h4>
-							<p class="mt-4 text-subtext text-sm">{{ item.description }}</p>
-						</div>
+
+						<!-- Outer Glow Effect -->
+						<div
+							class="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none shadow-[0_0_30px_rgba(59,130,246,0.2)]"
+						/>
 					</div>
 				</div>
 			</div>
@@ -485,7 +548,7 @@ const items = ref<AccordionItem[]>([
 						style="border: 0"
 						loading="lazy"
 						referrerpolicy="no-referrer-when-downgrade"
-						class="h-[50vh] w-full rounded-md overflow-hidden border border-border"
+						class="h-[30vh] md:h-[50vh] w-full rounded-md overflow-hidden border border-border"
 					/>
 				</div>
 			</div>
@@ -535,14 +598,20 @@ const items = ref<AccordionItem[]>([
 								<div
 									class="flex items-center justify-center px-8 h-16 bg-main text-white transition-all duration-500 gap-2"
 								>
-									<UIcon name="material-symbols:cloud-outline" class="text-2xl text-white" />
+									<UIcon
+										name="material-symbols:cloud-outline"
+										class="text-2xl text-white"
+									/>
 									<!-- <span class="mr-1 fa fa-cloud"></span> -->
 									Katalogni yuklab olish
 								</div>
 
 								<!-- Secondary -->
 								<div class="flex items-center justify-center gap-2 px-8 h-16">
-									<UIcon name="icon-park-outline:hard-disk" class="text-2xl text-main" />
+									<UIcon
+										name="icon-park-outline:hard-disk"
+										class="text-2xl text-main"
+									/>
 									<!-- <span class="mr-1 fa fa-hdd-o"></span> -->
 									Size: 52 kb
 								</div>
