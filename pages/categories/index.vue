@@ -32,9 +32,9 @@ getCategories()
 
 		<section class="mt-8">
 			<div class="container">
-				<ProductLoadingScreen v-if="!categories?.length" />
+				<!-- <ProductLoadingScreen v-if="!categories?.length" /> -->
+				<!-- v-else -->
 				<div
-					v-else
 					class="mt-6 grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-5"
 				>
 					<CategoryCard
