@@ -131,17 +131,21 @@ export type TSections = {
 
 // section product
 export type TSectionProduct = {
-	created_at: string;
-	id: number;
-	name: string;
-	price: number;
-	product_id: number;
-	section_id: number;
-	status: number;
+	id: number,
+	name: string,
+	price: number,
+	discount: number,
+	file_url: string,
+	status: boolean,
+	new_price: number,
 };
 
 export type TSectionProducts = {
-	data: TSectionProduct[];
+	data: {
+		section_id: number,
+		section_name: string,
+		products: TSectionProduct[]
+	};
 	pagination: TMeta;
 };
 

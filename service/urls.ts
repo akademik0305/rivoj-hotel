@@ -5,10 +5,13 @@ export default {
 	},
 	// sections
 	getSections() {
-		return `/sections/all`;
+		return `/sections/public`;
+	},
+
+	getSectionProducts(section_id:number) {
+		return `/section_products?section_id=${section_id}`
 	},
 	
-
 	// categories
 	getCategories() {
 		return `/categories/all`;
@@ -53,7 +56,7 @@ export default {
 
 	// advantages
 	getAdvantages() {
-		return `/advantages/all`;
+		return `/advantages`;
 	},
 	// advantages
 	getEmployees() {

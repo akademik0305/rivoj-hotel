@@ -1,4 +1,4 @@
-import type { TProduct } from "~/types/api.types";
+import type { TProduct, TSectionProduct } from "~/types/api.types";
 import type { TCart, TCartProduct } from "~/types/cart.types";
 
 export const useCartStore = defineStore(
@@ -42,7 +42,7 @@ export const useCartStore = defineStore(
 		}
 
 		// add to cart
-		function addToCart(product: TProduct) {
+		function addToCart(product: TProduct | TSectionProduct) {
 			cart.value.push({
 				quantity: 1,
 				product_id: product.id,

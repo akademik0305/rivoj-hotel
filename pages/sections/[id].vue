@@ -2,57 +2,57 @@
 //===============================-< imports >-===============================
 import Service from "~/service/Service";
 import urls from "~/service/urls";
-import type { TSection } from "~/types/api.types";
+import type { TSectionProducts } from "~/types/api.types";
 const { locale } = useI18n();
 const route = useRoute();
 const token = useToken();
 //===============================-< get section >-===============================
 //> variables
-const section = ref<TSection>();
+const section = ref<TSectionProducts>();
 const current_page = ref(1);
 //> functions
-async function getSection() {
+async function getSectionProducts() {
 	section.value = await Service.get(
-		urls.getOneSection(Number(route.params.id)),
+		urls.getSectionProducts(Number(route.params.id)),
 		locale.value,
 		token.value
 	);
 }
 
-getSection();
+getSectionProducts();
 
 //===============================-< change page >-===============================
 //> variables
 //> functions
 function changePage(page: number) {
 	current_page.value = page;
-	getSection();
+	getSectionProducts();
 }
 </script>
 <template>
 	<main class="py-6">
 		<nav v-if="section">
 			<div class="container">
-				<h2 class="text-2xl font-semibold">{{ section?.name }}</h2>
+				<h2 class="text-2xl font-semibold">{{ section.data?.section_name }}</h2>
 				<BaseBreadcump
 					:links="[
 						{ label: $t('home_page'), url: '/' },
-						{ label: section?.name },
+						{ label: section.data?.section_name },
 					]"
 				/>
 			</div>
 		</nav>
 		<section class="mt-8">
 			<div class="container">
-				<div v-if="section?.products.length">
+				<div v-if="section?.data.products.length">
 					<div
 						class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-5"
 					>
 						<ProductCard
-							v-for="product in section.products"
+							v-for="product in section.data.products"
 							:key="product.id"
 							:product="product"
-							@success-wishlist="getSection"
+							@success-wishlist="getSectionProducts"
 						/>
 					</div>
 					<!-- <div class="mt-5">

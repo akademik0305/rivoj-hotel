@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 //===============================-< imports >-===============================
 // types
-import type { TProduct } from '~/types/api.types'
+import type { TProduct, TSectionProduct } from '~/types/api.types'
 
 //> utils
 import { useCartStore } from '~/store/cart.store'
@@ -15,7 +15,7 @@ const store = useStore()
 // props
 const props = defineProps({
 	product: {
-		type: Object as PropType<TProduct>,
+		type: Object as PropType<TProduct | TSectionProduct>,
 		required: true,
 	},
 })

@@ -391,7 +391,7 @@ const items = ref<AccordionItem[]>([
 										class="absolute inset-2 bg-white rounded-full flex items-center justify-center shadow-lg group-hover:shadow-xl transition-shadow duration-500"
 									>
 										<img
-											src="~/assets/images/svg/star_quality.svg"
+											:src="item.file_url"
 											:alt="item.title"
 											class="w-14 h-14 object-contain group-hover:scale-110 transition-transform duration-500"
 										/>
