@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 //===============================-< imports >-===============================
 // types
-import type { AccordionItem } from '@nuxt/ui'
+// import type { AccordionItem } from '@nuxt/ui'
 // import type { TRestaurant, TRestaurantsData } from '~/types/api.types'
 // // service
 import { useI18n } from 'vue-i18n'
@@ -10,7 +10,9 @@ import urls from '~/service/urls'
 import type {
 	TAdvantage,
 	TBanners,
-	TEmployee,
+	TEmployees,
+	TFaqs,
+	TPartners,
 	TSections,
 } from '~/types/api.types'
 
@@ -133,7 +135,7 @@ getAdvantages()
 
 //===============================-< get employees >-===============================
 //> variables
-const employees = ref<TEmployee[]>()
+const employees = ref<TEmployees>()
 //> functions
 async function getEmployees() {
 	employees.value = await Service.get(urls.getEmployees(), locale.value, null)
@@ -173,6 +175,15 @@ const employeeCardsSwiper = useSwiper(employeeCardsRef, {
 	},
 })
 
+//===============================-< get partners >-===============================
+//> variables
+const partners = ref<TPartners>()
+//> functions
+async function getPartners() {
+	partners.value = await Service.get(urls.getPartners(), locale.value, null)
+}
+
+getPartners()
 //===============================-< partners swiper >-===============================
 //> variables
 const partnersRef = ref(null)
@@ -207,27 +218,13 @@ const partnersSwiper = useSwiper(partnersRef, {
 
 //===============================-< faqs >-===============================
 //> variables
-
-const items = ref<AccordionItem[]>([
-	{
-		label: 'Юқори сифат ва профессионаллик',
-		content:
-			'Биз ўз соҳамизда тажрибали мутахассислар жамоасимиз ва хизматларимизнинг сифати доимо юқори даражада.',
-	},
-	{
-		label: 'Colors',
-
-		content:
-			'Choose a primary and a neutral color from your Tailwind CSS theme.',
-	},
-	{
-		label: 'Components',
-
-		content:
-			'You can customize components by using the `class` / `ui` props or in your app.config.ts.',
-	},
-])
+const faqs = ref<TFaqs>()
 //> functions
+async function getFaqs() {
+	faqs.value = await Service.get(urls.getFaqs(), locale.value, null)
+}
+
+getFaqs()
 </script>
 <template>
 	<main class="">
@@ -486,13 +483,13 @@ const items = ref<AccordionItem[]>([
 				</div>
 				<swiper-container ref="employeeCardsRef" :init="true" class="">
 					<swiper-slide
-						v-for="(slide, idx) in 5"
+						v-for="(employee, idx) in employees?.data"
 						:key="idx"
 						data-aos="fade-up"
 						:data-aos-delay="idx * 100"
 						data-aos-offset="300"
 					>
-						<EmployeeCard />
+						<EmployeeCard :employee="employee" />
 					</swiper-slide>
 				</swiper-container>
 				<button
@@ -520,13 +517,17 @@ const items = ref<AccordionItem[]>([
 				<client-only>
 					<swiper-container ref="partnersRef" :init="false" class="">
 						<swiper-slide
-							v-for="(slide, idx) in 9"
+							v-for="(partner, idx) in partners?.data"
 							:key="idx"
 							data-aos="fade-up"
 							data-aos-offset="200"
 						>
-							<div>
-								<img src="~/assets/images/png/1.png" alt="Dream house" />
+							<div class="w-40 h-28">
+								<img
+									:src="partner.file_url"
+									:alt="partner.name"
+									class="w-full h-full object-contain mix-blend-multiply"
+								/>
 							</div>
 						</swiper-slide>
 					</swiper-container>
@@ -534,27 +535,6 @@ const items = ref<AccordionItem[]>([
 			</div>
 		</section>
 		<!-- partners -->
-
-		<!-- map -->
-		<section class="pb-12">
-			<div class="container">
-				<div class="flex items-center justify-between">
-					<h2 class="text-2xl font-semibold">{{ $t('our_address') }}</h2>
-				</div>
-				<div class="mt-4 relative overflow-hidden w-full">
-					<iframe
-						title="map"
-						src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3048.5802910718353!2d71.73227842644344!3d40.173897570382415!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38bb85c2ffd46eb7%3A0x583fcb9692d47240!2zIlJpdm9qLTk4IiDQl9CQ0JLQntCUINCW0JHQmA!5e0!3m2!1sru!2s!4v1756269338634!5m2!1sru!2s"
-						style="border: 0"
-						loading="lazy"
-						referrerpolicy="no-referrer-when-downgrade"
-						class="h-[30vh] md:h-[50vh] w-full rounded-md overflow-hidden border border-border"
-					/>
-				</div>
-			</div>
-			<!-- map -->
-		</section>
-		<!-- map -->
 
 		<!-- faq -->
 		<section class="pb-12">
@@ -565,7 +545,7 @@ const items = ref<AccordionItem[]>([
 				<div class="mt-2">
 					<UAccordion
 						trailing-icon="i-lucide-plus"
-						:items="items"
+						:items="faqs?.data"
 						:ui="{
 							label: 'text-lg font-semibold',
 							body: 'text-md pl-3',
@@ -621,6 +601,27 @@ const items = ref<AccordionItem[]>([
 				</div>
 			</div>
 		</section>
+
+		<!-- map -->
+		<section class="pb-12">
+			<div class="container">
+				<div class="flex items-center justify-between">
+					<h2 class="text-2xl font-semibold">{{ $t('our_address') }}</h2>
+				</div>
+				<div class="mt-4 relative overflow-hidden w-full">
+					<iframe
+						title="map"
+						src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3048.5802910718353!2d71.73227842644344!3d40.173897570382415!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38bb85c2ffd46eb7%3A0x583fcb9692d47240!2zIlJpdm9qLTk4IiDQl9CQ0JLQntCUINCW0JHQmA!5e0!3m2!1sru!2s!4v1756269338634!5m2!1sru!2s"
+						style="border: 0"
+						loading="lazy"
+						referrerpolicy="no-referrer-when-downgrade"
+						class="h-[30vh] md:h-[50vh] w-full rounded-md overflow-hidden border border-border"
+					/>
+				</div>
+			</div>
+			<!-- map -->
+		</section>
+		<!-- map -->
 	</main>
 </template>
 

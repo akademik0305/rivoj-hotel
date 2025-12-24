@@ -8,10 +8,10 @@ export default {
 		return `/sections/public`;
 	},
 
-	getSectionProducts(section_id:number) {
+	getSectionProducts(section_id: number) {
 		return `/section_products?section_id=${section_id}`
 	},
-	
+
 	// categories
 	getCategories() {
 		return `/categories/all`;
@@ -20,10 +20,14 @@ export default {
 	getOneCategory(id: number) {
 		return `/categories/${id}`;
 	},
-	
+
 	// products
 	getProducts() {
 		return `/products/all`;
+	},
+	// products
+	getOneProduct(id: number) {
+		return `/products/${id}`;
 	},
 
 
@@ -37,9 +41,9 @@ export default {
 		return `contacts`;
 	},
 
-	sendContact(){
+	sendContact() {
 		return `contacts`
-	},	
+	},
 
 	// orders
 	orderDelivery() {
@@ -58,8 +62,23 @@ export default {
 	getAdvantages() {
 		return `/advantages`;
 	},
-	// advantages
+	// employees
 	getEmployees() {
-		return `/employees/all`;
+		return `/employees`;
+	},
+	// partners
+	getPartners() {
+		return `/partners`;
+	},
+	// faqs
+	getFaqs() {
+		return `/faqs`
+	},
+	// create order
+	createOrder() {
+		return `/orders`
+	},
+	sendMessage() {
+		return `/messages`
 	},
 };

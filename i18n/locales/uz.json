@@ -76,5 +76,9 @@
   "our_address": "Bizni manzilimiz",
   "our_advantages": "Bizning afzalliklarimiz",
   "work_video": "Ish jarayonidan lavhalar",
-  "our_employees": "Bizning jamoa"
+  "our_employees": "Bizning jamoa",
+  "view_details": "Batafsil",
+  "empty_data": "Malumot yo'q",
+  "loading": "Yuklanmoqda",
+  "search_by_name_phone": "Qidirish"
 }

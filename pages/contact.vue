@@ -33,7 +33,7 @@ const schema = z.object({
 	phone: z
 		.string({ required_error: t('enter_phone') })
 		.min(17, t('wrong_number')),
-	message: z.string().optional()
+	message: z.string().optional(),
 })
 
 type Schema = z.output<typeof schema>
@@ -46,35 +46,35 @@ const state = reactive<Partial<Schema>>({
 
 //> fuctions
 interface IData {
-	full_name: string | undefined
+	name: string | undefined
 	phone: string | undefined
-	team_id?: number
-	service_id?: number
+	message: string
 }
 
 const form = useTemplateRef('form')
 async function onSubmit() {
 	const data: IData = {
-		full_name: state.name,
+		name: state.name,
 		phone: state.phone?.replace(/[\s-]+/g, ''),
+		message: state.message || '',
 	}
 
 	const res = await Service.post(
-		urls.sendContact(),
+		urls.sendMessage(),
 		locale.value,
 		data,
 		token.value
 	)
-	if (res.status === 200) {
+	if (res.success) {
 		toast.add({
-			title: t('success_send'),
+			title: 'Xabaringiz yuborildi',
 			color: 'success',
 		})
 		state.name = ''
 		state.phone = '+998'
 	} else {
 		toast.add({
-			title: t('error_send'),
+			title: "Xatolik yuz berdi qayta urinib ko'ring",
 			color: 'error',
 		})
 	}
@@ -129,8 +129,8 @@ async function onSubmit() {
 							{{ $t('contact') }}
 						</h2>
 						<p class="leading-relaxed mb-5 text-subtext text-sm md:text-base">
-							Ushbu formadan foydalanib bizga xabaringizni jo'nating. Biz siz bilan
-							tez orada bog'lanamiz.
+							Ushbu formadan foydalanib bizga xabaringizni jo'nating. Biz siz
+							bilan tez orada bog'lanamiz.
 						</p>
 
 						<UForm
@@ -166,7 +166,6 @@ async function onSubmit() {
 									size="lg"
 								/>
 							</UFormField>
-
 
 							<div>
 								<BaseButton text="Yuborish" is-full />

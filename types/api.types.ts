@@ -70,37 +70,6 @@ export type TSearch = {
 
 export type TWishlist = TProduct[];
 
-export type TOrderProduct = {
-	id: number;
-	product_id: number;
-	productName: string;
-	count: string;
-	total_sum: string;
-	totalSumFormat: string;
-	product_price: string;
-	productPriceFormat: string;
-};
-
-export type TOrderItem = {
-	id: number;
-	dateFormat: string;
-	delivery_type: number;
-	deliveryTypeName: string;
-	phone: string;
-	delivery_sum: string | null;
-	deliverySumFormat: string;
-	total_sum: string;
-	totalSumFormat: string;
-	status: number;
-	statusName: string;
-	orderItems: TOrderProduct[];
-};
-
-export type TOrder = {
-	items: TOrderItem[];
-	_meta: TMeta;
-};
-
 export type TPaymentItem = {
 	id: number;
 	payment_type_id: number;
@@ -157,12 +126,57 @@ export type TAdvantage = {
 	created_at: string;
 	file_url: string;
 };
+
 // employees
 export type TEmployee = {
 	id: number;
-	firstname: string;
-	username: string;
-	phone: string;
-	file_url: string;
+	name: string;
 	position: string;
+	status: number
+	file_url: string;
 };
+
+export type TEmployees = {
+	data: TEmployee[],
+	pagination: TMeta
+}
+
+// partners
+export type TPartner = {
+	id: number;
+	name: string;
+	status: number
+	file_url: string;
+};
+
+export type TPartners = {
+	data: TPartner[],
+	pagination: TMeta
+}
+
+// faq
+export type TFaq = {
+	id: number;
+	label: string;
+	content: string;
+	status: number;
+	created_at?: number;
+}
+
+export type TFaqs = {
+	data: TFaq[];
+	pagination: TMeta;
+}
+
+// orders
+export type TOrderProduct = {
+	product_id: number,
+	quantity: number
+}
+
+export type TOrder = {
+	customer_name: string,
+	customer_phone: string,
+	notes?: string,
+	items: TOrderProduct[]
+}

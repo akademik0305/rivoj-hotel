@@ -1,39 +1,40 @@
 <script lang="ts" setup>
 //===============================-< imports >-===============================
-import * as z from "zod";
-import type { TabsItem } from "@nuxt/ui";
+import * as z from 'zod'
+import type { TabsItem } from '@nuxt/ui'
 // import type { FormSubmitEvent } from '@nuxt/ui'
 // utils
-import Service from "~/service/Service";
-import urls from "~/service/urls";
-import { useCartStore } from "~/store/cart.store";
-const { locale, t } = useI18n();
-const toast = useToast();
-const token = useToken();
-const cartStore = useCartStore();
+import Service from '~/service/Service'
+import urls from '~/service/urls'
+import { useCartStore } from '~/store/cart.store'
+import type { TOrder } from '~/types/api.types'
+const { locale, t } = useI18n()
+const toast = useToast()
+const token = useToken()
+const cartStore = useCartStore()
 
 // emits
-const emits = defineEmits(["success"]);
+const emits = defineEmits(['success'])
 
 //===============================-< order type >-===============================
 //> variables
 
-const orderTypes = ref<TabsItem[]>([]);
+const orderTypes = ref<TabsItem[]>([])
 
 const setOrderTypes = () => {
 	orderTypes.value = [
 		{
 			label: t('take_self'),
 			// icon: 'i-lucide-user',
-			value: "false",
+			value: 'false',
 		},
 		{
 			label: t('delivery'),
-			value: "true",
+			value: 'true',
 			// icon: 'i-lucide-lock',
 		},
-	];
-};
+	]
+}
 
 setOrderTypes()
 
@@ -45,57 +46,52 @@ watch(locale, () => {
 //> variables
 const schema = z
 	.object({
-		name: z.string({required_error: "Ismingnizni kiriting"}),
+		name: z.string({ required_error: 'Ismingnizni kiriting' }),
 		phone: z
-			.string({ required_error: t("enter_phone") })
-			.min(17, t("wrong_number")),
+			.string({ required_error: t('enter_phone') })
+			.min(17, t('wrong_number')),
 		requireAddress: z.string(),
 		address: z.string().optional(),
 	})
 	.refine(
-		(data) => {
-			if (data.requireAddress === "true") {
-				return data.address && data.address.length > 0;
+		data => {
+			if (data.requireAddress === 'true') {
+				return data.address && data.address.length > 0
 			}
-			return true;
+			return true
 		},
 		{
-			message: t("enter_address"),
-			path: ["address"],
+			message: t('enter_address'),
+			path: ['address'],
 		}
-	);
+	)
 
-type Schema = z.output<typeof schema>;
+type Schema = z.output<typeof schema>
 
 const state = reactive<Partial<Schema>>({
-	name: "",
-	phone: "+998",
-	address: "",
-	requireAddress: "false",
-});
+	name: '',
+	phone: '+998',
+	address: '',
+	requireAddress: 'false',
+})
 
 // function event: FormSubmitEvent<Schema>
-const isSuccessOrder = ref(false);
+const isSuccessOrder = ref(false)
 async function onSubmit() {
-	const unMaskedPhone = state.phone?.replace(/\D/g, "") || "";
+	const unMaskedPhone = state.phone?.replace(/\D/g, '') || ''
 
-	const data: {
-		name: string;
-		phone: string;
-		products: { product_id: number; count: number }[];
-		address?: string;
-	} = {
-		name: state.name,
-		phone: unMaskedPhone,
-		products: [],
-	};
+	const data: TOrder = {
+		customer_name: state.name || '',
+		customer_phone: unMaskedPhone,
+		items: [],
+	}
 
-	cartStore.cart.forEach((product) => {
-		data.products.push({
+	cartStore.cart.forEach(product => {
+		data.items.push({
 			product_id: product.product_id,
-			count: product.quantity,
-		});
-	});
+			quantity: product.quantity,
+		})
+	})
 
 	// let url = urls.orderPickup();
 	// if (state.requireAddress === "true") {
@@ -103,23 +99,28 @@ async function onSubmit() {
 	// 	data.address = state.address;
 	// }
 
-	const res = await Service.post(urls.addCustomer(), locale.value, data, token.value);
+	const res = await Service.post(
+		urls.createOrder(),
+		locale.value,
+		data,
+		token.value
+	)
 
 	if (res.success) {
-		isSuccessOrder.value = true;
-		cartStore.cart = [];
+		isSuccessOrder.value = true
+		cartStore.cart = []
 		toast.add({
-			title: "Buyurtma muvaffaqqiyatli saqlandi",
-			color: "error",
-		});
+			title: 'Buyurtma muvaffaqqiyatli saqlandi',
+			color: 'success',
+		})
 		setTimeout(() => {
-			emits("success");
-		}, 2000);
+			emits('success')
+		}, 2000)
 	} else {
 		toast.add({
 			title: res.message,
-			color: "error",
-		});
+			color: 'error',
+		})
 	}
 }
 </script>
@@ -140,11 +141,7 @@ async function onSubmit() {
 				@submit="onSubmit"
 			>
 				<UFormField name="Ism" :label="$t('firstname')" class="">
-					<UInput
-						v-model="state.name"
-						class="w-full"
-						size="xl"
-					/>
+					<UInput v-model="state.name" class="w-full" size="xl" />
 				</UFormField>
 				<UFormField name="phone" :label="$t('phone')" class="">
 					<UInput
@@ -167,14 +164,14 @@ async function onSubmit() {
 						type="submit"
 						class="flex items-center justify-center gap-2 bg-main border border-bg rounded-xl py-2.5 px-10 cursor-pointer group hover:bg-bg hover:border-main hover:text-text transition-colors text-white w-full"
 					>
-						{{ $t("continue") }}
+						{{ $t('continue') }}
 					</button>
 				</div>
 			</UForm>
 		</div>
 		<div v-else>
 			<p class="text-center text-text">
-				{{ $t("order_success_message") }}
+				{{ $t('order_success_message') }}
 			</p>
 		</div>
 	</div>
