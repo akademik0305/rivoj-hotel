@@ -5,7 +5,6 @@ import { useAuthStore } from './store/auth.store'
 useSeoMeta({
 	title: 'Rivoj-98',
 	ogImage: '/icon.png',
-
 })
 
 //===============================-< imports >-===============================

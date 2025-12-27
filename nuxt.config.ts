@@ -9,6 +9,9 @@ export default defineNuxtConfig({
 	},
 
 	ssr: false,
+	nitro: {
+		preset: 'static' // yoki prerender: true
+	},
 
 	app: {
 		head: {

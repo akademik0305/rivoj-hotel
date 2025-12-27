@@ -20,8 +20,27 @@ import type {
 const { locale } = useI18n()
 const token = useToken()
 const localePath = useLocalePath()
+const route = useRoute()
 // const router = useRouter()
 // const localePath = useLocalePath()
+
+// Meta tag start
+const title = 'Asosiy sahifa | Rivoj-98'
+const description =
+	"Sizning reproduktiv salomatligingiz uchun barcha kerakli ma'lumot va xizmatlarni taqdim etamiz.Homiladorlik haftalari, kalkulyator, va homiladorlikka oid maqolalar bilan tanishing."
+useSeoMeta({
+	title,
+	description,
+	ogTitle: title,
+	ogDescription: description,
+	ogImage: '/images/webp/main-page.webp',
+	twitterImage: '/images/webp/main-page.webp',
+	twitterCard: 'summary_large_image',
+})
+useHead({
+	link: [{ rel: 'canonical', href: `https://rivoj98shop.uz${route.fullPath}` }],
+})
+// Meta tag end
 
 //===============================-< categories >-===============================
 // //> variables
@@ -40,13 +59,11 @@ async function getBanners() {
 	banners.value = await Service.get(urls.getBanners(), locale.value, null)
 }
 
-getBanners()
-
 //===============================-< banners swiper >-===============================
 //> variables
 const bannersRef = ref(null)
 const bannersSwiper = useSwiper(bannersRef, {
-	// loop: true,
+	loop: true,
 	spaceBetween: 20,
 	autoplay: {
 		delay: 3000,
@@ -100,8 +117,6 @@ async function getCategories() {
 	categories.value = res.data
 }
 
-getCategories()
-
 //===============================-< get sections >-===============================
 //> variables
 const sections = ref<TSections>()
@@ -114,11 +129,6 @@ async function getSections() {
 	)
 }
 
-getSections()
-// refetch sections
-function refetchSections() {
-	getSections()
-}
 //> functions
 
 //===============================-< get advantages >-===============================
@@ -131,8 +141,6 @@ async function getAdvantages() {
 	advantages.value = res.data
 }
 
-getAdvantages()
-
 //===============================-< get employees >-===============================
 //> variables
 const employees = ref<TEmployees>()
@@ -140,8 +148,6 @@ const employees = ref<TEmployees>()
 async function getEmployees() {
 	employees.value = await Service.get(urls.getEmployees(), locale.value, null)
 }
-
-getEmployees()
 
 //===============================-< employees swiper >-===============================
 //> variables
@@ -171,7 +177,7 @@ const employeeCardsSwiper = useSwiper(employeeCardsRef, {
 		},
 	},
 	autoplay: {
-		delay: 1000,
+		delay: 2000,
 	},
 })
 
@@ -183,7 +189,6 @@ async function getPartners() {
 	partners.value = await Service.get(urls.getPartners(), locale.value, null)
 }
 
-getPartners()
 //===============================-< partners swiper >-===============================
 //> variables
 const partnersRef = ref(null)
@@ -224,7 +229,23 @@ async function getFaqs() {
 	faqs.value = await Service.get(urls.getFaqs(), locale.value, null)
 }
 
-getFaqs()
+// get data
+const isBannerReady = ref(false)
+async function loadDataSequentially() {
+	isBannerReady.value = false
+	await getBanners()
+	isBannerReady.value = true
+	await getCategories()
+	await getSections()
+	await getAdvantages()
+	await getEmployees()
+	await getPartners()
+	await getFaqs()
+}
+
+onMounted(() => {
+	loadDataSequentially()
+})
 </script>
 <template>
 	<main class="">
@@ -232,12 +253,12 @@ getFaqs()
 		<section class="mt-3 pb-12">
 			<div class="container">
 				<ClientOnly>
-					<div class="relative">
-						<swiper-container ref="bannersRef" :init="false">
+					<div v-show="isBannerReady" class="relative">
+						<swiper-container ref="bannersRef" :init="true">
 							<swiper-slide v-for="(slide, idx) in banners?.data" :key="idx">
 								<!-- :href="slide.url" -->
 								<!-- target="_blank" -->
-								<div class="block h-auto md:h-[400px] lg:h-[550px]">
+								<div class="block h-[280px] md:h-[400px] lg:h-[600px]">
 									<img
 										class="w-full h-full object-cover rounded-xl overflow-hidden"
 										:src="slide.file_url"
@@ -247,18 +268,24 @@ getFaqs()
 							</swiper-slide>
 						</swiper-container>
 						<button
+							v-if="bannersSwiper"
 							class="absolute top-1/2 -translate-y-1/2 -left-5 w-12 h-12 rounded-full bg-white shadow-md hidden md:flex items-center justify-center p-2 z-10"
 							@click="bannersSwiper.prev()"
 						>
 							<UIcon name="tabler:chevron-left" class="text-2xl" />
 						</button>
 						<button
+							v-if="bannersSwiper"
 							class="absolute top-1/2 -translate-y-1/2 -right-5 w-12 h-12 rounded-full bg-white shadow-md hidden md:flex items-center justify-center p-2 z-10"
 							@click="bannersSwiper.next()"
 						>
 							<UIcon name="tabler:chevron-right" class="text-2xl" />
 						</button>
 					</div>
+					<div
+						v-show="!isBannerReady"
+						class="h-[400px] lg:h-[550px] bg-gray-200 rounded-xl animate-pulse"
+					/>
 				</ClientOnly>
 			</div>
 		</section>
@@ -327,7 +354,6 @@ getFaqs()
 						data-aos="flip-left"
 						data-aos-duration="500"
 						:data-aos-delay="index * 100"
-						@success-wishlist="refetchSections"
 					/>
 				</div>
 			</div>
@@ -481,7 +507,7 @@ getFaqs()
 						/>
 					</NuxtLink>
 				</div>
-				<swiper-container ref="employeeCardsRef" :init="true" class="">
+				<swiper-container ref="employeeCardsRef" :init="false" class="">
 					<swiper-slide
 						v-for="(employee, idx) in employees?.data"
 						:key="idx"
@@ -492,7 +518,7 @@ getFaqs()
 						<EmployeeCard :employee="employee" />
 					</swiper-slide>
 				</swiper-container>
-				<button
+				<!-- <button
 					class="absolute top-1/2 -translate-y-1/2 -left-5 w-12 h-12 rounded-full bg-white shadow-md hidden md:flex items-center justify-center p-2 z-10"
 					@click="employeeCardsSwiper.prev()"
 				>
@@ -503,7 +529,7 @@ getFaqs()
 					@click="employeeCardsSwiper.next()"
 				>
 					<UIcon name="tabler:chevron-right" class="text-2xl" />
-				</button>
+				</button> -->
 			</div>
 		</section>
 		<!-- employees -->
