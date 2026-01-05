@@ -17,8 +17,8 @@ export default {
 		return `/categories/all`;
 	},
 
-	getOneCategory(id: number) {
-		return `/categories/${id}`;
+	getOneCategory(id: number, searchQuery: string,) {
+		return `/categories/${id}?search=${searchQuery}`;
 	},
 
 	// products

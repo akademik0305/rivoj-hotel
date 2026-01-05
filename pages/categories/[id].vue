@@ -1,39 +1,87 @@
 <script lang="ts" setup>
 //===============================-< imports >-===============================
-import Service from "~/service/Service";
-import urls from "~/service/urls";
-import type { TCategory } from "~/types/api.types";
-const { locale } = useI18n();
-const route = useRoute();
-const token = useToken();
+import Service from '~/service/Service'
+import urls from '~/service/urls'
+import { useI18n } from 'vue-i18n'
+
+const { locale } = useI18n()
+const route = useRoute()
+const token = useToken()
 //===============================-< get category >-===============================
 //> variables
-const category = ref();
-const current_page = ref(1);
+const searchValue = ref('')
+const category = ref()
+const current_page = ref(1)
 //> functions
 async function getCategory() {
-	category.value = await Service.get<TCategory>(
-		urls.getOneCategory(Number(route.params.id)),
+	category.value = await Service.get(
+		urls.getOneCategory(Number(route.params.id), searchValue.value),
 		locale.value,
 		token.value
-	);
+	)
 }
 
-getCategory();
+getCategory()
+
+//===============================-< handle search >-===============================
+//> variables
+const isFinishedSearch = ref(false)
+// Asl qidiruv funksiyamiz
+async function handleSearch(value: string) {
+	searchValue.value = value
+	getCategory()
+	isFinishedSearch.value = true
+}
+
+// Debounce qilingan versiyasi
+const debouncedSearch = useDebounce(handleSearch, 500)
+
+//===============================-< handle change value >-===============================
+//> variables
+//> functions
+function handleChangeValue(input: HTMLInputElement) {
+	debouncedSearch(input.value)
+	isFinishedSearch.value = false
+}
 
 //===============================-< change page >-===============================
 //> variables
 //> functions
 function changePage(page: number) {
-	current_page.value = page;
-	getCategory();
+	current_page.value = page
+	getCategory()
 }
+// disable ssr
+// definePageMeta({
+// 	ssr: false,
+// })
+
+// 🔥 DYNAMIC SEO
+useHead(() => {
+	if (!category.value) return {}
+
+	return {
+		title: `${category.value?.name} | Rivoj98`,
+		meta: [
+			{
+				name: 'description',
+				content: `Rivoj98 tomonidan ishlab chiqariladigan sifatli ${category.value?.name} mahsulotlari`,
+			},
+		],
+	}
+})
+
+useSeoMeta({
+	title: 'Rivoj-98',
+	ogImage: '/icon.png',
+})
+
 </script>
 <template>
 	<main v-if="category" class="py-6">
 		<nav>
 			<div class="container">
-				<h2 class="text-2xl font-semibold">{{ category?.name }}</h2>
+				<h1 class="text-2xl font-semibold">{{ category?.name }}</h1>
 				<BaseBreadcump
 					:links="[
 						{ label: $t('home_page'), url: '/' },
@@ -41,6 +89,12 @@ function changePage(page: number) {
 						{ label: category?.name },
 					]"
 				/>
+				<div class="mt-4">
+					<BaseSearch
+						placeholder="Qidirish"
+						@change-value="handleChangeValue"
+					/>
+				</div>
 			</div>
 		</nav>
 		<section class="mt-8">
@@ -75,7 +129,7 @@ function changePage(page: number) {
 						/>
 					</div>
 					<p class="font-meduim text-base text-gray-4">
-						{{ $t("empty_data_product") }}
+						{{ $t('empty_data_product') }}
 					</p>
 				</div>
 			</div>

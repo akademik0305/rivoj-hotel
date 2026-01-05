@@ -17,6 +17,11 @@ const openSubmitOrder = () => {
 const closeSubmitOrder = () => {
 	isOpenSubmitOrder.value = false;
 };
+
+useSeoMeta({
+	title: 'Rivoj-98',
+	ogImage: '/icon.png',
+})
 </script>
 
 <template>

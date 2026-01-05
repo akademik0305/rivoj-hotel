@@ -12,7 +12,7 @@ const emit = defineEmits(['change-value'])
 <template>
 	<label
 		for="search"
-		class="flex items-center gap-4 bg-bg-soft py-3 px-4 rounded-xl border border-border transition-colors has-focus:border-main"
+		class="flex items-center gap-4 bg-bg-soft py-2 px-3 rounded-xl border border-border transition-colors has-focus:border-main"
 	>
 		<!-- // -->
 		<UIcon name="i-lucide-search" class="text-xl" />

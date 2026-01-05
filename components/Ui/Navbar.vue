@@ -176,6 +176,9 @@ onUnmounted(() => {
 						</a>
 
 						<!-- Cart -->
+
+						<ClientOnly>
+
 						<NuxtLink
 							:to="localePath('/cart')"
 							class="relative flex items-center justify-center gap-2 w-auto py-1.5 px-2 cursor-pointer hover:border-main transition-colors group"
@@ -211,6 +214,7 @@ onUnmounted(() => {
 								:class="isMenuOpen ? '-rotate-45 -translate-y-2' : ''"
 							/>
 						</button>
+						</ClientOnly>
 					</div>
 				</div>
 			</div>

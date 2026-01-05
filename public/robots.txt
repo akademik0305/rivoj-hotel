@@ -1,1 +1,11 @@
+User-agent: *
+Allow: /
 
+# Asosiy sahifalar
+Allow: /
+Allow: /categories/
+Allow: /products/
+Allow: /about
+Allow: /contact
+
+Sitemap: https://rivoj98shop.uz/__sitemap__/uz.xml

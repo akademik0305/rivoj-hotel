@@ -9,7 +9,7 @@ const token = useToken();
 //===============================-< get section >-===============================
 //> variables
 const section = ref<TSectionProducts>();
-const current_page = ref(1);
+// const current_page = ref(1);
 //> functions
 async function getSectionProducts() {
 	section.value = await Service.get(
@@ -24,10 +24,14 @@ getSectionProducts();
 //===============================-< change page >-===============================
 //> variables
 //> functions
-function changePage(page: number) {
-	current_page.value = page;
-	getSectionProducts();
-}
+// function changePage(page: number) {
+// 	current_page.value = page;
+// 	getSectionProducts();
+// }
+useSeoMeta({
+	title: 'Rivoj-98',
+	ogImage: '/icon.png',
+})
 </script>
 <template>
 	<main class="py-6">

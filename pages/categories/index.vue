@@ -8,13 +8,29 @@ const { locale } = useI18n()
 const categories = ref()
 //> functions
 async function getCategories() {
-	console.log(urls.getCategories())
-
 	const res = await Service.get(urls.getCategories(), locale.value, null)
 	categories.value = res.data
 }
 
 getCategories()
+
+// seo
+useHead({
+  title:
+    'Beton plita, stalbar, opora, fundament va blok | Rivoj98',
+  meta: [
+    {
+      name: 'description',
+      content:
+        'Rivoj98 qurilish materiallari: beton plita, stalbar, opora, fundament va blok.'
+    }
+  ]
+})
+
+useSeoMeta({
+	title: 'Rivoj-98',
+	ogImage: '/icon.png',
+})
 </script>
 <template>
 	<main class="py-6">

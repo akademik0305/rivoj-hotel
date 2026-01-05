@@ -79,6 +79,25 @@ async function onSubmit() {
 		})
 	}
 }
+
+useSeoMeta({
+	title: 'Rivoj-98',
+	ogImage: '/icon.png',
+})
+
+useHead({
+  script: [
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "ContactPage",
+        "name": "Biz bilan bog'laning - Rivoj-98",
+        "description": "Rivoj-98 bilan bog'lanish ma'lumotlari"
+      })
+    }
+  ]
+})
 </script>
 <template>
 	<main class="py-6 lg:py-10">

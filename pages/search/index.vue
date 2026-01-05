@@ -43,6 +43,11 @@ function changePage(page: number) {
 	current_page.value = page
 	handleSearch(searchValue.value)
 }
+
+useSeoMeta({
+	title: 'Rivoj-98',
+	ogImage: '/icon.png',
+})
 </script>
 <template>
 	<main>

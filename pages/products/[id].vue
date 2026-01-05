@@ -17,14 +17,61 @@ const localePath = useLocalePath()
 const product = ref<TProduct>()
 //> functions
 async function getProduct() {
-	product.value = await Service.get(
+	const res = await Service.get(
 		urls.getOneProduct(Number(route.params.id)),
 		locale.value,
 		token.value
 	)
+
+	product.value = res.data
 }
 
 getProduct()
+// 🔥 DYNAMIC SEO
+useHead(() => {
+  if (!product.value) return {}
+
+  return {
+    title: `${product.value.name} | ${product.value.category_name} | Rivoj98`,
+    meta: [
+      {
+        name: 'description',
+        content: `${product.value.name} — Rivoj98 tomonidan ishlab chiqariladigan sifatli ${product.value.category_name.toLowerCase()}.`
+      }
+    ]
+  }
+})
+
+useSeoMeta({
+	title: 'Rivoj-98',
+	ogImage: '/icon.png',
+})
+
+// Product Schema
+useHead({
+  script: [
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": product.value?.name,
+        "description": product.value?.description,
+        "image": product.value?.file_url,
+        "brand": {
+          "@type": "Brand",
+          "name": "Rivoj-98"
+        },
+        "offers": {
+          "@type": "Offer",
+          "priceCurrency": "UZS",
+          "price": product.value?.price,
+          "availability": "https://schema.org/InStock"
+        }
+      })
+    }
+  ]
+})
 </script>
 <template>
 	<main
@@ -34,16 +81,18 @@ getProduct()
 		<!-- Header -->
 		<nav class="mb-8">
 			<div class="container">
-				<h2 class="text-3xl md:text-4xl font-bold text-text mb-4">
+				<h1 class="text-3xl md:text-4xl font-bold text-text mb-4">
 					{{ product?.name }}
-				</h2>
-				<BaseBreadcump
-					:links="[
-						{ label: $t('home_page'), url: '/' },
-						{ label: product.category_name, url: '/categories' },
-						{ label: product?.name },
-					]"
-				/>
+				</h1>
+				<ClientOnly>
+					<BaseBreadcump
+						:links="[
+							{ label: $t('home_page'), url: '/' },
+							{ label: product.category_name, url: '/categories' },
+							{ label: product?.name },
+						]"
+					/>
+				</ClientOnly>
 			</div>
 		</nav>
 
@@ -112,7 +161,7 @@ getProduct()
 							</h4>
 							<div
 								class="prose prose-sm max-w-none text-subtext"
-								v-html="product?.details.description"
+								v-html="product?.details?.description"
 							/>
 						</div>
 
@@ -143,42 +192,44 @@ getProduct()
 
 						<!-- Action Buttons -->
 						<div class="space-y-3">
-							<div
-								v-if="cartStore.checkIsExist(product.id)"
-								class="flex items-center justify-between gap-3 flex-wrap"
-							>
-								<NuxtLink
-									:to="localePath('/cart')"
-									class="flex-1 min-w-[200px] flex items-center justify-center gap-2 bg-main text-white rounded-xl py-4 px-6 cursor-pointer hover:shadow-lg hover:shadow-main/30 transition-all duration-300 hover:scale-105 font-semibold group"
+							<ClientOnly>
+								<div
+									v-if="cartStore.checkIsExist(product.id)"
+									class="flex items-center justify-between gap-3 flex-wrap"
+								>
+									<NuxtLink
+										:to="localePath('/cart')"
+										class="flex-1 min-w-[200px] flex items-center justify-center gap-2 bg-main text-white rounded-xl py-4 px-6 cursor-pointer hover:shadow-lg hover:shadow-main/30 transition-all duration-300 hover:scale-105 font-semibold group"
+									>
+										<UIcon
+											name="i-lucide-shopping-cart"
+											class="text-2xl group-hover:rotate-12 transition-transform"
+										/>
+										<span>Savatga o'tish</span>
+									</NuxtLink>
+									<button
+										class="flex-1 min-w-[200px] flex items-center justify-center py-4 px-6 gap-2 rounded-xl border-2 border-red-500 text-red-500 cursor-pointer hover:bg-red-500 hover:text-white group transition-all duration-300 hover:scale-105 font-semibold"
+										@click="cartStore.removeFromCart(product.id)"
+									>
+										<UIcon
+											name="i-lucide-trash-2"
+											class="text-2xl group-hover:rotate-12 transition-transform"
+										/>
+										<span>{{ $t('delete') }}</span>
+									</button>
+								</div>
+								<button
+									v-else
+									class="w-full flex items-center justify-center gap-3 bg-gradient-to-r from-main to-main/80 text-white rounded-xl py-4 px-6 cursor-pointer hover:shadow-lg hover:shadow-main/30 transition-all duration-300 hover:scale-105 active:scale-95 font-semibold text-lg group"
+									@click="cartStore.addToCart(product)"
 								>
 									<UIcon
 										name="i-lucide-shopping-cart"
 										class="text-2xl group-hover:rotate-12 transition-transform"
 									/>
-									<span>Savatga o'tish</span>
-								</NuxtLink>
-								<button
-									class="flex-1 min-w-[200px] flex items-center justify-center py-4 px-6 gap-2 rounded-xl border-2 border-red-500 text-red-500 cursor-pointer hover:bg-red-500 hover:text-white group transition-all duration-300 hover:scale-105 font-semibold"
-									@click="cartStore.removeFromCart(product.id)"
-								>
-									<UIcon
-										name="i-lucide-trash-2"
-										class="text-2xl group-hover:rotate-12 transition-transform"
-									/>
-									<span>{{ $t('delete') }}</span>
+									<span>{{ $t('add_to_cart') }}</span>
 								</button>
-							</div>
-							<button
-								v-else
-								class="w-full flex items-center justify-center gap-3 bg-gradient-to-r from-main to-main/80 text-white rounded-xl py-4 px-6 cursor-pointer hover:shadow-lg hover:shadow-main/30 transition-all duration-300 hover:scale-105 active:scale-95 font-semibold text-lg group"
-								@click="cartStore.addToCart(product)"
-							>
-								<UIcon
-									name="i-lucide-shopping-cart"
-									class="text-2xl group-hover:rotate-12 transition-transform"
-								/>
-								<span>{{ $t('add_to_cart') }}</span>
-							</button>
+							</ClientOnly>
 						</div>
 					</div>
 				</div>
@@ -186,7 +237,7 @@ getProduct()
 		</section>
 
 		<!-- Product Specifications -->
-		<section class="mt-12">
+		<section v-if="product.details" class="mt-12">
 			<div class="container">
 				<div
 					class="bg-navbar-bg border border-border rounded-2xl p-6 md:p-8 shadow-lg"
@@ -219,7 +270,7 @@ getProduct()
 								<div class="flex-1">
 									<p class="text-sm text-subtext mb-1">Mahsulot markasi</p>
 									<p class="font-semibold text-lg text-text">
-										{{ product?.details.product_brand || '-' }}
+										{{ product?.details?.product_brand || '-' }}
 									</p>
 								</div>
 							</div>
@@ -238,7 +289,7 @@ getProduct()
 								<div class="flex-1">
 									<p class="text-sm text-subtext mb-1">Uzunligi</p>
 									<p class="font-semibold text-lg text-text">
-										{{ product?.details.length || '-' }}
+										{{ product?.details?.length || '-' }}
 									</p>
 								</div>
 							</div>
@@ -260,7 +311,7 @@ getProduct()
 								<div class="flex-1">
 									<p class="text-sm text-subtext mb-1">Eni</p>
 									<p class="font-semibold text-lg text-text">
-										{{ product?.details.width || '-' }}
+										{{ product?.details?.width || '-' }}
 									</p>
 								</div>
 							</div>

@@ -32,6 +32,7 @@ const discountedPrice = computed(() => {
 	}
 	return props.product.price
 })
+
 </script>
 
 <template>

@@ -45,6 +45,11 @@
 // 	about.value = await Service.get(urls.getAbout(), locale.value, token.value)
 // }
 // getAbout()
+
+useSeoMeta({
+	title: 'Rivoj-98',
+	ogImage: '/icon.png',
+})
 </script>
 <template>
 	<main class="wrapper">

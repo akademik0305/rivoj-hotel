@@ -3,6 +3,7 @@
 import Service from '~/service/Service'
 import urls from '~/service/urls'
 import type { TEmployees } from '~/types/api.types'
+import { useI18n } from 'vue-i18n'
 //> utils
 const { locale } = useI18n()
 const token = useToken()
@@ -43,6 +44,10 @@ getEmployees()
 // async function submitOrder() {
 // 	closeOrder();
 // }
+useSeoMeta({
+	title: 'Rivoj-98',
+	ogImage: '/icon.png',
+})
 </script>
 <template>
 	<main class="wrapper">

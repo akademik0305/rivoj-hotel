@@ -1,4 +1,18 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+// Bu barcha sahifalarda bo'ladi
+useHead({
+  script: [
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Rivoj-98",
+      })
+    }
+  ]
+})
+</script>
 <template>
 	<div class="wrapper flex flex-col min-h-screen">
 		<UiNavbar />

@@ -25,22 +25,57 @@ const route = useRoute()
 // const localePath = useLocalePath()
 
 // Meta tag start
-const title = 'Asosiy sahifa | Rivoj-98'
-const description =
-	"Sizning reproduktiv salomatligingiz uchun barcha kerakli ma'lumot va xizmatlarni taqdim etamiz.Homiladorlik haftalari, kalkulyator, va homiladorlikka oid maqolalar bilan tanishing."
+const title = 'Rivoj-98 | Temir Beton Mahsulotlari - Plita, Opora, Blok, Fundament'
+
 useSeoMeta({
 	title,
-	description,
-	ogTitle: title,
-	ogDescription: description,
-	ogImage: '/images/webp/main-page.webp',
-	twitterImage: '/images/webp/main-page.webp',
-	twitterCard: 'summary_large_image',
+	description:
+		"Rivoj-98 zavodidan yuqori sifatli temir beton mahsulotlari: plitalar, oporalar, stalba, fundament bloklari. Respublikamiz bo'lyab ishonchli yetkazib berish.",
+	keywords:
+		'rivoj98, rivoj-98, temir beton, plita, opora, stalba, fundament, blok, beton mahsulotlari',
+	ogTitle: 'Rivoj-98 - Temir Beton Mahsulotlari',
+	ogDescription: 'Yuqori sifatli temir beton mahsulotlari',
+	ogImage: './logo.png',
+	ogUrl: 'https://rivoj98.uz',
 })
 useHead({
 	link: [{ rel: 'canonical', href: `https://rivoj98shop.uz${route.fullPath}` }],
+	title,
+	meta: [
+		{
+			name: 'description',
+			content: 'Temir beton mahsulotlari ishlab chiqarish korxonasi',
+		},
+	],
 })
 // Meta tag end
+
+// Organization Schema - faqat asosiy sahifa uchun
+useHead({
+  script: [
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Rivoj-98",
+        "description": "Temir beton mahsulotlari ishlab chiqaruvchisi",
+        "url": "https://rivoj98.uz",
+        "logo": "https://rivoj98.uz/logo.png",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+998 78 555 98 98",
+          "contactType": "customer service"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "addressCountry": "UZ",
+          "addressLocality": "Fergana"
+        }
+      })
+    }
+  ]
+})
 
 //===============================-< categories >-===============================
 // //> variables
@@ -63,7 +98,7 @@ async function getBanners() {
 //> variables
 const bannersRef = ref(null)
 const bannersSwiper = useSwiper(bannersRef, {
-	loop: true,
+	loop: false,
 	spaceBetween: 20,
 	autoplay: {
 		delay: 3000,
@@ -78,7 +113,7 @@ const bannersSwiper = useSwiper(bannersRef, {
 //> variables
 const categoryCardsRef = ref(null)
 const categoryCardsSwiper = useSwiper(categoryCardsRef, {
-	loop: true,
+	loop: false,
 	spaceBetween: 20,
 	breakpoints: {
 		320: {
@@ -153,7 +188,7 @@ async function getEmployees() {
 //> variables
 const employeeCardsRef = ref(null)
 const employeeCardsSwiper = useSwiper(employeeCardsRef, {
-	loop: true,
+	loop: false,
 	spaceBetween: 20,
 	breakpoints: {
 		320: {
@@ -193,7 +228,7 @@ async function getPartners() {
 //> variables
 const partnersRef = ref(null)
 const partnersSwiper = useSwiper(partnersRef, {
-	loop: true,
+	loop: false,
 	spaceBetween: 20,
 	breakpoints: {
 		320: {
