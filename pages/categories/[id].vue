@@ -7,6 +7,12 @@ import { useI18n } from 'vue-i18n'
 const { locale } = useI18n()
 const route = useRoute()
 const token = useToken()
+
+// disable ssr
+definePageMeta({
+	ssr: false
+})
+
 //===============================-< get category >-===============================
 //> variables
 const searchValue = ref('')

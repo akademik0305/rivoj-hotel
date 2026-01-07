@@ -14,8 +14,21 @@ export default defineNuxtConfig({
 		preset: 'static',
 		prerender: {
 			crawlLinks: true,
-			routes: ['/']
+			routes: [
+				'/',
+				'/categories',
+				'/employees',
+				'/search',
+				'/about',
+				'/cart',
+				'/contact',
+			]
 		}
+	},
+	routeRules: {
+		'/products/**': { prerender: false },
+		'/categories/**': { prerender: false },
+		'/sections/**': { prerender: false },
 	},
 
 	// SEO va meta
@@ -31,8 +44,8 @@ export default defineNuxtConfig({
 			link: [
 				{
 					rel: "icon",
-					type: "image/png",
-					href: "./icon.png",
+					type: 'image/x-icon',
+					href: '/favicon.ico'
 				},
 				{ rel: 'canonical', href: 'https://rivoj98.uz' }
 
@@ -42,11 +55,15 @@ export default defineNuxtConfig({
 				{ name: 'viewport', content: 'width=device-width, initial-scale=1' },
 				{ name: 'author', content: 'Rivoj-98' },
 				{ name: 'robots', content: 'index, follow' },
+				{ name: 'yandex-verification', content: '9eea816606fb6a73' }
 			],
 
 		},
 		baseURL: '/', // yoki '/subfolder/' agar kerak bo'lsa
 		buildAssetsDir: '/_nuxt/',
+		__dangerouslyDisableSanitizersByTagID: {
+			'yandex-metrika': ['innerHTML']
+		}
 	},
 
 	runtimeConfig: {

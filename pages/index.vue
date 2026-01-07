@@ -1,9 +1,5 @@
 <script lang="ts" setup>
 //===============================-< imports >-===============================
-// types
-// import type { AccordionItem } from '@nuxt/ui'
-// import type { TRestaurant, TRestaurantsData } from '~/types/api.types'
-// // service
 import { useI18n } from 'vue-i18n'
 import Service from '~/service/Service'
 import urls from '~/service/urls'
@@ -16,86 +12,135 @@ import type {
 	TSections,
 } from '~/types/api.types'
 
-// //> utils
 const { locale } = useI18n()
 const token = useToken()
 const localePath = useLocalePath()
 const route = useRoute()
-// const router = useRouter()
-// const localePath = useLocalePath()
 
 // Meta tag start
-const title = 'Rivoj-98 | Temir Beton Mahsulotlari - Plita, Opora, Blok, Fundament'
+const title =
+	"Rivoj-98 | Temir Beton Mahsulotlari - Plita, Opora, Blok, Fundament | Farg'ona"
 
 useSeoMeta({
 	title,
 	description:
-		"Rivoj-98 zavodidan yuqori sifatli temir beton mahsulotlari: plitalar, oporalar, stalba, fundament bloklari. Respublikamiz bo'lyab ishonchli yetkazib berish.",
+		"Rivoj-98 - Farg'ona vodiysining yetakchi temir beton zavodi. Yuqori sifatli plitalar, elektr oporalari, stalba, fundament bloklari (FBS). 1998 yildan beri ishonchli hamkor. Respublikamiz bo'ylab yetkazib berish.",
 	keywords:
-		'rivoj98, rivoj-98, temir beton, plita, opora, stalba, fundament, blok, beton mahsulotlari',
-	ogTitle: 'Rivoj-98 - Temir Beton Mahsulotlari',
-	ogDescription: 'Yuqori sifatli temir beton mahsulotlari',
-	ogImage: './logo.png',
-	ogUrl: 'https://rivoj98.uz',
+		"rivoj98, rivoj-98, temir beton, plita, opora, stalba, fundament, blok, FBS, beton mahsulotlari, Farg'ona, temir beton zavod, qurilish materiallari",
+	ogTitle: "Rivoj-98 - Temir Beton Mahsulotlari Zavodi | Farg'ona",
+	ogDescription:
+		'Yuqori sifatli temir beton mahsulotlari ishlab chiqaruvchisi. 25+ yillik tajriba.',
+	ogImage: 'https://rivoj98shop.uz/logo.png',
+	ogUrl: 'https://rivoj98shop.uz',
+	ogType: 'website',
 })
+
 useHead({
 	link: [{ rel: 'canonical', href: `https://rivoj98shop.uz${route.fullPath}` }],
 	title,
 	meta: [
 		{
 			name: 'description',
-			content: 'Temir beton mahsulotlari ishlab chiqarish korxonasi',
+			content: 'Temir beton mahsulotlari ishlab chiqarish korxonasi - Rivoj-98',
+		},
+		{
+			name: 'author',
+			content: 'Rivoj-98',
+		},
+		{
+			name: 'robots',
+			content: 'index, follow',
 		},
 	],
 })
 // Meta tag end
 
-// Organization Schema - faqat asosiy sahifa uchun
+// Organization Schema
 useHead({
-  script: [
-    {
-      type: 'application/ld+json',
-      children: JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "Organization",
-        "name": "Rivoj-98",
-        "description": "Temir beton mahsulotlari ishlab chiqaruvchisi",
-        "url": "https://rivoj98.uz",
-        "logo": "https://rivoj98.uz/logo.png",
-        "contactPoint": {
-          "@type": "ContactPoint",
-          "telephone": "+998 78 555 98 98",
-          "contactType": "customer service"
-        },
-        "address": {
-          "@type": "PostalAddress",
-          "addressCountry": "UZ",
-          "addressLocality": "Fergana"
-        }
-      })
-    }
-  ]
+	script: [
+		{
+			type: 'application/ld+json',
+			children: JSON.stringify({
+				'@context': 'https://schema.org',
+				'@type': 'Organization',
+				name: 'Rivoj-98',
+				alternateName: 'Rivoj 98',
+				description:
+					'Temir beton mahsulotlari ishlab chiqaruvchisi - plitalar, oporalar, stalba, fundament bloklari',
+				url: 'https://rivoj98shop.uz',
+				logo: 'https://rivoj98shop.uz/logo.png',
+				image: 'https://rivoj98shop.uz/logo.png',
+				foundingDate: '1998',
+				slogan: 'Professionallik va sifat',
+				contactPoint: {
+					'@type': 'ContactPoint',
+					telephone: '+998 78 555 98 98',
+					contactType: 'customer service',
+					areaServed: 'UZ',
+					availableLanguage: ['uz', 'ru'],
+				},
+				address: {
+					'@type': 'PostalAddress',
+					addressCountry: 'UZ',
+					addressLocality: "Farg'ona",
+					addressRegion: "Farg'ona viloyati",
+				},
+				areaServed: {
+					'@type': 'Place',
+					name: "O'zbekiston",
+				},
+				sameAs: [
+					'https://www.facebook.com/rivoj98',
+					'https://www.instagram.com/rivoj98',
+					'https://t.me/rivoj98',
+				],
+			}),
+		},
+		{
+			hid: 'yandex-metrika',
+			innerHTML: `
+        (function(m,e,t,r,i,k,a){
+            m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+            m[i].l=1*new Date();
+            for (var j = 0; j < document.scripts.length; j++) {
+              if (document.scripts[j].src === r) { return; }
+            }
+            k=e.createElement(t),a=e.getElementsByTagName(t)[0],
+            k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+        })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=106143568', 'ym');
+
+        ym(106143568, 'init', {
+          ssr: true,
+          webvisor: true,
+          clickmap: true,
+          ecommerce: "dataLayer",
+          accurateTrackBounce: true,
+          trackLinks: true
+        });
+      `,
+			type: 'text/javascript',
+		},
+	],
+	noscript: [
+		{
+			children: `
+        <div>
+          <img src="https://mc.yandex.ru/watch/106143568"
+               style="position:absolute; left:-9999px;"
+               alt="" />
+        </div>
+      `,
+		},
+	],
 })
 
-//===============================-< categories >-===============================
-// //> variables
-// const categoriesRef = ref(null)
-// const categoriesSwiper = useSwiper(categoriesRef, {
-// 	slidesPerView: 6,
-// 	spaceBetween: 20,
-// })
-//> functions
-
 //===============================-< get  banner >-===============================
-//> variables
 const banners = ref<TBanners>()
-//> functions
 async function getBanners() {
 	banners.value = await Service.get(urls.getBanners(), locale.value, null)
 }
 
 //===============================-< banners swiper >-===============================
-//> variables
 const bannersRef = ref(null)
 const bannersSwiper = useSwiper(bannersRef, {
 	loop: false,
@@ -107,10 +152,8 @@ const bannersSwiper = useSwiper(bannersRef, {
 		clickable: true,
 	},
 })
-//> functions
 
 //===============================-< categories >-===============================
-//> variables
 const categoryCardsRef = ref(null)
 const categoryCardsSwiper = useSwiper(categoryCardsRef, {
 	loop: false,
@@ -136,26 +179,17 @@ const categoryCardsSwiper = useSwiper(categoryCardsRef, {
 			slidesPerView: 4,
 		},
 	},
-	autoplay: {
-		// delay: 2000,
-	},
 })
-//> functions
 
 //===============================-< get categories >-===============================
-//> variables
 const categories = ref()
-//> functions
 async function getCategories() {
 	const res = await Service.get(urls.getCategories(), locale.value, null)
-
 	categories.value = res.data
 }
 
 //===============================-< get sections >-===============================
-//> variables
 const sections = ref<TSections>()
-
 async function getSections() {
 	sections.value = await Service.get(
 		urls.getSections(),
@@ -164,28 +198,20 @@ async function getSections() {
 	)
 }
 
-//> functions
-
 //===============================-< get advantages >-===============================
-//> variables
 const advantages = ref<TAdvantage[]>()
-//> functions
 async function getAdvantages() {
 	const res = await Service.get(urls.getAdvantages(), locale.value, null)
-
 	advantages.value = res.data
 }
 
 //===============================-< get employees >-===============================
-//> variables
 const employees = ref<TEmployees>()
-//> functions
 async function getEmployees() {
 	employees.value = await Service.get(urls.getEmployees(), locale.value, null)
 }
 
 //===============================-< employees swiper >-===============================
-//> variables
 const employeeCardsRef = ref(null)
 const employeeCardsSwiper = useSwiper(employeeCardsRef, {
 	loop: false,
@@ -217,15 +243,12 @@ const employeeCardsSwiper = useSwiper(employeeCardsRef, {
 })
 
 //===============================-< get partners >-===============================
-//> variables
 const partners = ref<TPartners>()
-//> functions
 async function getPartners() {
 	partners.value = await Service.get(urls.getPartners(), locale.value, null)
 }
 
 //===============================-< partners swiper >-===============================
-//> variables
 const partnersRef = ref(null)
 const partnersSwiper = useSwiper(partnersRef, {
 	loop: false,
@@ -257,11 +280,32 @@ const partnersSwiper = useSwiper(partnersRef, {
 })
 
 //===============================-< faqs >-===============================
-//> variables
 const faqs = ref<TFaqs>()
-//> functions
 async function getFaqs() {
 	faqs.value = await Service.get(urls.getFaqs(), locale.value, null)
+
+	// FAQ Schema qo'shish
+	if (faqs.value?.data) {
+		useHead({
+			script: [
+				{
+					type: 'application/ld+json',
+					children: JSON.stringify({
+						'@context': 'https://schema.org',
+						'@type': 'FAQPage',
+						mainEntity: faqs.value.data.map((faq: any) => ({
+							'@type': 'Question',
+							name: faq.label || faq.question,
+							acceptedAnswer: {
+								'@type': 'Answer',
+								text: faq.content || faq.answer,
+							},
+						})),
+					}),
+				},
+			],
+		})
+	}
 }
 
 // get data
@@ -282,8 +326,20 @@ onMounted(() => {
 	loadDataSequentially()
 })
 </script>
+
 <template>
 	<main class="">
+		<!-- SEO Intro Text - ko'rinmas lekin Google o'qiydi -->
+		<div class="sr-only">
+			<h1>Rivoj-98 - Temir Beton Mahsulotlari Ishlab Chiqaruvchisi</h1>
+			<p>
+				Rivoj-98 xususiy korxonasi 1998 yildan beri Farg'ona vodiysida yuqori
+				sifatli temir beton mahsulotlari: plitalar, elektr oporalari, stalba,
+				fundament bloklari (FBS) ishlab chiqaradi. Professionallik va sifat -
+				bizning tamoyilimiz.
+			</p>
+		</div>
+
 		<!-- banner -->
 		<section class="mt-3 pb-12">
 			<div class="container">
@@ -291,13 +347,14 @@ onMounted(() => {
 					<div v-show="isBannerReady" class="relative">
 						<swiper-container ref="bannersRef" :init="true">
 							<swiper-slide v-for="(slide, idx) in banners?.data" :key="idx">
-								<!-- :href="slide.url" -->
-								<!-- target="_blank" -->
 								<div class="block h-[280px] md:h-[400px] lg:h-[600px]">
 									<img
 										class="w-full h-full object-cover rounded-xl overflow-hidden"
 										:src="slide.file_url"
-										alt=""
+										:alt="`Rivoj-98 temir beton mahsulotlari - Banner ${
+											idx + 1
+										}`"
+										loading="lazy"
 									/>
 								</div>
 							</swiper-slide>
@@ -306,6 +363,7 @@ onMounted(() => {
 							v-if="bannersSwiper"
 							class="absolute top-1/2 -translate-y-1/2 -left-5 w-12 h-12 rounded-full bg-white shadow-md hidden md:flex items-center justify-center p-2 z-10"
 							@click="bannersSwiper.prev()"
+							aria-label="Oldingi slayd"
 						>
 							<UIcon name="tabler:chevron-left" class="text-2xl" />
 						</button>
@@ -313,6 +371,7 @@ onMounted(() => {
 							v-if="bannersSwiper"
 							class="absolute top-1/2 -translate-y-1/2 -right-5 w-12 h-12 rounded-full bg-white shadow-md hidden md:flex items-center justify-center p-2 z-10"
 							@click="bannersSwiper.next()"
+							aria-label="Keyingi slayd"
 						>
 							<UIcon name="tabler:chevron-right" class="text-2xl" />
 						</button>
@@ -324,13 +383,14 @@ onMounted(() => {
 				</ClientOnly>
 			</div>
 		</section>
-		<!-- banner -->
 
 		<!-- categories cards -->
-		<section class="pb-12">
+		<section class="pb-12" aria-labelledby="popular-categories">
 			<div class="container">
 				<div class="flex items-center justify-between">
-					<h2 class="text-2xl font-semibold">{{ $t('popular_categories') }}</h2>
+					<h2 id="popular-categories" class="text-2xl font-semibold">
+						Mashhur Temir Beton Kategoriyalari
+					</h2>
 				</div>
 				<div class="mt-4 relative">
 					<swiper-container ref="categoryCardsRef" :init="false" class="">
@@ -345,12 +405,14 @@ onMounted(() => {
 					<button
 						class="absolute top-1/2 -translate-y-1/2 -left-5 w-12 h-12 rounded-full bg-white shadow-md hidden md:flex items-center justify-center p-2 z-10"
 						@click="categoryCardsSwiper?.prev()"
+						aria-label="Oldingi kategoriya"
 					>
 						<UIcon name="tabler:chevron-left" class="text-2xl" />
 					</button>
 					<button
 						class="absolute top-1/2 -translate-y-1/2 -right-5 w-12 h-12 rounded-full bg-white shadow-md hidden md:flex items-center justify-center p-2 z-10"
 						@click="categoryCardsSwiper?.next()"
+						aria-label="Keyingi kategoriya"
 					>
 						<UIcon name="tabler:chevron-right" class="text-2xl" />
 					</button>
@@ -364,13 +426,17 @@ onMounted(() => {
 			v-show="section.products.length"
 			:key="section.id"
 			class="pb-12"
+			:aria-labelledby="`section-${section.id}`"
 		>
 			<div class="container">
 				<div class="flex items-center justify-between">
-					<h2 class="text-2xl font-semibold">{{ section.name }}</h2>
+					<h2 :id="`section-${section.id}`" class="text-2xl font-semibold">
+						{{ section.name }}
+					</h2>
 					<NuxtLink
 						:to="localePath(`/sections/${section.id}`)"
 						class="flex items-center gap-2 text-text hover:text-main transition-colors group"
+						:aria-label="`${section.name} bo'limidagi barcha mahsulotlarni ko'rish`"
 					>
 						Barchasi
 						<UIcon
@@ -393,13 +459,12 @@ onMounted(() => {
 				</div>
 			</div>
 		</section>
-		<!-- sections -->
 
 		<!-- loop text -->
-		<section class="pb-12">
+		<section class="pb-12" aria-label="Mahsulotlar ro'yxati">
 			<UiScrollVelocity
 				:texts="[
-					'Beton plita * Temir-beton ustunlar * FBS bloklar * Temir-beton novlar * Rigellar * ',
+					'Beton plita • Temir-beton ustunlar • FBS bloklar • Temir-beton novlar • Rigellar • Elektr oporalari • Stalba • Fundament bloklari • ',
 				]"
 				:velocity="20"
 				:damping="20"
@@ -410,37 +475,35 @@ onMounted(() => {
 				scroller-class-name="custom-scroller"
 			/>
 		</section>
-		<!-- loop text -->
 
 		<!-- advantages -->
-		<section class="pb-12">
+		<section class="pb-12" aria-labelledby="advantages-heading">
 			<div class="container">
 				<div class="flex items-center justify-between mb-8">
-					<h2 class="text-2xl md:text-3xl font-bold text-text">
-						{{ $t('our_advantages') }}
+					<h2
+						id="advantages-heading"
+						class="text-2xl md:text-3xl font-bold text-text"
+					>
+						Rivoj-98 ning Afzalliklari
 					</h2>
 				</div>
 
 				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-					<div
+					<article
 						v-for="(item, index) in advantages"
 						:key="item.id"
 						class="group relative transition-all duration-500 hover:scale-[1.02]"
 						data-aos="fade-up"
 						:data-aos-delay="index * 100"
 					>
-						<!-- Card Inner -->
 						<div
 							class="relative overflow-hidden rounded-3xl border-2 border-transparent bg-gradient-to-br from-gray-50 via-white to-gray-50 group-hover:border-main/30 transition-all duration-500 p-8 h-full flex flex-col"
 						>
-							<!-- Icon Container -->
 							<div class="relative mb-6">
-								<!-- Background Decoration -->
 								<div
 									class="absolute inset-0 bg-gradient-to-br from-main/10 to-main/5 rounded-full blur-2xl transform scale-75 group-hover:scale-100 transition-transform duration-500"
 								/>
 
-								<!-- Icon Wrapper -->
 								<div class="relative w-24 h-24 mx-auto">
 									<div
 										class="absolute inset-0 bg-gradient-to-br from-main/20 to-main/10 rounded-full group-hover:rotate-180 transition-transform duration-700"
@@ -450,35 +513,31 @@ onMounted(() => {
 									>
 										<img
 											:src="item.file_url"
-											:alt="item.title"
+											:alt="`${item.title} - Rivoj-98 afzalligi`"
 											class="w-14 h-14 object-contain group-hover:scale-110 transition-transform duration-500"
+											loading="lazy"
 										/>
 									</div>
 								</div>
 							</div>
 
-							<!-- Content -->
 							<div class="text-center flex-1 flex flex-col">
-								<!-- Top Accent Line -->
 								<div
 									class="w-16 h-1 bg-gradient-to-r from-transparent via-main to-transparent mx-auto mb-4 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"
 								/>
 
-								<!-- Title -->
-								<h4
+								<h3
 									class="text-text text-lg md:text-xl font-bold mb-3 group-hover:text-main transition-colors duration-300"
 								>
 									{{ item.title }}
-								</h4>
+								</h3>
 
-								<!-- Description -->
 								<p
 									class="text-subtext text-sm md:text-base leading-relaxed flex-1"
 								>
 									{{ item.description }}
 								</p>
 
-								<!-- Bottom Decoration -->
 								<div
 									class="mt-6 flex items-center justify-center gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
 								>
@@ -490,32 +549,31 @@ onMounted(() => {
 								</div>
 							</div>
 
-							<!-- Corner Decoration -->
 							<div
 								class="absolute bottom-0 right-0 w-24 h-24 bg-gradient-to-tl from-main/5 to-transparent rounded-tl-full transform translate-x-12 translate-y-12 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform duration-500"
 							/>
 						</div>
 
-						<!-- Outer Glow Effect -->
 						<div
 							class="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none shadow-[0_0_30px_rgba(59,130,246,0.2)]"
 						/>
-					</div>
+					</article>
 				</div>
 			</div>
 		</section>
-		<!-- advantages -->
 
 		<!-- video -->
-		<section class="pb-12">
+		<section class="pb-12" aria-labelledby="video-heading">
 			<div class="container">
 				<div class="flex items-center justify-between">
-					<h2 class="text-2xl font-semibold">{{ $t('work_video') }}</h2>
+					<h2 id="video-heading" class="text-2xl font-semibold">
+						Rivoj-98 Ishlab Chiqarish Jarayoni
+					</h2>
 				</div>
 				<div class="mt-4">
 					<iframe
 						src="https://www.youtube-nocookie.com/embed/jlydPpMKobg?si=t9af2k8fSIEUINkR&rel=0"
-						title="YouTube video player"
+						title="Rivoj-98 temir beton mahsulotlari ishlab chiqarish jarayoni"
 						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
 						referrerpolicy="strict-origin-when-cross-origin"
 						allowfullscreen
@@ -524,16 +582,18 @@ onMounted(() => {
 				</div>
 			</div>
 		</section>
-		<!-- video -->
 
 		<!-- employees -->
-		<section class="pb-12">
+		<section class="pb-12" aria-labelledby="employees-heading">
 			<div class="container relative">
 				<div class="flex items-center justify-between">
-					<h2 class="text-2xl font-semibold">{{ $t('our_employees') }}</h2>
+					<h2 id="employees-heading" class="text-2xl font-semibold">
+						Bizning Professional Jamoamiz
+					</h2>
 					<NuxtLink
 						:to="localePath(`/employees`)"
 						class="flex items-center gap-2 text-text hover:text-main transition-colors group"
+						aria-label="Barcha xodimlarni ko'rish"
 					>
 						Barchasi
 						<UIcon
@@ -553,27 +613,16 @@ onMounted(() => {
 						<EmployeeCard :employee="employee" />
 					</swiper-slide>
 				</swiper-container>
-				<!-- <button
-					class="absolute top-1/2 -translate-y-1/2 -left-5 w-12 h-12 rounded-full bg-white shadow-md hidden md:flex items-center justify-center p-2 z-10"
-					@click="employeeCardsSwiper.prev()"
-				>
-					<UIcon name="tabler:chevron-left" class="text-2xl" />
-				</button>
-				<button
-					class="absolute top-1/2 -translate-y-1/2 -right-5 w-12 h-12 rounded-full bg-white shadow-md hidden md:flex items-center justify-center p-2 z-10"
-					@click="employeeCardsSwiper.next()"
-				>
-					<UIcon name="tabler:chevron-right" class="text-2xl" />
-				</button> -->
 			</div>
 		</section>
-		<!-- employees -->
 
 		<!-- partners -->
-		<section class="pb-12">
+		<section class="pb-12" aria-labelledby="partners-heading">
 			<div class="container relative">
 				<div class="flex items-center justify-between mb-4">
-					<h2 class="text-2xl font-semibold">Kimlar bizga ishonadi ?</h2>
+					<h2 id="partners-heading" class="text-2xl font-semibold">
+						Bizga Ishongan Hamkorlar
+					</h2>
 				</div>
 				<client-only>
 					<swiper-container ref="partnersRef" :init="false" class="">
@@ -586,8 +635,9 @@ onMounted(() => {
 							<div class="w-40 h-28">
 								<img
 									:src="partner.file_url"
-									:alt="partner.name"
+									:alt="`${partner.name} - Rivoj-98 hamkori`"
 									class="w-full h-full object-contain mix-blend-multiply"
+									loading="lazy"
 								/>
 							</div>
 						</swiper-slide>
@@ -595,13 +645,14 @@ onMounted(() => {
 				</client-only>
 			</div>
 		</section>
-		<!-- partners -->
 
 		<!-- faq -->
-		<section class="pb-12">
+		<section class="pb-12" aria-labelledby="faq-heading">
 			<div class="container">
 				<div class="flex items-center justify-between">
-					<h2 class="text-2xl font-semibold">Ko'p beriladigan savollar</h2>
+					<h2 id="faq-heading" class="text-2xl font-semibold">
+						Ko'p Beriladigan Savollar - Rivoj-98
+					</h2>
 				</div>
 				<div class="mt-2">
 					<UAccordion
@@ -616,45 +667,48 @@ onMounted(() => {
 				</div>
 			</div>
 		</section>
-		<!-- faq -->
 
-		<section class="pb-12">
+		<!-- Catalog -->
+		<section class="pb-12" aria-labelledby="catalog-heading">
 			<div class="container">
 				<div class="flex flex-col items-center">
-					<div
+					<h2
+						id="catalog-heading"
 						class="text-center text-xl md:text-2xl lg:text-3xl text-main font-semibold"
 					>
-						Eng yaxshi mahsulotlar siz uchun!
-					</div>
+						Rivoj-98 Mahsulotlar Katalogi
+					</h2>
+					<p class="mt-2 text-center text-gray-600">
+						Barcha temir beton mahsulotlarimiz haqida batafsil ma'lumot
+					</p>
 					<div class="mt-4">
 						<a
 							target="_blank"
 							href="/katalog_uz.pdf"
 							class="group inline-block border-2 border-main text-main font-medium text-lg overflow-hidden h-16 rounded-lg"
+							aria-label="Rivoj-98 mahsulotlar katalogini yuklab olish"
 						>
 							<div
 								class="transition-all duration-500 group-hover:-translate-y-16"
 							>
-								<!-- Primary -->
 								<div
 									class="flex items-center justify-center px-8 h-16 bg-main text-white transition-all duration-500 gap-2"
 								>
 									<UIcon
 										name="material-symbols:cloud-outline"
 										class="text-2xl text-white"
+										aria-hidden="true"
 									/>
-									<!-- <span class="mr-1 fa fa-cloud"></span> -->
 									Katalogni yuklab olish
 								</div>
 
-								<!-- Secondary -->
 								<div class="flex items-center justify-center gap-2 px-8 h-16">
 									<UIcon
 										name="icon-park-outline:hard-disk"
 										class="text-2xl text-main"
+										aria-hidden="true"
 									/>
-									<!-- <span class="mr-1 fa fa-hdd-o"></span> -->
-									Size: 52 kb
+									Hajmi: 52 kb
 								</div>
 							</div>
 						</a>
@@ -664,30 +718,51 @@ onMounted(() => {
 		</section>
 
 		<!-- map -->
-		<section class="pb-12">
+		<section class="pb-12" aria-labelledby="location-heading">
 			<div class="container">
 				<div class="flex items-center justify-between">
-					<h2 class="text-2xl font-semibold">{{ $t('our_address') }}</h2>
+					<h2 id="location-heading" class="text-2xl font-semibold">
+						Rivoj-98 Manzili - Farg'ona
+					</h2>
 				</div>
 				<div class="mt-4 relative overflow-hidden w-full">
 					<iframe
-						title="map"
-						src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3048.5802910718353!2d71.73227842644344!3d40.173897570382415!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38bb85c2ffd46eb7%3A0x583fcb9692d47240!2zIlJpdm9qLTk4IiDQl9CQ0JLQntCUINCW0JHQmA!5e0!3m2!1sru!2s!4v1756269338634!5m2!1sru!2s"
+						title="Rivoj-98 zavodi joylashuvi - Farg'ona, O'zbekiston"
+						src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3048.5802910718353!2d71.73227842644344!3d40.173897570382415!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38bb85c2ffd46eb7%3A0x583fcb9692d47240!2zIlJpdm9qLTk4IiDQl9CQ0JLQntCUINCG0JHQmA!5e0!3m2!1sru!2s!4v1756269338634!5m2!1sru!2s"
 						style="border: 0"
 						loading="lazy"
 						referrerpolicy="no-referrer-when-downgrade"
 						class="h-[30vh] md:h-[50vh] w-full rounded-md overflow-hidden border border-border"
 					/>
 				</div>
+				<div class="mt-4 text-center">
+					<p class="text-gray-600">
+						<strong>Manzil:</strong> Farg'ona viloyati, Farg'ona tumani
+					</p>
+					<p class="text-gray-600 mt-1">
+						<strong>Telefon:</strong> +998 78 555 98 98
+					</p>
+				</div>
 			</div>
-			<!-- map -->
 		</section>
-		<!-- map -->
 	</main>
 </template>
 
 <style>
 .ytp-pause-overlay {
 	display: none !important;
+}
+
+/* Screen reader only */
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border-width: 0;
 }
 </style>

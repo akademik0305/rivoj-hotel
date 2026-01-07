@@ -1,14 +1,20 @@
 <script lang="ts" setup>
 //===============================-< imports >-===============================
-import Service from "~/service/Service";
-import urls from "~/service/urls";
-import type { TSectionProducts } from "~/types/api.types";
-const { locale } = useI18n();
-const route = useRoute();
-const token = useToken();
+import { useI18n } from 'vue-i18n'
+import Service from '~/service/Service'
+import urls from '~/service/urls'
+import type { TSectionProducts } from '~/types/api.types'
+const { locale } = useI18n()
+const route = useRoute()
+const token = useToken()
+
+// disable ssr
+definePageMeta({
+	ssr: false,
+})
 //===============================-< get section >-===============================
 //> variables
-const section = ref<TSectionProducts>();
+const section = ref<TSectionProducts>()
 // const current_page = ref(1);
 //> functions
 async function getSectionProducts() {
@@ -16,10 +22,10 @@ async function getSectionProducts() {
 		urls.getSectionProducts(Number(route.params.id)),
 		locale.value,
 		token.value
-	);
+	)
 }
 
-getSectionProducts();
+getSectionProducts()
 
 //===============================-< change page >-===============================
 //> variables
@@ -78,7 +84,7 @@ useSeoMeta({
 						/>
 					</div>
 					<p class="font-meduim text-base text-gray-4">
-						{{ $t("empty_data_product") }}
+						{{ $t('empty_data_product') }}
 					</p>
 				</div>
 			</div>
