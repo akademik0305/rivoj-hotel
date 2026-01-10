@@ -36,15 +36,14 @@
   --ui-radius: var(--radius-lg);
 }
 
+/* Fon ranglari o'zgaruvchilari (global CSS da ham bo'lishi kerak) */
+.hotel-theme {}
+
 /* custom themes */
 @theme {
-  --color-main: #01064f;
-  --color-navbar-bg: #FFFFFF;
-  --color-bg: #F8F8F8;
-  --color-bg-soft: #EFEFEF;
-  --color-text: #2a2a2a;
-  --color-subtext: #666666;
-  --color-border: #DDDDDD;
+  --color-primary: #c5a059;
+  --color-secondary: #1a1a1a;
+  --color-background: #fdfcf9;
   --ui-primary: var(--color-main);
 
 

@@ -634,10 +634,10 @@
   dependencies:
     "@iconify/types" "*"
 
-"@iconify-json/lucide@^1.2.34":
-  version "1.2.34"
-  resolved "https://registry.npmjs.org/@iconify-json/lucide/-/lucide-1.2.34.tgz"
-  integrity sha512-6xiITvlYP/5d6KQPRBHDQ+eaLxRWiTvXfuVGuNX2ahNLbEi0VKB04v008IQLPrMu/C4tRMI4+sRzHd/wSFxGZQ==
+"@iconify-json/lucide@^1.2.82":
+  version "1.2.82"
+  resolved "https://registry.yarnpkg.com/@iconify-json/lucide/-/lucide-1.2.82.tgz#dc5e10de45a14388c3561de2508a71c76bd7ab5a"
+  integrity sha512-fHZWegspOZonl5GNTvOkHsjnTMdSslFh3EzpzUtRyLxO8bOonqk2OTU3hCl0k4VXzViMjqpRK3X1sotnuBXkFA==
   dependencies:
     "@iconify/types" "*"
 
