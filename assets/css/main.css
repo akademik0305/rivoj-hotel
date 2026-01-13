@@ -157,17 +157,17 @@ input {
 /* custom scrolbar */
 ::-webkit-scrollbar {
   width: 10px;
-  background-color: var(--color-bg);
+  background-color: var(--color-secondary);
 }
 
 ::-webkit-scrollbar-track {
-  background-color: var(--color-border);
+  background-color: var(--color-gray-200);
   border-radius: 2px;
 }
 
 ::-webkit-scrollbar-thumb {
   border-radius: 2px;
-  background-color: var(--color-main);
+  background-color: var(--color-primary);
 }
 
 
