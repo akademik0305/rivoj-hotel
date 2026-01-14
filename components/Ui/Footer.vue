@@ -5,10 +5,10 @@ const localePath = useLocalePath()
 // Statik ma'lumotlar (API o'rniga landing page uchun)
 const contact = {
 	email: 'info@grandoasis.uz',
-	phone: '+998 71 200 00 00',
-	address: "Toshkent sh., Amir Temur ko'chasi 15",
+	phone: '+998 73 353 07 40',
+	address: "Vodil shaharchasi , Yaxshi Niyat ko'chasi, 1A uy",
 	description:
-		"Grand Oasis Hotel — shinamlik va hashamat uyg'unligi. Biz bilan unutilmas lahzalarni his eting.",
+		"Rivoj-98 Hotel — shinamlik va hashamat uyg'unligi. Biz bilan unutilmas lahzalarni his eting.",
 }
 
 const menuItems = [
@@ -32,15 +32,11 @@ const menuItems = [
 			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
 				<div class="lg:col-span-2">
 					<NuxtLink :to="localePath('/')" class="inline-block mb-8 group">
-						<div class="flex flex-col">
-							<span
-								class="text-3xl font-serif tracking-[0.2em] uppercase text-white"
-								>Grand Oasis</span
-							>
-							<span class="text-[10px] uppercase tracking-[0.4em] text-primary"
-								>Hotel & Resort</span
-							>
-						</div>
+						<img
+							src="~/assets/images/logo/logo.png"
+							alt="Rivoj-98 Hotel"
+							class="max-w-32 h-auto"
+						/>
 					</NuxtLink>
 					<p class="max-w-md text-lg font-light leading-relaxed mb-8">
 						{{ contact.description }}
@@ -106,7 +102,7 @@ const menuItems = [
 				class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6"
 			>
 				<p class="text-xs tracking-widest uppercase">
-					© {{ new Date().getFullYear() }} Grand Oasis Hotel. Barcha huquqlar
+					© {{ new Date().getFullYear() }} Rivoj-98 Hotel. Barcha huquqlar
 					himoyalangan.
 				</p>
 

@@ -65,7 +65,7 @@ const closeMenu = () => {
 							class="text-xl sm:text-2xl md:text-3xl font-serif tracking-[0.15em] md:tracking-[0.2em] uppercase transition-colors duration-500"
 							:class="isScrolled ? 'text-secondary' : 'text-white'"
 						>
-							Grand Oasis
+							Rivoj-98 Hotel
 						</span>
 						<span
 							class="text-[7px] sm:text-[8px] uppercase tracking-[0.3em] md:tracking-[0.4em] -mt-1 transition-colors duration-500"
@@ -74,6 +74,7 @@ const closeMenu = () => {
 							Hotel & Resort
 						</span>
 					</div> -->
+					<img src="~/assets/images/logo/logo.png" alt="Rivoj-98 Hotel" class="max-w-32 h-auto" />
 				</NuxtLink>
 
 				<!-- Desktop Menu -->

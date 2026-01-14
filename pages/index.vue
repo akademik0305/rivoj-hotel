@@ -20,7 +20,7 @@
 					class="uppercase tracking-[0.5em] mb-6 text-xs md:text-sm font-light"
 					data-aos="fade-down"
 				>
-					Est 1998 — Grand Oasis
+					Est 1998 — Rivoj-98 Hotel
 				</span>
 				<h2
 					class="text-5xl md:text-8xl font-serif mb-10 leading-[1.1]"
@@ -35,8 +35,8 @@
 					data-aos="zoom-in"
 					data-aos-delay="400"
 				>
-					<button class="btn-primary">Xonalarni ko'rish</button>
-					<button class="btn-outline">Virtual tur</button>
+					<!-- <button class="btn-primary">Xonalarni ko'rish</button>
+					<button class="btn-outline">Virtual tur</button> -->
 				</div>
 			</div>
 
@@ -53,7 +53,10 @@
 
 		<!-- rooms -->
 		<!-- Rooms Section -->
-		<section id="rooms"  class="py-20 md:py-32 bg-gradient-to-b from-white to-gray-50">
+		<section
+			id="rooms"
+			class="py-20 md:py-32 bg-gradient-to-b from-white to-gray-50"
+		>
 			<div class="container px-4 md:px-6">
 				<!-- Section Header -->
 				<div class="text-center mb-12 md:mb-20" data-aos="fade-up">
@@ -188,7 +191,7 @@
 				</div>
 
 				<!-- View All Button -->
-				<div
+				<!-- <div
 					class="text-center mt-12 md:mt-16"
 					data-aos="fade-up"
 					data-aos-delay="400"
@@ -198,22 +201,9 @@
 					>
 						<span class="flex items-center gap-2">
 							Barcha xonalarni ko'rish
-							<svg
-								class="w-4 h-4 group-hover:translate-x-1 transition-transform"
-								fill="none"
-								stroke="currentColor"
-								viewBox="0 0 24 24"
-							>
-								<path
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									stroke-width="2"
-									d="M9 5l7 7-7 7"
-								/>
-							</svg>
 						</span>
 					</button>
-				</div>
+				</div> -->
 			</div>
 		</section>
 
@@ -441,7 +431,10 @@
 		<!-- rooms -->
 
 		<!-- advantages -->
-		<section id="advantages" class="py-32 bg-background border-y border-primary/10">
+		<section
+			id="advantages"
+			class="py-32 bg-background border-y border-primary/10"
+		>
 			<div class="container">
 				<div class="grid grid-cols-1 md:grid-cols-3 gap-16">
 					<div
@@ -522,15 +515,15 @@
 							class="space-y-6 text-gray-600 text-lg font-light leading-relaxed"
 						>
 							<p>
-								Grand Oasis Hotel 2010 yildan buyon mehmonlarni hashamatli va
-								qulay muhitda kutib olmoqda.
+								Rivoj-98 Hotel 2010 yildan buyon mehmonlarni hashamatli va qulay
+								muhitda kutib olmoqda.
 							</p>
 							<p>
 								Biz zamonaviy dizayn va an'anaviy mehmondo'stlikni birlashtirgan
 								holda, har bir mehmonimizga unutilmas tajriba taqdim etamiz.
 							</p>
 						</div>
-						<button class="mt-10 btn-outline-dark">Batafsil ma'lumot</button>
+						<!-- <button class="mt-10 btn-outline-dark">Batafsil ma'lumot</button> -->
 					</div>
 				</div>
 			</div>
@@ -557,7 +550,7 @@
 							<div>
 								<h4 class="font-medium text-secondary">Manzil</h4>
 								<p class="text-gray-500">
-									Toshkent sh., Amir Temur ko'chasi 15
+									Vodil shaharchasi , Yaxshi Niyat ko'chasi, 1A uy
 								</p>
 							</div>
 						</div>
@@ -569,21 +562,24 @@
 							</div>
 							<div>
 								<h4 class="font-medium text-secondary">Telefon</h4>
-								<p class="text-gray-500">+998 71 200 00 00</p>
+								<a href="tel:+998733530740" class="text-gray-500">+998 73 353 07 40</a>
 							</div>
 						</div>
 					</div>
 				</div>
 
 				<div
-					class="h-[500px] rounded-3xl overflow-hidden shadow-2xl grayscale hover:grayscale-0 transition-all duration-1000 border-[12px] border-white"
+					class="h-[500px] rounded-3xl overflow-hidden shadow-2xl grayscale-25 hover:grayscale-0 transition-all duration-1000 border-[12px] border-white"
 					data-aos="zoom-in"
 				>
 					<iframe
-						src="https://maps.google.com/..."
-						class="w-full h-full"
+						src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3048.723471037667!2d71.72696629678954!3d40.1707102!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38bb9396ef3b6ce5%3A0xee71b682e62832c0!2sHotel%20rivoj-98!5e0!3m2!1sru!2s!4v1768382713475!5m2!1sru!2s"
 						style="border: 0"
+						allowfullscreen=""
 						loading="lazy"
+						referrerpolicy="no-referrer-when-downgrade"
+						class="w-full h-full"
+
 					/>
 				</div>
 			</div>
