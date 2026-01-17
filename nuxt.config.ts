@@ -1,5 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-import tailwindcss from "@tailwindcss/vite";
+import tailwindcss from "@tailwindcss/vite"
 
 export default defineNuxtConfig({
 	compatibilityDate: "2024-11-01",
@@ -11,34 +11,32 @@ export default defineNuxtConfig({
 	ssr: true,
 	// SEO va meta
 	experimental: {
-		payloadExtraction: false
+		payloadExtraction: false,
 	},
 
 	app: {
 		head: {
 			htmlAttrs: {
-				lang: 'uz'
+				lang: "uz",
 			},
 			link: [
 				{
 					rel: "icon",
-					type: 'image/x-icon',
-					href: '/favicon.ico'
+					type: "image/x-icon",
+					href: "/favicon.ico",
 				},
 				// { rel: 'canonical', href: 'https://rivoj98.uz' }
-
 			],
 			meta: [
-				{ charset: 'utf-8' },
-				{ name: 'viewport', content: 'width=device-width, initial-scale=1' },
-				{ name: 'author', content: 'Rivoj-98' },
-				{ name: 'robots', content: 'index, follow' },
+				{ charset: "utf-8" },
+				{ name: "viewport", content: "width=device-width, initial-scale=1" },
+				{ name: "author", content: "Rivoj-98 Hotel" },
+				{ name: "robots", content: "index, follow" },
 				// { name: 'yandex-verification', content: '9eea816606fb6a73' }
 			],
-
 		},
-		baseURL: '/', // yoki '/subfolder/' agar kerak bo'lsa
-		buildAssetsDir: '/_nuxt/',
+		baseURL: "/", // yoki '/subfolder/' agar kerak bo'lsa
+		buildAssetsDir: "/_nuxt/",
 		// __dangerouslyDisableSanitizersByTagID: {
 		// 	'yandex-metrika': ['innerHTML']
 		// }
@@ -62,13 +60,16 @@ export default defineNuxtConfig({
 		"@pinia/nuxt",
 		"pinia-plugin-persistedstate/nuxt",
 		"@nuxtjs/sitemap",
+		"nuxt-gtag",
 	],
 	site: {
-		url: 'https://rivoj98shop.uz/',
-		name: 'Rivoj-98',
+		url: "https://rivoj98hotel.uz/",
+		name: "Rivoj-98 Hotel",
 	},
 
-
+  gtag: {
+    id: 'G-4NQX6G9EFF'
+  },
 
 	icon: {
 		serverBundle: {
@@ -110,5 +111,5 @@ export default defineNuxtConfig({
 		// 	// '/contact',
 		// 	// '/cart',
 		// ]
-	}
-});
+	},
+})
