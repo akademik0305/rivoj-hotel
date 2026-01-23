@@ -61,6 +61,8 @@ export default defineNuxtConfig({
 		"pinia-plugin-persistedstate/nuxt",
 		"@nuxtjs/sitemap",
 		"nuxt-gtag",
+		"@nuxtjs/seo",
+		"nuxt-schema-org"
 	],
 	site: {
 		url: "https://rivoj98hotel.uz/",
