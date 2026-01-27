@@ -4,7 +4,7 @@
 		<section id="home" class="relative h-[100svh] overflow-hidden">
 			<div class="absolute inset-0">
 				<img
-					src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=2070"
+					src="~/assets/images/jpg/banner.jpg"
 					class="w-full h-full object-cover scale-105 animate-slow-zoom"
 					alt="Rivoj-98 Hotel Vodil - Hashamatli mehmonxona binosi va premium xonalar"
 					loading="eager"
@@ -38,7 +38,7 @@
 				class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce text-white/70"
 				aria-hidden="true"
 			>
-				<UIcon
+				<Icon
 					name="material-symbols:keyboard-double-arrow-down-rounded"
 					class="text-3xl"
 				/>
@@ -79,10 +79,10 @@
 						:class="{ 'md:mt-16': index % 2 !== 0 }"
 						:data-aos="index % 2 === 0 ? 'fade-right' : 'fade-left'"
 						:data-aos-delay="room.delay"
-						@click="openRoomDetails(room)"
 						itemscope
 						itemtype="https://schema.org/Hotel"
 						itemprop="itemListElement"
+						@click="openRoomDetails(room)"
 					>
 						<div
 							class="relative overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500"
@@ -180,7 +180,7 @@
 										class="bg-white text-secondary px-5 py-2.5 rounded-full font-semibold text-sm md:text-base shadow-lg transform group-hover:scale-105 transition-transform duration-300"
 										itemprop="priceRange"
 									>
-										${{ room.price }}
+										{{ room.price }} so'm
 										<span class="text-xs font-normal">/ kecha</span>
 									</div>
 								</div>
@@ -202,10 +202,10 @@
 				<div
 					v-if="showModal"
 					class="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm"
-					@click.self="closeModal"
 					role="dialog"
 					aria-modal="true"
 					aria-labelledby="modal-title"
+					@click.self="closeModal"
 				>
 					<div
 						class="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl transform transition-all duration-300"
@@ -213,9 +213,9 @@
 					>
 						<div v-if="selectedRoom" class="relative">
 							<button
-								@click="closeModal"
 								class="absolute top-4 right-4 z-10 bg-white/90 backdrop-blur-sm rounded-full p-2 hover:bg-white transition-colors"
 								aria-label="Modalni yopish"
+								@click="closeModal"
 							>
 								<svg
 									class="w-6 h-6"
@@ -237,8 +237,8 @@
 								class="relative aspect-[16/9] overflow-hidden rounded-t-2xl bg-gray-900"
 							>
 								<Transition
-									enter-active-class="transition-opacity duration-500"
-									leave-active-class="transition-opacity duration-500"
+									enter-active-class="transition-opacity duration-300"
+									leave-active-class="transition-opacity duration-300"
 									enter-from-class="opacity-0"
 									leave-to-class="opacity-0"
 									mode="out-in"
@@ -253,9 +253,9 @@
 								</Transition>
 
 								<button
-									@click="prevImage"
 									class="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 backdrop-blur-sm rounded-full p-3 hover:bg-white transition-all hover:scale-110"
 									aria-label="Oldingi rasm"
+									@click="prevImage"
 								>
 									<svg
 										class="w-5 h-5"
@@ -274,9 +274,9 @@
 								</button>
 
 								<button
-									@click="nextImage"
 									class="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 backdrop-blur-sm rounded-full p-3 hover:bg-white transition-all hover:scale-110"
 									aria-label="Keyingi rasm"
+									@click="nextImage"
 								>
 									<svg
 										class="w-5 h-5"
@@ -305,7 +305,6 @@
 									<button
 										v-for="(img, index) in selectedRoom.images"
 										:key="index"
-										@click="goToImage(index)"
 										class="w-2 h-2 rounded-full transition-all duration-300"
 										:class="
 											currentImageIndex === index
@@ -313,6 +312,7 @@
 												: 'bg-white/50 hover:bg-white/75'
 										"
 										:aria-label="`${index + 1}-rasmga o'tish`"
+										@click="goToImage(index)"
 									/>
 								</div>
 							</div>
@@ -386,7 +386,7 @@
 									<div>
 										<p class="text-sm text-gray-600 mb-1">Narxi</p>
 										<p class="text-3xl font-bold text-secondary">
-											${{ selectedRoom.price }}
+											{{ selectedRoom.price }} so'm
 											<span class="text-base font-normal text-gray-600"
 												>/ kecha</span
 											>
@@ -444,7 +444,7 @@
 							class="text-primary mb-8 flex justify-center"
 							aria-hidden="true"
 						>
-							<UIcon :name="adv.icon" class="text-6xl font-light" />
+							<Icon :name="adv.icon" class="text-6xl font-light" />
 						</div>
 						<h3 class="text-xl font-serif mb-4 text-secondary">
 							{{ adv.title }}
@@ -483,7 +483,7 @@
 							class="aspect-square rounded-2xl overflow-hidden shadow-2xl relative z-10"
 						>
 							<img
-								src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?q=80&w=2070"
+								src="~/assets/images/jpg/about.jpg"
 								class="w-full h-full object-cover"
 								alt="Rivoj-98 Hotel ichki interyeri va mehmondo'stlik xizmatlari"
 								loading="lazy"
@@ -497,7 +497,7 @@
 							class="absolute -top-6 -right-6 text-primary"
 							aria-hidden="true"
 						>
-							<UIcon
+							<Icon
 								name="material-symbols:star-outline"
 								class="text-6xl opacity-20"
 							/>
@@ -545,7 +545,7 @@
 								class="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center text-primary shrink-0"
 								aria-hidden="true"
 							>
-								<UIcon
+								<Icon
 									name="material-symbols:location-on-outline"
 									class="text-2xl"
 								/>
@@ -562,16 +562,23 @@
 								class="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center text-primary shrink-0"
 								aria-hidden="true"
 							>
-								<UIcon name="material-symbols:call-outline" class="text-2xl" />
+								<Icon name="material-symbols:call-outline" class="text-2xl" />
 							</div>
-							<div>
-								<h3 class="font-medium text-secondary">Telefon</h3>
+							<div class="flex flex-col gap-2">
+								<h3 class="font-medium text-secondary">Telefonlar</h3>
 								<a
 									href="tel:+998733530740"
 									class="text-gray-500 hover:text-primary transition-colors"
 									itemprop="telephone"
 								>
 									+998 73 353 07 40
+								</a>
+								<a
+									href="tel:+998733530740"
+									class="text-gray-500 hover:text-primary transition-colors"
+									itemprop="telephone"
+								>
+									+998 88 733 98 98
 								</a>
 							</div>
 						</div>
@@ -600,99 +607,129 @@
 // ============================================
 // IMPORTS
 // ============================================
-import { ref, onUnmounted } from 'vue'
+import { ref, onUnmounted } from "vue"
 
 // ============================================
 // SEO: META TEGLAR VA HEAD KONFIGURATSIYASI
 // ============================================
 useHead({
-	title: 'Rivoj-98 Hotel Vodil | Hashamatli Mehmonxona va Xonalar',
+	title: "Rivoj-98 Hotel Vodil | Hashamatli Mehmonxona va Xonalar",
 	meta: [
 		// Asosiy meta teglar
 		{
-			name: 'description',
+			name: "description",
 			content:
-				'Rivoj-98 Hotel Vodilda premium xonalar, ajoyib oshxona va SPA xizmatlari. 1998 yildan beri mehmonlarni samimiy mehmondo\'stlik va zamonaviy qulayliklar bilan kutib olmoqda. Bron qilish: +998 73 353 07 40',
+				"Rivoj-98 Hotel Vodilda premium xonalar, ajoyib oshxona xizmatlari. 1998 yildan beri mehmonlarni samimiy mehmondo'stlik va zamonaviy qulayliklar bilan kutib olmoqda. Bron qilish: +998 73 353 07 40",
 		},
 		{
-			name: 'keywords',
+			name: "keywords",
 			content:
-				'Rivoj-98 hotel, Vodil mehmonxona, hotel Vodil, luxury hotel Uzbekistan, mehmonxona Vodil, premium xonalar, SPA Vodil, restoran Vodil, hashamatli mehmonxona, Deluxe Suite, Royal Garden, Presidential Suite, Standard Room, hotel booking Vodil',
+				"Rivoj-98 hotel, Vodil mehmonxona, hotel Vodil, luxury hotel Uzbekistan, mehmonxona Vodil, premium xonalar, Vodil, restoran Vodil, hashamatli mehmonxona, Deluxe Suite, Royal Garden, Presidential Suite, Standard Room, hotel booking Vodil",
 		},
-		{ name: 'author', content: 'Rivoj-98 Hotel' },
-		{ name: 'robots', content: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' },
-		{ name: 'googlebot', content: 'index, follow' },
-		{ name: 'viewport', content: 'width=device-width, initial-scale=1.0' },
-		{ 'http-equiv': 'X-UA-Compatible', content: 'IE=edge' },
+		{ name: "author", content: "Rivoj-98 Hotel" },
+		{
+			name: "robots",
+			content:
+				"index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+		},
+		{ name: "googlebot", content: "index, follow" },
+		{ name: "viewport", content: "width=device-width, initial-scale=1.0" },
+		{ "http-equiv": "X-UA-Compatible", content: "IE=edge" },
 
 		// Open Graph (Facebook, LinkedIn)
-		{ property: 'og:type', content: 'website' },
-		{ property: 'og:site_name', content: 'Rivoj-98 Hotel' },
+		{ property: "og:type", content: "website" },
+		{ property: "og:site_name", content: "Rivoj-98 Hotel" },
 		{
-			property: 'og:title',
-			content: 'Rivoj-98 Hotel Vodil | Hashamatli Mehmonxona va Xonalar',
+			property: "og:title",
+			content: "Rivoj-98 Hotel Vodil | Hashamatli Mehmonxona va Xonalar",
 		},
 		{
-			property: 'og:description',
+			property: "og:description",
 			content:
-				'Premium xonalar, ajoyib oshxona va SPA xizmatlari bilan unutilmas tajriba. 1998 yildan beri mehmonlarni samimiy mehmondo\'stlik bilan kutib olmoqda.',
+				"Premium xonalar, ajoyib oshxona xizmatlari bilan unutilmas tajriba. 1998 yildan beri mehmonlarni samimiy mehmondo'stlik bilan kutib olmoqda.",
 		},
 		{
-			property: 'og:image',
-			content: 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=2070',
+			property: "og:image",
+			content:
+				"https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=2070",
 		},
-		{ property: 'og:image:width', content: '2070' },
-		{ property: 'og:image:height', content: '1380' },
-		{ property: 'og:image:alt', content: 'Rivoj-98 Hotel Vodil - Hashamatli mehmonxona' },
-		{ property: 'og:url', content: 'https://rivoj98hotel.uz' },
-		{ property: 'og:locale', content: 'uz_UZ' },
+		{ property: "og:image:width", content: "2070" },
+		{ property: "og:image:height", content: "1380" },
+		{
+			property: "og:image:alt",
+			content: "Rivoj-98 Hotel Vodil - Hashamatli mehmonxona",
+		},
+		{ property: "og:url", content: "https://rivoj98hotel.uz" },
+		{ property: "og:locale", content: "uz_UZ" },
 
 		// Twitter Card
-		{ name: 'twitter:card', content: 'summary_large_image' },
+		{ name: "twitter:card", content: "summary_large_image" },
 		{
-			name: 'twitter:title',
-			content: 'Rivoj-98 Hotel Vodil | Hashamatli Mehmonxona',
+			name: "twitter:title",
+			content: "Rivoj-98 Hotel Vodil | Hashamatli Mehmonxona",
 		},
 		{
-			name: 'twitter:description',
+			name: "twitter:description",
 			content:
-				'Premium xonalar, ajoyib oshxona va SPA xizmatlari. Bron qilish: +998 73 353 07 40',
+				"Premium xonalar, ajoyib oshxona xizmatlari. Bron qilish: +998 73 353 07 40",
 		},
 		{
-			name: 'twitter:image',
-			content: 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=2070',
+			name: "twitter:image",
+			content:
+				"https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=2070",
 		},
-		{ name: 'twitter:image:alt', content: 'Rivoj-98 Hotel Vodil' },
+		{ name: "twitter:image:alt", content: "Rivoj-98 Hotel Vodil" },
 
 		// Geo teglar
-		{ name: 'geo.region', content: 'UZ' },
-		{ name: 'geo.placename', content: 'Vodil' },
-		{ name: 'geo.position', content: '40.1707102;71.72696629678954' },
-		{ name: 'ICBM', content: '40.1707102, 71.72696629678954' },
+		{ name: "geo.region", content: "UZ" },
+		{ name: "geo.placename", content: "Vodil" },
+		{ name: "geo.position", content: "40.1707102;71.72696629678954" },
+		{ name: "ICBM", content: "40.1707102, 71.72696629678954" },
 
 		// Qo'shimcha SEO teglar
-		{ name: 'theme-color', content: '#c5a059' },
-		{ name: 'apple-mobile-web-app-capable', content: 'yes' },
-		{ name: 'apple-mobile-web-app-status-bar-style', content: 'black-translucent' },
-		{ name: 'format-detection', content: 'telephone=yes' },
-		{ name: 'application-name', content: 'Rivoj-98 Hotel' },
-		{ name: 'mobile-web-app-capable', content: 'yes' },
+		{ name: "theme-color", content: "#c5a059" },
+		{ name: "apple-mobile-web-app-capable", content: "yes" },
+		{
+			name: "apple-mobile-web-app-status-bar-style",
+			content: "black-translucent",
+		},
+		{ name: "format-detection", content: "telephone=yes" },
+		{ name: "application-name", content: "Rivoj-98 Hotel" },
+		{ name: "mobile-web-app-capable", content: "yes" },
 	],
 	link: [
-		{ rel: 'canonical', href: 'https://rivoj98hotel.uz' },
-		{ rel: 'alternate', hreflang: 'uz', href: 'https://rivoj98hotel.uz' },
-		{ rel: 'alternate', hreflang: 'ru', href: 'https://rivoj98hotel.uz/ru' },
-		{ rel: 'alternate', hreflang: 'en', href: 'https://rivoj98hotel.uz/en' },
-		{ rel: 'alternate', hreflang: 'x-default', href: 'https://rivoj98hotel.uz' },
-		{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-		{ rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' },
-		{ rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32x32.png' },
-		{ rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon-16x16.png' },
-		{ rel: 'manifest', href: '/site.webmanifest' },
+		{ rel: "canonical", href: "https://rivoj98hotel.uz" },
+		{ rel: "alternate", hreflang: "uz", href: "https://rivoj98hotel.uz" },
+		{ rel: "alternate", hreflang: "ru", href: "https://rivoj98hotel.uz/ru" },
+		{ rel: "alternate", hreflang: "en", href: "https://rivoj98hotel.uz/en" },
+		{
+			rel: "alternate",
+			hreflang: "x-default",
+			href: "https://rivoj98hotel.uz",
+		},
+		{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
+		{
+			rel: "apple-touch-icon",
+			sizes: "180x180",
+			href: "/apple-touch-icon.png",
+		},
+		{
+			rel: "icon",
+			type: "image/png",
+			sizes: "32x32",
+			href: "/favicon-32x32.png",
+		},
+		{
+			rel: "icon",
+			type: "image/png",
+			sizes: "16x16",
+			href: "/favicon-16x16.png",
+		},
+		{ rel: "manifest", href: "/site.webmanifest" },
 	],
 	htmlAttrs: {
-		lang: 'uz',
-		dir: 'ltr',
+		lang: "uz",
+		dir: "ltr",
 	},
 })
 
@@ -702,153 +739,185 @@ useHead({
 useSchemaOrg([
 	// Hotel Schema
 	{
-		'@context': 'https://schema.org',
-		'@type': 'Hotel',
-		'@id': 'https://rivoj98hotel.uz/#hotel',
-		name: 'Rivoj-98 Hotel',
-		alternateName: 'Rivoj 98 Hotel Vodil',
+		"@context": "https://schema.org",
+		"@type": "Hotel",
+		"@id": "https://rivoj98hotel.uz/#hotel",
+		name: "Rivoj-98 Hotel",
+		alternateName: "Rivoj 98 Hotel Vodil",
 		description:
-			'Vodilda joylashgan hashamatli mehmonxona. Premium xonalar, ajoyib oshxona, SPA va zamonaviy qulayliklar. 1998 yildan beri mehmonlarni samimiy mehmondo\'stlik bilan kutib olmoqda.',
+			"Vodilda joylashgan hashamatli mehmonxona. Premium xonalar, ajoyib oshxona va zamonaviy qulayliklar. 1998 yildan beri mehmonlarni samimiy mehmondo'stlik bilan kutib olmoqda.",
 		image: [
-			'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=2070',
-			'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?q=80&w=2070',
-			'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=2070',
-			'https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=2070',
+			"https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=2070",
+			"https://images.unsplash.com/photo-1631049307264-da0ec9d70304?q=80&w=2070",
+			"https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=2070",
+			"https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=2070",
 		],
-		url: 'https://rivoj98hotel.uz',
-		telephone: '+998733530740',
-		email: 'info@rivoj98hotel.uz',
+		url: "https://rivoj98hotel.uz",
+		telephone: "+998733530740",
+		email: "info@rivoj98hotel.uz",
 		address: {
-			'@type': 'PostalAddress',
+			"@type": "PostalAddress",
 			streetAddress: "Yaxshi Niyat ko'chasi, 1A uy",
-			addressLocality: 'Vodil',
-			addressRegion: 'Farg\'ona',
-			addressCountry: 'UZ',
+			addressLocality: "Vodil",
+			addressRegion: "Farg'ona",
+			addressCountry: "UZ",
 		},
 		geo: {
-			'@type': 'GeoCoordinates',
+			"@type": "GeoCoordinates",
 			latitude: 40.1707102,
 			longitude: 71.72696629678954,
 		},
-		hasMap: 'https://maps.google.com/?q=40.1707102,71.72696629678954',
-		priceRange: '$80-$450',
+		hasMap: "https://maps.google.com/?q=40.1707102,71.72696629678954",
+		priceRange: "$80-$450",
 		starRating: {
-			'@type': 'Rating',
-			ratingValue: '5',
-			bestRating: '5',
+			"@type": "Rating",
+			ratingValue: "5",
+			bestRating: "5",
 		},
 		amenityFeature: [
-			{ '@type': 'LocationFeatureSpecification', name: 'Restaurant', value: true },
-			{ '@type': 'LocationFeatureSpecification', name: 'SPA', value: true },
-			{ '@type': 'LocationFeatureSpecification', name: 'Wellness Center', value: true },
-			{ '@type': 'LocationFeatureSpecification', name: 'Free WiFi', value: true },
-			{ '@type': 'LocationFeatureSpecification', name: '24/7 Security', value: true },
-			{ '@type': 'LocationFeatureSpecification', name: 'Infinity Pool', value: true },
-			{ '@type': 'LocationFeatureSpecification', name: 'Jacuzzi', value: true },
-			{ '@type': 'LocationFeatureSpecification', name: 'Mini Bar', value: true },
-			{ '@type': 'LocationFeatureSpecification', name: 'Smart TV', value: true },
-			{ '@type': 'LocationFeatureSpecification', name: 'Balcony', value: true },
-			{ '@type': 'LocationFeatureSpecification', name: 'Room Service', value: true },
-			{ '@type': 'LocationFeatureSpecification', name: 'Parking', value: true },
+			{
+				"@type": "LocationFeatureSpecification",
+				name: "Restaurant",
+				value: true,
+			},
+			{ "@type": "LocationFeatureSpecification", name: "SPA", value: true },
+			{
+				"@type": "LocationFeatureSpecification",
+				name: "Wellness Center",
+				value: true,
+			},
+			{
+				"@type": "LocationFeatureSpecification",
+				name: "Free WiFi",
+				value: true,
+			},
+			{
+				"@type": "LocationFeatureSpecification",
+				name: "24/7 Security",
+				value: true,
+			},
+			{
+				"@type": "LocationFeatureSpecification",
+				name: "Infinity Pool",
+				value: true,
+			},
+			{ "@type": "LocationFeatureSpecification", name: "Jacuzzi", value: true },
+			{
+				"@type": "LocationFeatureSpecification",
+				name: "Mini Bar",
+				value: true,
+			},
+			{
+				"@type": "LocationFeatureSpecification",
+				name: "Smart TV",
+				value: true,
+			},
+			{ "@type": "LocationFeatureSpecification", name: "Balcony", value: true },
+			{
+				"@type": "LocationFeatureSpecification",
+				name: "Room Service",
+				value: true,
+			},
+			{ "@type": "LocationFeatureSpecification", name: "Parking", value: true },
 		],
-		checkinTime: '14:00',
-		checkoutTime: '12:00',
+		checkinTime: "14:00",
+		checkoutTime: "12:00",
 		numberOfRooms: 4,
-		currenciesAccepted: 'USD, UZS',
-		paymentAccepted: 'Cash, Credit Card',
-		openingHours: 'Mo-Su 00:00-23:59',
+		currenciesAccepted: "USD, UZS",
+		paymentAccepted: "Cash, Credit Card",
+		openingHours: "Mo-Su 00:00-23:59",
 	},
 	// LocalBusiness Schema
 	{
-		'@context': 'https://schema.org',
-		'@type': 'LocalBusiness',
-		'@id': 'https://rivoj98hotel.uz/#business',
-		name: 'Rivoj-98 Hotel',
+		"@context": "https://schema.org",
+		"@type": "LocalBusiness",
+		"@id": "https://rivoj98hotel.uz/#business",
+		name: "Rivoj-98 Hotel",
 		image: [
-			'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=2070',
-			'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?q=80&w=2070',
+			"https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=2070",
+			"https://images.unsplash.com/photo-1631049307264-da0ec9d70304?q=80&w=2070",
 		],
-		url: 'https://rivoj98hotel.uz',
-		telephone: '+998733530740',
-		priceRange: '$80-$450',
+		url: "https://rivoj98hotel.uz",
+		telephone: "+998733530740",
+		priceRange: "$80-$450",
 		address: {
-			'@type': 'PostalAddress',
+			"@type": "PostalAddress",
 			streetAddress: "Yaxshi Niyat ko'chasi, 1A uy",
-			addressLocality: 'Vodil',
-			addressRegion: 'Farg\'ona',
-			addressCountry: 'UZ',
+			addressLocality: "Vodil",
+			addressRegion: "Farg'ona",
+			addressCountry: "UZ",
 		},
 		geo: {
-			'@type': 'GeoCoordinates',
+			"@type": "GeoCoordinates",
 			latitude: 40.1707102,
 			longitude: 71.72696629678954,
 		},
 		openingHoursSpecification: {
-			'@type': 'OpeningHoursSpecification',
+			"@type": "OpeningHoursSpecification",
 			dayOfWeek: [
-				'Monday',
-				'Tuesday',
-				'Wednesday',
-				'Thursday',
-				'Friday',
-				'Saturday',
-				'Sunday',
+				"Monday",
+				"Tuesday",
+				"Wednesday",
+				"Thursday",
+				"Friday",
+				"Saturday",
+				"Sunday",
 			],
-			opens: '00:00',
-			closes: '23:59',
+			opens: "00:00",
+			closes: "23:59",
 		},
 		sameAs: [
-			'https://www.facebook.com/rivoj98hotel',
-			'https://www.instagram.com/rivoj98hotel',
-			'https://t.me/rivoj98hotel',
+			"https://www.facebook.com/rivoj98hotel",
+			"https://www.instagram.com/rivoj98hotel",
+			"https://t.me/rivoj98hotel",
 		],
 	},
 	// Organization Schema
 	{
-		'@context': 'https://schema.org',
-		'@type': 'Organization',
-		'@id': 'https://rivoj98hotel.uz/#organization',
-		name: 'Rivoj-98 Hotel',
-		url: 'https://rivoj98hotel.uz',
-		logo: 'https://rivoj98hotel.uz/logo.png',
-		description: 'Vodilda joylashgan hashamatli mehmonxona',
-		email: 'info@rivoj98hotel.uz',
-		telephone: '+998733530740',
+		"@context": "https://schema.org",
+		"@type": "Organization",
+		"@id": "https://rivoj98hotel.uz/#organization",
+		name: "Rivoj-98 Hotel",
+		url: "https://rivoj98hotel.uz",
+		logo: "https://rivoj98hotel.uz/logo.png",
+		description: "Vodilda joylashgan hashamatli mehmonxona",
+		email: "info@rivoj98hotel.uz",
+		telephone: "+998733530740",
 		address: {
-			'@type': 'PostalAddress',
+			"@type": "PostalAddress",
 			streetAddress: "Yaxshi Niyat ko'chasi, 1A uy",
-			addressLocality: 'Vodil',
-			addressRegion: 'Farg\'ona',
-			addressCountry: 'UZ',
+			addressLocality: "Vodil",
+			addressRegion: "Farg'ona",
+			addressCountry: "UZ",
 		},
 		sameAs: [
-			'https://www.facebook.com/rivoj98hotel',
-			'https://www.instagram.com/rivoj98hotel',
-			'https://t.me/rivoj98hotel',
+			"https://www.facebook.com/rivoj98hotel",
+			"https://www.instagram.com/rivoj98hotel",
+			"https://t.me/rivoj98hotel",
 		],
 	},
 	// BreadcrumbList Schema
 	{
-		'@context': 'https://schema.org',
-		'@type': 'BreadcrumbList',
+		"@context": "https://schema.org",
+		"@type": "BreadcrumbList",
 		itemListElement: [
 			{
-				'@type': 'ListItem',
+				"@type": "ListItem",
 				position: 1,
-				name: 'Bosh sahifa',
-				item: 'https://rivoj98hotel.uz',
+				name: "Bosh sahifa",
+				item: "https://rivoj98hotel.uz",
 			},
 			{
-				'@type': 'ListItem',
+				"@type": "ListItem",
 				position: 2,
-				name: 'Xonalar',
-				item: 'https://rivoj98hotel.uz#rooms',
+				name: "Xonalar",
+				item: "https://rivoj98hotel.uz#rooms",
 			},
 			{
-				'@type': 'ListItem',
+				"@type": "ListItem",
 				position: 3,
-				name: 'Aloqa',
-				item: 'https://rivoj98hotel.uz#contact',
+				name: "Aloqa",
+				item: "https://rivoj98hotel.uz#contact",
 			},
 		],
 	},
@@ -859,19 +928,19 @@ useSchemaOrg([
 // ============================================
 const advantages = [
 	{
-		icon: 'material-symbols:restaurant',
-		title: 'Ajoyib Oshxona',
-		desc: 'Xalqaro va milliy oshxonaning eng yaxshi taomlari.',
+		icon: "material-symbols:restaurant",
+		title: "Ajoyib Oshxona",
+		desc: "Xalqaro va milliy oshxonaning eng yaxshi taomlari.",
 	},
 	{
-		icon: 'material-symbols:spa-outline',
-		title: 'Wellness & SPA',
+		icon: "material-symbols:spa-outline",
+		title: "Wellness & SPA",
 		desc: "Sizning tanangiz va ruhingiz hordig'i uchun maxsus zona.",
 	},
 	{
-		icon: 'material-symbols:verified-user-outline',
-		title: 'Xavfsizlik',
-		desc: '24/7 xavfsizlik tizimi va videonazorat xizmati.',
+		icon: "material-symbols:verified-user-outline",
+		title: "Xavfsizlik",
+		desc: "24/7 xavfsizlik tizimi va videonazorat xizmati.",
 	},
 ]
 
@@ -881,75 +950,54 @@ const advantages = [
 const rooms = [
 	{
 		id: 1,
-		image:
-			'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?q=80&w=2070',
+		image: "./2-room/room-1.jpg",
 		images: [
-			'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?q=80&w=2070',
-			'https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=2070',
-			'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=2070',
-			'https://images.unsplash.com/photo-1566665797739-1674de7a421a?q=80&w=2070',
+			"./2-room/room-3.jpg",
+			"./2-room/room-5.jpg",
+			"./2-room/room-6.jpg",
+			"./2-room/room-7.jpg",
 		],
-		category: 'Luxury Stay',
-		title: 'Deluxe Suite',
-		price: '120',
-		size: '45m²',
-		guests: '2 kishi',
-		features: ['King Size Bed', 'Balkon', 'Smart TV'],
-		delay: '0',
+		category: "Luxury Stay",
+		title: "2-Kishilik",
+		price: "600 000",
+		size: "30m²",
+		guests: "2 kishi",
+		features: ["King Size Bed", "Balkon", "Smart TV"],
+		delay: "0",
 	},
 	{
 		id: 2,
-		image:
-			'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=2070',
+		image: "./5-room/room-1.jpg",
 		images: [
-			'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=2070',
-			'https://images.unsplash.com/photo-1566665797739-1674de7a421a?q=80&w=2070',
-			'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?q=80&w=2070',
-			'https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=2070',
+			"./5-room/room-2.jpg",
+			"./5-room/room-4.jpg",
+			"./5-room/room-3.jpg",
+			"./5-room/room-1.jpg",
 		],
-		category: 'Premium Experience',
-		title: 'Royal Garden',
-		price: '250',
-		size: '65m²',
-		guests: '4 kishi',
-		features: ['Jacuzzi', "Bog ko'rinishi", 'Mini Bar'],
-		delay: '100',
+		category: "Premium Experience",
+		title: "4-kishilik",
+		price: "800 000",
+		size: "40m²",
+		guests: "4 kishi",
+		features: ["Jacuzzi", "Bog ko'rinishi", "Mini Bar"],
+		delay: "100",
 	},
 	{
 		id: 3,
-		image:
-			'https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=2070',
+		image: "./5-room/room-2.jpg",
 		images: [
-			'https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=2070',
-			'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?q=80&w=2070',
-			'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=2070',
-			'https://images.unsplash.com/photo-1566665797739-1674de7a421a?q=80&w=2070',
+			"./5-room/room-2.jpg",
+			"./5-room/room-3.jpg",
+			"./5-room/room-4.jpg",
+			"./5-room/room-1.jpg",
 		],
-		category: 'Executive Class',
-		title: 'Presidential Suite',
-		price: '450',
-		size: '120m²',
-		guests: '6 kishi',
-		features: ['Private Pool', 'Butler Service', 'Ocean View'],
-		delay: '200',
-	},
-	{
-		id: 4,
-		image:
-			'https://images.unsplash.com/photo-1566665797739-1674de7a421a?q=80&w=2070',
-		images: [
-			'https://images.unsplash.com/photo-1566665797739-1674de7a421a?q=80&w=2070',
-			'https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=2070',
-			'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?q=80&w=2070',
-			'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=2070',
-		],
-		category: 'Comfort Zone',
-		title: 'Standard Room',
-		price: '80',
-		size: '30m²',
-		guests: '2 kishi',
-		features: ['Queen Bed', 'City View', 'WiFi'],
-		delay: '300',
+		category: "Executive Class",
+		title: "5-kishilik",
+		price: "1000 000",
+		size: "100m²",
+		guests: "5 kishi",
+		features: ["Private Pool", "Butler Service", "Ocean View"],
+		delay: "200",
 	},
 ]
 
@@ -967,7 +1015,7 @@ const currentImageIndex = ref(0)
 /**
  * Xona tafsilotlari modalini ochish
  * Modal ochilganda body scroll o'chiriladi
- * 
+ *
  * @param {Object} room - Tanlangan xona ma'lumotlari
  * @param {number} room.id - Xona ID raqami
  * @param {string} room.title - Xona nomi
@@ -975,12 +1023,12 @@ const currentImageIndex = ref(0)
  * @param {Array} room.images - Xona rasmlari massivi
  * @param {Array} room.features - Xona xususiyatlari
  */
-const openRoomDetails = (room) => {
+const openRoomDetails = room => {
 	selectedRoom.value = room
 	currentImageIndex.value = 0
 	showModal.value = true
-	document.body.style.overflow = 'hidden'
-	
+	document.body.style.overflow = "hidden"
+
 	// Accessibility uchun focus
 	setTimeout(() => {
 		const modalElement = document.querySelector('[role="dialog"]')
@@ -996,7 +1044,7 @@ const openRoomDetails = (room) => {
  */
 const closeModal = () => {
 	showModal.value = false
-	document.body.style.overflow = ''
+	document.body.style.overflow = ""
 	selectedRoom.value = null
 	currentImageIndex.value = 0
 }
@@ -1031,11 +1079,15 @@ const prevImage = () => {
 /**
  * Muayyan rasmga o'tish
  * Dot indikatorlar orqali rasm tanlash uchun
- * 
+ *
  * @param {number} index - Rasm indeksi (0 dan boshlanadi)
  */
-const goToImage = (index) => {
-	if (index >= 0 && selectedRoom.value && index < selectedRoom.value.images.length) {
+const goToImage = index => {
+	if (
+		index >= 0 &&
+		selectedRoom.value &&
+		index < selectedRoom.value.images.length
+	) {
 		currentImageIndex.value = index
 	}
 }
@@ -1050,17 +1102,17 @@ const goToImage = (index) => {
  * Arrow Left - oldingi rasm
  * Arrow Right - keyingi rasm
  */
-if (process.client) {
-	document.addEventListener('keydown', (e) => {
+if (import.meta.client) {
+	document.addEventListener("keydown", e => {
 		if (showModal.value) {
 			switch (e.key) {
-				case 'Escape':
+				case "Escape":
 					closeModal()
 					break
-				case 'ArrowLeft':
+				case "ArrowLeft":
 					prevImage()
 					break
-				case 'ArrowRight':
+				case "ArrowRight":
 					nextImage()
 					break
 			}
@@ -1078,7 +1130,7 @@ if (process.client) {
  * Memory leak oldini olish uchun muhim
  */
 onUnmounted(() => {
-	document.body.style.overflow = ''
+	document.body.style.overflow = ""
 	showModal.value = false
 	selectedRoom.value = null
 })

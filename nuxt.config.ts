@@ -62,21 +62,21 @@ export default defineNuxtConfig({
 		"@nuxtjs/sitemap",
 		"nuxt-gtag",
 		"@nuxtjs/seo",
-		"nuxt-schema-org"
+		"nuxt-schema-org",
 	],
+	icon: {
+		serverBundle: {
+			collections: ["material-symbols", "mdi", "line-icons"],
+		},
+	},
+
 	site: {
 		url: "https://rivoj98hotel.uz/",
 		name: "Rivoj-98 Hotel",
 	},
 
-  gtag: {
-    id: 'G-4NQX6G9EFF'
-  },
-
-	icon: {
-		serverBundle: {
-			collections: ["hugeicons"], // <!--- this
-		},
+	gtag: {
+		id: "G-4NQX6G9EFF",
 	},
 
 	vite: {

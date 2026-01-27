@@ -4,19 +4,20 @@ const localePath = useLocalePath()
 
 // Statik ma'lumotlar (API o'rniga landing page uchun)
 const contact = {
-	email: 'info@grandoasis.uz',
-	phone: '+998 73 353 07 40',
+	email: "info@grandoasis.uz",
+	phone: "+998 73 353 07 40",
+	phone_2: "+998 88 733 98 98",
 	address: "Vodil shaharchasi , Yaxshi Niyat ko'chasi, 1A uy",
 	description:
 		"Rivoj-98 Hotel — shinamlik va hashamat uyg'unligi. Biz bilan unutilmas lahzalarni his eting.",
 }
 
 const menuItems = [
-	{ name: 'Asosiy', path: '' },
-	{ name: 'Xonalar', path: 'rooms' },
-	{ name: 'Xizmatlar', path: 'advantages' },
-	{ name: 'Biz haqimizda', path: 'about' },
-	{ name: 'Aloqa', path: 'contact' },
+	{ name: "Asosiy", path: "" },
+	{ name: "Xonalar", path: "rooms" },
+	{ name: "Xizmatlar", path: "advantages" },
+	{ name: "Biz haqimizda", path: "about" },
+	{ name: "Aloqa", path: "contact" },
 ]
 </script>
 
@@ -25,7 +26,7 @@ const menuItems = [
 		class="bg-secondary text-white/80 pt-20 pb-10 overflow-hidden relative"
 	>
 		<div class="absolute -right-20 -top-20 text-white/5 pointer-events-none">
-			<UIcon name="material-symbols:star-outline" class="text-[300px]" />
+			<Icon name="material-symbols:star-outline" class="text-[300px]" />
 		</div>
 
 		<div class="container relative z-10">
@@ -48,7 +49,7 @@ const menuItems = [
 							href="#"
 							class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-primary hover:border-primary transition-all duration-500"
 						>
-							<UIcon :name="`lineicons-${icon}`" class="text-lg" />
+							<Icon :name="`lineicons-${icon}`" class="text-lg" />
 						</a>
 					</div>
 				</div>
@@ -70,25 +71,34 @@ const menuItems = [
 					<h4 class="text-white font-serif text-xl mb-8">Bog'lanish</h4>
 					<div class="space-y-5 font-light">
 						<p class="flex items-start gap-4">
-							<UIcon
+							<Icon
 								name="material-symbols:location-on-outline"
-								class="text-primary text-xl"
+								class="text-primary text-xl min-w-5"
 							/>
 							<span>{{ contact.address }}</span>
 						</p>
 						<p class="flex items-center gap-4">
 							<UIcon
 								name="material-symbols:call-outline"
-								class="text-primary text-xl"
+								class="text-primary text-xl min-w-5"
 							/>
 							<a :href="`tel:${contact.phone}`" class="hover:text-primary">{{
 								contact.phone
 							}}</a>
 						</p>
 						<p class="flex items-center gap-4">
-							<UIcon
+							<Icon
+								name="material-symbols:call-outline"
+								class="text-primary text-xl min-w-5"
+							/>
+							<a :href="`tel:${contact.phone}`" class="hover:text-primary">{{
+								contact.phone_2
+							}}</a>
+						</p>
+						<p class="flex items-center gap-4">
+							<Icon
 								name="material-symbols:mail-outline"
-								class="text-primary text-xl"
+								class="text-primary text-xl min-w-5"
 							/>
 							<a :href="`mailto:${contact.email}`" class="hover:text-primary">{{
 								contact.email
