@@ -1,5 +1,5 @@
 <script setup>
-// const { locale, t } = useI18n()
+const { locale } = useI18n()
 const localePath = useLocalePath()
 
 // Statik ma'lumotlar (API o'rniga landing page uchun)
@@ -7,18 +7,74 @@ const contact = {
 	email: "info@grandoasis.uz",
 	phone: "+998 73 353 07 40",
 	phone_2: "+998 88 733 98 98",
-	address: "Vodil shaharchasi , Yaxshi Niyat ko'chasi, 1A uy",
-	description:
-		"Rivoj-98 Hotel — shinamlik va hashamat uyg'unligi. Biz bilan unutilmas lahzalarni his eting.",
+	address: computed(() => {
+		const translations = {
+			uz: "Vodil shaharchasi, Yaxshi Niyat ko'chasi, 1A uy",
+			ru: "Городок Водил, улица Яхши Ният, дом 1А",
+			en: "Vodil town, Yakhshi Niyat street, house 1A",
+		}
+		return translations[locale.value] || translations.uz
+	}),
+	description: computed(() => {
+		const translations = {
+			uz: "Rivoj-98 Hotel — shinamlik va hashamat uyg'unligi. Biz bilan unutilmas lahzalarni his eting.",
+			ru: "Rivoj-98 Hotel — гармония уюта и роскоши. Почувствуйте незабываемые моменты с нами.",
+			en: "Rivoj-98 Hotel — harmony of comfort and luxury. Experience unforgettable moments with us.",
+		}
+		return translations[locale.value] || translations.uz
+	}),
 }
 
-const menuItems = [
-	{ name: "Asosiy", path: "" },
-	{ name: "Xonalar", path: "rooms" },
-	{ name: "Xizmatlar", path: "advantages" },
-	{ name: "Biz haqimizda", path: "about" },
-	{ name: "Aloqa", path: "contact" },
-]
+const menuItems = computed(() => {
+	const translations = {
+		uz: [
+			{ name: "Asosiy", path: "" },
+			{ name: "Xonalar", path: "rooms" },
+			{ name: "Xizmatlar", path: "advantages" },
+			{ name: "Biz haqimizda", path: "about" },
+			{ name: "Aloqa", path: "contact" },
+		],
+		ru: [
+			{ name: "Главная", path: "" },
+			{ name: "Номера", path: "rooms" },
+			{ name: "Услуги", path: "advantages" },
+			{ name: "О нас", path: "about" },
+			{ name: "Контакты", path: "contact" },
+		],
+		en: [
+			{ name: "Home", path: "" },
+			{ name: "Rooms", path: "rooms" },
+			{ name: "Services", path: "advantages" },
+			{ name: "About", path: "about" },
+			{ name: "Contact", path: "contact" },
+		],
+	}
+	return translations[locale.value] || translations.uz
+})
+
+const footerTexts = computed(() => {
+	const translations = {
+		uz: {
+			menu: "Menyu",
+			contact: "Bog'lanish",
+			rights: "Barcha huquqlar himoyalangan",
+			madeWith: "Made with ❤️ by:",
+		},
+		ru: {
+			menu: "Меню",
+			contact: "Контакты",
+			rights: "Все права защищены",
+			madeWith: "Сделано с ❤️:",
+		},
+		en: {
+			menu: "Menu",
+			contact: "Contact",
+			rights: "All rights reserved",
+			madeWith: "Made with ❤️ by:",
+		},
+	}
+	return translations[locale.value] || translations.uz
+})
 </script>
 
 <template>
@@ -49,13 +105,15 @@ const menuItems = [
 							href="#"
 							class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-primary hover:border-primary transition-all duration-500"
 						>
-							<Icon :name="`lineicons-${icon}`" class="text-lg" />
+							<Icon :name="`mdi:${icon}`" class="text-lg" />
 						</a>
 					</div>
 				</div>
 
 				<div>
-					<h4 class="text-white font-serif text-xl mb-8">Menyu</h4>
+					<h4 class="text-white font-serif text-xl mb-8">
+						{{ footerTexts.menu }}
+					</h4>
 					<ul class="space-y-4 font-light text-sm uppercase tracking-widest">
 						<li v-for="menu in menuItems" :key="menu.name">
 							<a
@@ -68,7 +126,9 @@ const menuItems = [
 				</div>
 
 				<div>
-					<h4 class="text-white font-serif text-xl mb-8">Bog'lanish</h4>
+					<h4 class="text-white font-serif text-xl mb-8">
+						{{ footerTexts.contact }}
+					</h4>
 					<div class="space-y-5 font-light">
 						<p class="flex items-start gap-4">
 							<Icon
@@ -78,7 +138,7 @@ const menuItems = [
 							<span>{{ contact.address }}</span>
 						</p>
 						<p class="flex items-center gap-4">
-							<UIcon
+							<Icon
 								name="material-symbols:call-outline"
 								class="text-primary text-xl min-w-5"
 							/>
@@ -91,7 +151,7 @@ const menuItems = [
 								name="material-symbols:call-outline"
 								class="text-primary text-xl min-w-5"
 							/>
-							<a :href="`tel:${contact.phone}`" class="hover:text-primary">{{
+							<a :href="`tel:${contact.phone_2}`" class="hover:text-primary">{{
 								contact.phone_2
 							}}</a>
 						</p>
@@ -112,12 +172,12 @@ const menuItems = [
 				class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6"
 			>
 				<p class="text-xs tracking-widest uppercase">
-					© {{ new Date().getFullYear() }} Rivoj-98 Hotel. Barcha huquqlar
-					himoyalangan.
+					© {{ new Date().getFullYear() }} Rivoj-98 Hotel.
+					{{ footerTexts.rights }}.
 				</p>
 
 				<div class="flex items-center gap-2 text-xs uppercase tracking-widest">
-					<span>Made with ❤️ by:</span>
+					<span>{{ footerTexts.madeWith }}</span>
 					<a
 						href="https://t.me/webcode_team"
 						target="_blank"

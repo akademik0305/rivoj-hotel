@@ -1,5 +1,8 @@
 <script setup lang="ts">
+//===============================-< imports >-===============================
+import { useI18n } from "vue-i18n"
 const localePath = useLocalePath()
+const { locale, setLocale } = useI18n()
 
 //===============================-< handle scroll >-===============================
 const isScrolled = ref(false)
@@ -9,11 +12,11 @@ function handleScroll() {
 }
 
 onMounted(() => {
-	window.addEventListener('scroll', handleScroll)
+	window.addEventListener("scroll", handleScroll)
 })
 
 onUnmounted(() => {
-	window.removeEventListener('scroll', handleScroll)
+	window.removeEventListener("scroll", handleScroll)
 })
 
 //===============================-< mobile menu >-===============================
@@ -23,23 +26,82 @@ const toggleMenu = () => (isMenuOpen.value = !isMenuOpen.value)
 // Close menu on route change
 watch(isMenuOpen, newVal => {
 	if (newVal) {
-		document.body.style.overflow = 'hidden'
+		document.body.style.overflow = "hidden"
 	} else {
-		document.body.style.overflow = ''
+		document.body.style.overflow = ""
 	}
 })
 
 onUnmounted(() => {
-	document.body.style.overflow = ''
+	document.body.style.overflow = ""
 })
 
-const menuItems = [
-	{ name: 'Asosiy', path: '' },
-	{ name: 'Xonalar', path: 'rooms' },
-	{ name: 'Xizmatlar', path: 'advantages' },
-	{ name: 'Biz haqimizda', path: 'about' },
-	{ name: 'Aloqa', path: 'contact' },
+//===============================-< language >-===============================
+const languages = [
+	{ code: "uz", label: "UZ" },
+	{ code: "ru", label: "RU" },
+	{ code: "en", label: "EN" },
 ]
+
+const isLangMenuOpen = ref(false)
+
+const changeLanguage = (langCode: string) => {
+	setLocale(langCode)
+	isLangMenuOpen.value = false
+}
+
+const currentLanguage = computed(() => {
+	return languages.find(lang => lang.code === locale.value) || languages[0]
+})
+
+//===============================-< menu items >-===============================
+const menuItems = computed(() => [
+	{
+		name:
+			locale.value === "uz"
+				? "Asosiy"
+				: locale.value === "ru"
+					? "Главная"
+					: "Home",
+		path: "",
+	},
+	{
+		name:
+			locale.value === "uz"
+				? "Xonalar"
+				: locale.value === "ru"
+					? "Номера"
+					: "Rooms",
+		path: "rooms",
+	},
+	{
+		name:
+			locale.value === "uz"
+				? "Xizmatlar"
+				: locale.value === "ru"
+					? "Услуги"
+					: "Services",
+		path: "advantages",
+	},
+	{
+		name:
+			locale.value === "uz"
+				? "Biz haqimizda"
+				: locale.value === "ru"
+					? "О нас"
+					: "About",
+		path: "about",
+	},
+	{
+		name:
+			locale.value === "uz"
+				? "Aloqa"
+				: locale.value === "ru"
+					? "Контакты"
+					: "Contact",
+		path: "contact",
+	},
+])
 
 const closeMenu = () => {
 	isMenuOpen.value = false
@@ -60,21 +122,11 @@ const closeMenu = () => {
 			<div class="flex items-center justify-between">
 				<!-- Logo -->
 				<NuxtLink :to="localePath('/')" class="z-50 group" @click="closeMenu">
-					<!-- <div class="flex flex-col items-center">
-						<span
-							class="text-xl sm:text-2xl md:text-3xl font-serif tracking-[0.15em] md:tracking-[0.2em] uppercase transition-colors duration-500"
-							:class="isScrolled ? 'text-secondary' : 'text-white'"
-						>
-							Rivoj-98 Hotel
-						</span>
-						<span
-							class="text-[7px] sm:text-[8px] uppercase tracking-[0.3em] md:tracking-[0.4em] -mt-1 transition-colors duration-500"
-							:class="isScrolled ? 'text-primary' : 'text-primary-light'"
-						>
-							Hotel & Resort
-						</span>
-					</div> -->
-					<img src="~/assets/images/logo/logo.png" alt="Rivoj-98 Hotel" class="max-w-32 h-auto" />
+					<img
+						src="~/assets/images/logo/logo.png"
+						alt="Rivoj-98 Hotel"
+						class="max-w-32 h-auto"
+					/>
 				</NuxtLink>
 
 				<!-- Desktop Menu -->
@@ -97,12 +149,46 @@ const closeMenu = () => {
 				<!-- Right Side Actions -->
 				<div class="flex items-center gap-4 md:gap-6">
 					<!-- Language Selector -->
-					<button
-						class="hidden sm:block text-xs uppercase tracking-tighter border-b border-current transition-colors duration-500 hover:opacity-70"
-						:class="isScrolled ? 'text-secondary' : 'text-white'"
-					>
-						UZB
-					</button>
+					<div class="hidden sm:block relative">
+						<button
+							class="text-xs uppercase tracking-tighter border-b border-current transition-colors duration-500 hover:opacity-70 flex items-center gap-1"
+							:class="isScrolled ? 'text-secondary' : 'text-white'"
+							@click="isLangMenuOpen = !isLangMenuOpen"
+						>
+							{{ currentLanguage.label }}
+							<Icon
+								:name="isLangMenuOpen ? 'mdi:chevron-up' : 'mdi:chevron-down'"
+								class="text-sm"
+							/>
+						</button>
+
+						<!-- Language Dropdown -->
+						<Transition
+							enter-active-class="transition-all duration-200"
+							leave-active-class="transition-all duration-200"
+							enter-from-class="opacity-0 translate-y-1"
+							leave-to-class="opacity-0 translate-y-1"
+						>
+							<div
+								v-if="isLangMenuOpen"
+								class="absolute top-full right-0 mt-2 bg-white shadow-lg rounded-lg overflow-hidden min-w-[80px]"
+							>
+								<button
+									v-for="lang in languages"
+									:key="lang.code"
+									class="w-full px-4 py-2 text-left text-sm uppercase tracking-wider hover:bg-primary/10 transition-colors"
+									:class="
+										locale === lang.code
+											? 'bg-primary/20 text-primary font-medium'
+											: 'text-secondary'
+									"
+									@click="changeLanguage(lang.code)"
+								>
+									{{ lang.label }}
+								</button>
+							</div>
+						</Transition>
+					</div>
 
 					<!-- Mobile Menu Toggle -->
 					<button
@@ -176,29 +262,38 @@ const closeMenu = () => {
 							class="hover:text-primary transition-colors duration-300"
 							aria-label="Instagram"
 						>
-							<UIcon name="i-pajamas:instagram" class="text-xl sm:text-2xl" />
+							<Icon name="mdi:instagram" class="text-xl sm:text-2xl" />
 						</a>
 						<a
 							href="#"
 							class="hover:text-primary transition-colors duration-300"
 							aria-label="Facebook"
 						>
-							<UIcon name="i-pajamas:facebook" class="text-xl sm:text-2xl" />
+							<Icon name="mdi:facebook" class="text-xl sm:text-2xl" />
 						</a>
 					</div>
 
 					<!-- Language in mobile menu -->
-					<button
-						class="sm:hidden mt-4 text-xs uppercase tracking-wider text-secondary hover:text-primary transition-colors duration-300 border-b border-current pb-1"
-					>
-						UZB
-					</button>
+					<div class="sm:hidden mt-4 flex gap-3">
+						<button
+							v-for="lang in languages"
+							:key="lang.code"
+							class="text-xs uppercase tracking-wider transition-colors duration-300 border-b pb-1"
+							:class="
+								locale === lang.code
+									? 'text-primary border-primary'
+									: 'text-secondary border-current hover:text-primary'
+							"
+							@click="changeLanguage(lang.code)"
+						>
+							{{ lang.label }}
+						</button>
+					</div>
 				</div>
 			</div>
 		</Transition>
 	</nav>
 </template>
-
 <style scoped>
 /* Container responsiveness */
 .container {
@@ -213,7 +308,7 @@ const closeMenu = () => {
 }
 
 .nav-link::after {
-	content: '';
+	content: "";
 	position: absolute;
 	bottom: -4px;
 	left: 0;
@@ -263,5 +358,20 @@ const closeMenu = () => {
 	--primary: #c5a059;
 	--secondary: #1a1a1a;
 	--background: #fdfcf9;
+}
+@keyframes slideIn {
+	from {
+		opacity: 0;
+		transform: translateX(-20px);
+	}
+	to {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
+.mobile-menu-item {
+	animation: slideIn 0.5s ease-out forwards;
+	opacity: 0;
 }
 </style>

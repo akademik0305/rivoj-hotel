@@ -93,17 +93,18 @@ export default defineNuxtConfig({
 				name: "uz",
 				file: "uz.json",
 			},
-			// {
-			// 	code: "ru",
-			// 	name: "ru",
-			// 	file: "ru.json",
-			// },
-			// {
-			// 	code: "en",
-			// 	name: "en",
-			// 	file: "en.json",
-			// },
+			{
+				code: "ru",
+				name: "ru",
+				file: "ru.json",
+			},
+			{
+				code: "en",
+				name: "en",
+				file: "en.json",
+			},
 		],
+		detectBrowserLanguage: false
 	},
 
 	sitemap: {
