@@ -687,7 +687,7 @@ useHead({
 		{
 			property: "og:image",
 			content:
-				"https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=2070",
+				"./about.jpg",
 		},
 		{ property: "og:image:width", content: "2070" },
 		{ property: "og:image:height", content: "1380" },
@@ -719,7 +719,7 @@ useHead({
 		{
 			name: "twitter:image",
 			content:
-				"https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=2070",
+				"./about.jpg",
 		},
 
 		// Geo teglar
@@ -788,8 +788,8 @@ useSchemaOrg([
 		description:
 			"Vodilda joylashgan hashamatli mehmonxona. Premium xonalar, ajoyib oshxona va zamonaviy qulayliklar.",
 		image: [
-			"https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=2070",
-			"https://images.unsplash.com/photo-1631049307264-da0ec9d70304?q=80&w=2070",
+			"./about.jpg",
+			"./about.jpg",
 		],
 		url: "https://rivoj98hotel.uz",
 		telephone: "+998733530740",

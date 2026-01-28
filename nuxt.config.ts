@@ -66,7 +66,7 @@ export default defineNuxtConfig({
 	],
 	icon: {
 		serverBundle: {
-			collections: ["material-symbols", "mdi", "line-icons"],
+			collections: ["material-symbols", "mdi"],
 		},
 	},
 
